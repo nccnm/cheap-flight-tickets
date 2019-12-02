@@ -1,58 +1,168 @@
-import React from 'react';
-import { Stack, Text, Link, FontWeights } from 'office-ui-fabric-react';
-import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+import React from "react";
+import { Stack, FontIcon, Link, FontWeights, Label, Separator } from "office-ui-fabric-react";
+import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
+import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
+
+const iconClass = mergeStyles({
+    fontSize: 12,
+    color: "rgb(255, 255, 255);",
+    margin: "7px"
+});
+
+const iconLogo = mergeStyles({
+    fontSize: 32,
+    color: "rgb(50, 208, 149);",
+    margin: "6px 12px"
+});
 
 export const AppHeader: React.FunctionComponent = () => {
     return (
         <>
-            <Stack horizontal gap={15} horizontalAlign="center">
-                <Stack horizontal gap={15} disableShrink styles={{
-                    root: {
-                        margin: '0 auto',
-                        color: '#605e5c'
-                    }
-                }}>
-                    <Link href="#">555-555-555555</Link>
-                    <Link href="#">Facebook</Link>
-                    <Link href="#">Twitter</Link>
-                </Stack>
-                <Stack horizontal gap={15} disableShrink styles={{
-                    root: {
-                        margin: '0 auto',
-                        color: '#605e5c'
-                    }
-                }}>
-                    <Link href="#">
-                        Register
-        </Link>
-                    <Link href="#">
-                        Login
-        </Link>
-                    <Link href="#">
-                        USD
-        </Link>
-                </Stack>
-            </Stack>
             <Stack
-                horizontal gap={15}
+                horizontal
+                gap={15}
                 horizontalAlign="center"
                 styles={{
                     root: {
-                        flexBasis: "40px"
+                        backgroundColor: "rgb(64, 65, 86)",
+                        width: "100%"
                     }
                 }}
             >
-                <Link href="#">Home</Link>
-                <Link href="#"></Link>
-                <Link href="#"></Link>
-                <Text>  Fly Plan</Text>
-                <SearchBox
-                    placeholder="Search"
-                    onSearch={(newValue: any) => console.log('value is ' + newValue)}
-                    onFocus={() => console.log('onFocus called')}
-                    onBlur={() => console.log('onBlur called')}
-                    onChange={() => console.log('onChange called')}
-                />
+                <Stack
+                    horizontal
+                    horizontalAlign="space-between"
+                    styles={{
+                        root: {
+                            padding: "6px",
+                            width: "1080px"
+                        }
+                    }}
+                >
+                    <Stack horizontal horizontalAlign="center">
+                        <FontIcon iconName="Phone" className={iconClass} />
+                        <Label
+                            styles={{
+                                root: {
+                                    fontSize: "11px",
+                                    fontWeight: FontWeights.bold,
+                                    color: "rgb(255, 255, 255);"
+                                }
+                            }}
+                        >
+                            555-555-5555
+                        </Label>
+                    </Stack>
+
+                    <Stack horizontal>
+                        <Label
+                            styles={{
+                                root: {
+                                    fontSize: "12px",
+                                    color: "rgb(255, 255, 255);",
+                                    margin: "0px 22px"
+                                }
+                            }}
+                        >
+                            Register
+                        </Label>
+                        <Separator vertical></Separator>
+                        <Label
+                            styles={{
+                                root: {
+                                    fontSize: "12px",
+                                    color: "rgb(255, 255, 255);",
+                                    margin: "0px 22px",
+                                    marginLeft: "22px !important"
+                                }
+                            }}
+                        >
+                            Login
+                        </Label>
+                    </Stack>
+                </Stack>
+            </Stack>
+            <Stack
+                horizontal
+                gap={15}
+                horizontalAlign="center"
+                styles={{
+                    root: {
+                        backgroundColor: "rgb(255, 255, 255);",
+                        width: "100%",
+                        marginTop: "0 !important"
+                    }
+                }}
+            >
+                <Stack
+                    horizontal
+                    horizontalAlign="space-between"
+                    styles={{
+                        root: {
+                            paddingTop: "26px",
+                            paddingBottom: "26px",
+                            width: "1080px"
+                        }
+                    }}
+                >
+                    <Stack horizontal horizontalAlign="start">
+                        <Link
+                            styles={{
+                                root: {
+                                    fontSize: "16px",
+                                    fontWeight: FontWeights.bold,
+                                    color: "rgb(50, 208, 149);",
+                                    marginRight: "22px"
+                                }
+                            }}
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            styles={{
+                                root: {
+                                    fontSize: "16px",
+                                    fontWeight: FontWeights.bold,
+                                    color: "rgb(115, 115, 115)",
+                                    marginRight: "22px"
+                                }
+                            }}
+                        >
+                            News
+                        </Link>
+                        <Link
+                            styles={{
+                                root: {
+                                    fontSize: "16px",
+                                    fontWeight: FontWeights.bold,
+                                    color: "rgb(115, 115, 115)",
+                                    marginRight: "22px"
+                                }
+                            }}
+                        >
+                            Blog
+                        </Link>
+                    </Stack>
+                    <Stack horizontal>
+                        <FontIcon iconName="AirTickets" className={iconLogo} />
+
+                        <Link
+                            styles={{
+                                root: {
+                                    fontSize: "28px",
+                                    fontWeight: FontWeights.bold,
+                                    color: "rgb(46, 47, 65)",
+                                    marginRight: "22px"
+                                }
+                            }}
+                        >
+                            flyplan
+                        </Link>
+                    </Stack>
+                    <Stack>
+                        <SearchBox placeholder="Search" />
+                    </Stack>
+                </Stack>
             </Stack>
         </>
     );

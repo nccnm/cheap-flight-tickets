@@ -1,15 +1,6 @@
-import React from 'react';
-import {
-    Stack,
-    Label,
-    SpinButton,
-    Separator,
-    DefaultButton,
-    PrimaryButton,
-    Checkbox
-}
-    from 'office-ui-fabric-react';
-import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
+import React from "react";
+import { Stack, Label, SpinButton, Separator, DefaultButton, PrimaryButton, Checkbox } from "office-ui-fabric-react";
+import { Position } from "office-ui-fabric-react/lib/utilities/positioning";
 
 export const SearchFilter: React.FunctionComponent = () => {
     return (
@@ -17,7 +8,7 @@ export const SearchFilter: React.FunctionComponent = () => {
             styles={{
                 root: {
                     backgroundColor: "#FFFFFF",
-                    borderRadius: "6px 6px 0 0",
+                    borderRadius: "6px 6px 0 0"
                 }
             }}
         >
@@ -28,7 +19,7 @@ export const SearchFilter: React.FunctionComponent = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         borderRadius: "6px 6px 0 0",
-                        backgroundColor: "#434459",
+                        backgroundColor: "rgb(64, 65, 86)",
                         color: "#FFFFFF",
                         textAlign: "center",
                         height: "42px"
@@ -43,16 +34,17 @@ export const SearchFilter: React.FunctionComponent = () => {
                         padding: "8px 16px",
                         fontSize: "16px"
                     }
-                }}>
+                }}
+            >
                 <Label>Price Range</Label>
                 <SpinButton
                     defaultValue="0"
-                    label={'From ($):'}
+                    label={"From ($):"}
                     labelPosition={Position.top}
                     min={0}
                     step={1}
-                    incrementButtonAriaLabel={'Increase value by 1'}
-                    decrementButtonAriaLabel={'Decrease value by 1'}
+                    incrementButtonAriaLabel={"Increase value by 1"}
+                    decrementButtonAriaLabel={"Decrease value by 1"}
                     styles={{
                         label: {
                             fontSize: "12px"
@@ -61,12 +53,12 @@ export const SearchFilter: React.FunctionComponent = () => {
                 />
                 <SpinButton
                     defaultValue="0"
-                    label={'To ($):'}
+                    label={"To ($):"}
                     labelPosition={Position.top}
                     min={0}
                     step={1}
-                    incrementButtonAriaLabel={'Increase value by 1'}
-                    decrementButtonAriaLabel={'Decrease value by 1'}
+                    incrementButtonAriaLabel={"Increase value by 1"}
+                    decrementButtonAriaLabel={"Decrease value by 1"}
                     styles={{
                         label: {
                             fontSize: "12px"
@@ -145,17 +137,10 @@ export const SearchFilter: React.FunctionComponent = () => {
                 >
                     Stops
                 </Label>
-                <Stack horizontal gap='12px'>
-                    <DefaultButton
-                        text="0"
-                    />
-                    <DefaultButton
-                        checked={true}
-                        text="1"
-                    />
-                    <DefaultButton
-                        text="2+"
-                    />
+                <Stack horizontal gap="12px">
+                    <DefaultButton text="0" />
+                    <DefaultButton checked={true} text="1" />
+                    <DefaultButton text="2+" />
                 </Stack>
                 <Separator></Separator>
 
@@ -168,7 +153,7 @@ export const SearchFilter: React.FunctionComponent = () => {
                 >
                     Airlines
                 </Label>
-                <Stack gap='12px'>
+                <Stack gap="12px">
                     <Checkbox label="All" />
                     <Checkbox label="Aeroflot" />
                     <Checkbox label="Air Berlin" defaultChecked />
@@ -179,9 +164,22 @@ export const SearchFilter: React.FunctionComponent = () => {
                 </Stack>
                 <Separator></Separator>
 
-                <PrimaryButton text="Reset All Filters" />
+                <PrimaryButton
+                    text="Reset All Filters"
+                    styles={{
+                        root: {
+                            backgroundColor: "#737373"
+                        },
+                        rootHovered: {
+                            backgroundColor: "#737373",
+                            opacity: "0.8"
+                        },
+                        rootPressed: {
+                            backgroundColor: "#737373"
+                        }
+                    }}
+                />
             </Stack>
-
         </Stack>
     );
 };

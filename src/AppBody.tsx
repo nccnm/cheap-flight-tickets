@@ -1,12 +1,23 @@
-import React from 'react';
-import { Stack, DefaultButton, FontIcon, Text, Link, FontWeights, SearchBox, IStackStyles, IStackTokens, IStackItemStyles } from 'office-ui-fabric-react';
-import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
+import React from "react";
+import {
+    Stack,
+    DefaultButton,
+    FontIcon,
+    Text,
+    Link,
+    FontWeights,
+    SearchBox,
+    IStackStyles,
+    IStackTokens,
+    IStackItemStyles
+} from "office-ui-fabric-react";
+import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
 import { SearchFilter } from "./pages/booking/SearchFilter";
 import { SearchResult } from "./pages/booking/SearchResult";
 
 const rootStyle = {
     root: {
-        color: '#605e5c',
+        color: "#605e5c",
         fontSize: "14px",
         width: "1080px"
     }
@@ -20,7 +31,7 @@ const iconClass = mergeStyles({
     fontSize: 30,
     color: "#FFFFFF",
     height: 30,
-    width: 30,
+    width: 30
 });
 
 const flynameClass = mergeStyles({
@@ -48,7 +59,7 @@ export const AppBody: React.FunctionComponent = () => {
                 verticalAlign="center"
                 styles={{
                     root: {
-                        backgroundColor: "#434459",
+                        backgroundColor: "rgb(64, 65, 86)",
                         borderRadius: "6px",
                         marginTop: "0",
                         flexBasis: "80px",
@@ -56,12 +67,7 @@ export const AppBody: React.FunctionComponent = () => {
                     }
                 }}
             >
-                <Stack
-                    horizontal
-                    horizontalAlign="space-between"
-                    verticalAlign="center"
-                    gap="15"
-                >
+                <Stack horizontal horizontalAlign="space-between" verticalAlign="center" gap="15">
                     <FontIcon iconName="Airplane" className={iconClass} />
                     <Stack>
                         <Text className={flynameClass}>Los Angeles - Istanbul</Text>
@@ -72,10 +78,7 @@ export const AppBody: React.FunctionComponent = () => {
                     <DefaultButton text="Change" />
                 </Stack>
             </Stack>
-            <Stack
-                horizontal
-                gap="20"
-            >
+            <Stack horizontal gap="20">
                 <SearchFilter></SearchFilter>
                 <SearchResult></SearchResult>
             </Stack>
