@@ -10,8 +10,7 @@ mergeStyles({
   selectors: {
     ':global(body), :global(html), :global(#root)': {
       margin: 0,
-      padding: 0,
-      height: '100vh'
+      padding: 0
     }
   }
 });
