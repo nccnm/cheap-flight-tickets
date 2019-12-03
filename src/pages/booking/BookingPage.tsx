@@ -1,7 +1,8 @@
 import React from "react";
 import {
     Stack,
-    IStackTokens
+    IStackTokens,
+
 } from "office-ui-fabric-react";
 import { SearchFilter } from "./SearchFilter";
 import { SearchResult } from "./SearchResult";
@@ -11,7 +12,7 @@ const rootStyle = {
     root: {
         color: "#605e5c",
         fontSize: "14px",
-        width: "1080px"
+        width: "1024px"
     }
 };
 
@@ -32,6 +33,7 @@ export const BookingPage: React.FunctionComponent = () => {
             <Stack horizontal gap="20">
                 <SearchFilter></SearchFilter>
                 <SearchResult></SearchResult>
+
             </Stack>
         </Stack>
     );

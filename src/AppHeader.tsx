@@ -35,7 +35,7 @@ export const AppHeader: React.FunctionComponent = () => {
                     styles={{
                         root: {
                             padding: "6px",
-                            width: "1080px"
+                            width: "1024px"
                         }
                     }}
                 >
@@ -108,7 +108,7 @@ export const AppHeader: React.FunctionComponent = () => {
                         root: {
                             paddingTop: "20px",
                             paddingBottom: "20px",
-                            width: "1080px"
+                            width: "1024px"
                         }
                     }}
                 >
@@ -150,7 +150,7 @@ export const AppHeader: React.FunctionComponent = () => {
                             Blog
                         </Link>
                     </Stack>
-                    <Stack horizontal>
+                    <Stack horizontal verticalAlign="center">
                         <FontIcon iconName="AirTickets" className={iconLogo} />
 
                         <Link
@@ -166,7 +166,7 @@ export const AppHeader: React.FunctionComponent = () => {
                             flyplan
                         </Link>
                     </Stack>
-                    <Stack>
+                    <Stack verticalAlign="center">
                         <SearchBox placeholder="Search" />
                     </Stack>
                 </Stack>

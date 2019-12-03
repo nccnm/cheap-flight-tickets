@@ -21,7 +21,7 @@ export const AppFooter: React.FunctionComponent = () => {
                     styles={{
                         root: {
                             padding: "36px",
-                            width: "1080px"
+                            width: "1024px"
                         }
                     }}
                 >
@@ -104,7 +104,7 @@ export const AppFooter: React.FunctionComponent = () => {
                     styles={{
                         root: {
                             padding: "16px",
-                            width: "1080px"
+                            width: "1024px"
                         }
                     }}
                 >
