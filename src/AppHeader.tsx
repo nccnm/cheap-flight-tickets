@@ -106,8 +106,8 @@ export const AppHeader: React.FunctionComponent = () => {
                     horizontalAlign="space-between"
                     styles={{
                         root: {
-                            paddingTop: "26px",
-                            paddingBottom: "26px",
+                            paddingTop: "20px",
+                            paddingBottom: "20px",
                             width: "1080px"
                         }
                     }}
