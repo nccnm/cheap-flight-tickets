@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Label, Separator, FontWeights, SearchBox } from "office-ui-fabric-react";
+import { Stack, Label, Separator, FontWeights } from "office-ui-fabric-react";
 
 export const AppFooter: React.FunctionComponent = () => {
     return (

@@ -55,7 +55,8 @@ export const AppHeader: React.FunctionComponent = () => {
                     </Stack>
 
                     <Stack horizontal>
-                        <Label
+                        <FontIcon iconName="AddFriend" className={iconClass} />
+                        <Link
                             styles={{
                                 root: {
                                     fontSize: "12px",
@@ -65,20 +66,26 @@ export const AppHeader: React.FunctionComponent = () => {
                             }}
                         >
                             Register
-                        </Label>
-                        <Separator vertical></Separator>
-                        <Label
+                        </Link>
+                        <Separator vertical
+                            styles={{
+                                root: {
+                                    marginRight: "22px",
+                                    marginLeft: "22px"
+                                }
+                            }}
+                        ></Separator>
+                        <FontIcon iconName="Lock" className={iconClass} />
+                        <Link
                             styles={{
                                 root: {
                                     fontSize: "12px",
                                     color: "rgb(255, 255, 255);",
-                                    margin: "0px 22px",
-                                    marginLeft: "22px !important"
                                 }
                             }}
                         >
                             Login
-                        </Label>
+                        </Link>
                     </Stack>
                 </Stack>
             </Stack>
