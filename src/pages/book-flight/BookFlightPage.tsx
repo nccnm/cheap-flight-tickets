@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Label } from "office-ui-fabric-react";
+import { Stack, Label, FontWeights } from "office-ui-fabric-react";
 
 const rootStyle = {
     root: {
@@ -69,7 +69,7 @@ export const BookFlightPage: React.FunctionComponent = () => {
                             <Label
                                 styles={{
                                     root: {
-                                        fontSize: 22,
+                                        fontSize: 18,
                                         color: "#404156"
                                     }
                                 }}
@@ -248,7 +248,7 @@ export const BookFlightPage: React.FunctionComponent = () => {
                             <Label
                                 styles={{
                                     root: {
-                                        fontSize: 22,
+                                        fontSize: 20,
                                         color: "#32d095",
                                         marginLeft: "22px",
                                         marginRight: "40px"
@@ -260,7 +260,7 @@ export const BookFlightPage: React.FunctionComponent = () => {
                             <Label
                                 styles={{
                                     root: {
-                                        fontSize: 22,
+                                        fontSize: 20,
                                         color: "#404156"
                                     }
                                 }}
@@ -441,6 +441,49 @@ export const BookFlightPage: React.FunctionComponent = () => {
                                     </Label>
                                 </Stack>
                             </Stack>
+                        </Stack>
+                    </Stack>
+                </Stack>
+                <Stack>
+                    <Stack
+                        styles={{
+                            root: {
+                                marginTop: "20px"
+                            }
+                        }}
+                    >
+                        <Stack
+                            horizontal
+                            verticalAlign="center"
+                            styles={{
+                                root: {
+                                    borderLeft: "solid 6px #32d095"
+                                }
+                            }}
+                        >
+                            <Label
+                                styles={{
+                                    root: {
+                                        fontSize: 22,
+                                        color: "#32d095",
+                                        marginLeft: "22px",
+                                        marginRight: "40px"
+                                    }
+                                }}
+                            >
+                                Totals
+                            </Label>
+                            <Label
+                                styles={{
+                                    root: {
+                                        fontSize: 26,
+                                        color: "#404156",
+                                        fontWeight: FontWeights.bold
+                                    }
+                                }}
+                            >
+                                $2,985
+                            </Label>
                         </Stack>
                     </Stack>
                 </Stack>
