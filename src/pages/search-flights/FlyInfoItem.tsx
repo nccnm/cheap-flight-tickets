@@ -1,8 +1,7 @@
 import React from "react";
 import {
     Stack, Label, Separator, Image, DefaultButton, PrimaryButton, FontWeights,
-    Dialog, DialogType, DialogFooter,
-    ChoiceGroup
+    Dialog, DialogType, DialogFooter
 } from "office-ui-fabric-react";
 import { Card } from "@uifabric/react-cards";
 import { FlightOnewayDetailItem } from "./FlightOnewayDetailItem"
@@ -96,7 +95,12 @@ export class FlyInfoItem extends React.Component<{}, IDialogLargeHeaderExampleSt
                             }
                         }}
                     >
-                        <Stack horizontal verticalAlign="center" gap="12">
+                        <Stack
+                            horizontal
+                            verticalAlign="center"
+                            tokens={{
+                                childrenGap: 12
+                            }} >
                             <Stack>
                                 <Image src="http://placehold.it/30x30" />
                             </Stack>
@@ -105,7 +109,9 @@ export class FlyInfoItem extends React.Component<{}, IDialogLargeHeaderExampleSt
                                 <Label styles={airlineInfoStyle.airlineName}>BA-3271</Label>
                             </Stack>
                         </Stack>
-                        <Stack horizontal verticalAlign="center" gap="12">
+                        <Stack horizontal verticalAlign="center" tokens={{
+                            childrenGap: 12
+                        }}>
                             <Stack>
                                 <Image src="http://placehold.it/30x30" />
                             </Stack>
@@ -272,7 +278,9 @@ export class FlyInfoItem extends React.Component<{}, IDialogLargeHeaderExampleSt
                                 <Label styles={airlineInfoStyle.price.text}>$583</Label>
                                 <Label>Total Price</Label>
                             </Stack>
-                            <Stack horizontal verticalAlign="space-between" gap="20">
+                            <Stack horizontal verticalAlign="space-between" tokens={{
+                                childrenGap: 20
+                            }}>
                                 <PrimaryButton
                                     onClick={this._closeDialog}
                                     text="Select"

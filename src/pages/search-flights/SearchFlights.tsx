@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
     Stack,
     FontIcon,
@@ -7,12 +7,18 @@ import {
     Text,
     DefaultButton,
     ChoiceGroup,
-    IChoiceGroupOption,
-    TextField,
     Dropdown,
     IDropdownOption
 } from "office-ui-fabric-react";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
+
+import { SearchFlightCriteria } from "../../model/SearchFlightCriteria";
+import { flightWaysOption } from "../../data/flightWaysOption";
+import { adultOptions } from "../../data/adultOptions";
+import { childrenOptions } from "../../data/childrenOptions";
+import { infantOptions } from "../../data/infantOptions";
+import { classTypeOptions } from "../../data/classTypeOptions";
+import { fromToOptions } from "../../data/fromToOptions";
 
 const departureIconClass = mergeStyles({
     fontSize: 30,
@@ -35,65 +41,53 @@ const flynameClass = mergeStyles({
     color: "#FFFFFF"
 });
 
-const chooseGroupClass = mergeStyles({
-    display: "flex"
-});
-
 const flytimeClass = mergeStyles({
     fontSize: 18,
     color: "#CCCCCC"
 });
 
-const datePickerClass1 = mergeStyles({
-    marginRight: '16px',
-    flexBasis: '50%'
-});
+type SearchFlightsProps = {
+    criteria: SearchFlightCriteria,
+    onCriteriaChanges: (criteria: SearchFlightCriteria) => void;
+}
 
-const datePickerClass2 = mergeStyles({
-    flexBasis: '50%'
-});
+export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({ criteria, onCriteriaChanges }: SearchFlightsProps) => {
+    const handleOnSelectDepartDate = useCallback((date: Date | null | undefined) => {
+        onCriteriaChanges({ departDate: date || undefined });
+    }, [onCriteriaChanges]);
 
-const optionsFlightWays: IChoiceGroupOption[] = [
-    {
-        key: 'A',
-        text: 'Round Trip',
-        styles: {
-            choiceFieldWrapper: {
-                marginRight: "16px",
-                color: "#CCCCCC"
-            },
-        },
-    },
-    {
-        key: 'B',
-        text: 'One Way',
-        styles: {
-            choiceFieldWrapper: {
-                marginRight: "16px",
-                color: "#CCCCCC"
-            }
-        },
-    }
-]
+    const handleOnSelectReturnDate = useCallback((date: Date | null | undefined) => {
+        onCriteriaChanges({ returnDate: date || undefined });
+    }, [onCriteriaChanges]);
 
-const options1: IDropdownOption[] = [
-    { key: "0", text: "1 Adults" }
-];
+    const handleOnFromChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+        onCriteriaChanges({ from: option ? option.key.toString() : criteria.from });
+    }, [criteria.from, onCriteriaChanges]);
 
-const options2: IDropdownOption[] = [
-    { key: "0", text: "0 Children" }
-];
+    const handleOnToChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+        onCriteriaChanges({ to: option ? option.key.toString() : criteria.to });
+    }, [, criteria.to, onCriteriaChanges]);
 
-const options3: IDropdownOption[] = [
-    { key: "0", text: "0 Infants" }
-];
+    const handleOnAdultOptionChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+        onCriteriaChanges({ adults: option ? option.key.toString() : criteria.adults });
+    }, [criteria.adults, onCriteriaChanges]);
 
-const options4: IDropdownOption[] = [
-    { key: "0", text: "Class" }
-];
+    const handleOnChildrenOptionChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+        onCriteriaChanges({ children: option ? option.key.toString() : criteria.children });
+    }, [criteria.children, onCriteriaChanges]);
 
+    const handleOnInfantOptionChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+        onCriteriaChanges({ infants: option ? option.key.toString() : criteria.infants });
+    }, [criteria.infants, onCriteriaChanges]);
 
-export const SearchFlights: React.FunctionComponent = () => {
+    const handleOnClassTypeOptionChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+        onCriteriaChanges({ classType: option ? option.key.toString() : criteria.classType });
+    }, [criteria.classType, onCriteriaChanges]);
+
+    const handleSearchFlightsClick = useCallback(() => {
+        console.log(criteria);
+    }, []);
+
     return (
         <Stack
             styles={{
@@ -110,14 +104,18 @@ export const SearchFlights: React.FunctionComponent = () => {
                 horizontalAlign="space-between"
                 verticalAlign="center"
             >
-                <Stack horizontal horizontalAlign="space-between" verticalAlign="center" gap="15">
+                <Stack horizontal horizontalAlign="space-between" verticalAlign="center" tokens={{
+                    childrenGap: 15
+                }}>
                     <FontIcon iconName="Airplane" className={departureIconClass} />
                     <Stack>
                         <Text className={flynameClass}>Los Angeles - Istanbul</Text>
                         <Text className={flytimeClass}>JUN 04, SAT | 2 TRAVELLERS</Text>
                     </Stack>
                 </Stack>
-                <Stack horizontal horizontalAlign="space-between" verticalAlign="center" gap="15">
+                <Stack horizontal horizontalAlign="space-between" verticalAlign="center" tokens={{
+                    childrenGap: 15
+                }}>
                     <FontIcon iconName="Airplane" className={returnIconClass} />
                     <Stack>
                         <Text className={flynameClass}>Istanbul - Los Angeles</Text>
@@ -138,8 +136,7 @@ export const SearchFlights: React.FunctionComponent = () => {
                 >
                     <ChoiceGroup
                         defaultSelectedKey="A"
-
-                        options={optionsFlightWays}
+                        options={flightWaysOption}
                         required={true}
                         styles={{
                             flexContainer: {
@@ -147,7 +144,7 @@ export const SearchFlights: React.FunctionComponent = () => {
                             },
 
                         }}
-                        className={chooseGroupClass}
+                        className={mergeStyles({ display: "flex" })}
                     />
                 </Stack>
                 <Stack horizontal horizontalAlign="space-between">
@@ -166,65 +163,75 @@ export const SearchFlights: React.FunctionComponent = () => {
                                 }
                             }}
                         >
-                            <TextField
+                            <Dropdown
                                 placeholder="From"
+                                options={fromToOptions}
+                                selectedKey={criteria.from}
                                 styles={{
                                     root: {
                                         flexBasis: "50%",
                                         marginRight: "16px"
                                     }
                                 }}
+                                onChange={handleOnFromChange}
                             />
-                            <TextField
+                            <Dropdown
                                 placeholder="To"
+                                options={fromToOptions}
+                                selectedKey={criteria.to}
                                 styles={{
                                     root: {
                                         flexBasis: "50%",
                                         marginRight: "16px"
                                     }
                                 }}
+                                onChange={handleOnToChange}
                             />
                         </Stack>
                         <Stack horizontal horizontalAlign="space-between">
                             <Dropdown
-                                options={options1}
-                                selectedKey="0"
+                                options={adultOptions}
+                                selectedKey={criteria.adults}
                                 styles={{
                                     root: {
                                         flexBasis: "25%",
                                         marginRight: "16px"
                                     }
                                 }}
+                                onChange={handleOnAdultOptionChange}
                             />
                             <Dropdown
-                                options={options2}
-                                selectedKey="0"
+                                options={childrenOptions}
+                                selectedKey={criteria.children}
                                 styles={{
                                     root: {
                                         flexBasis: "25%",
                                         marginRight: "16px"
                                     }
                                 }}
+                                onChange={handleOnChildrenOptionChange}
                             />
                             <Dropdown
-                                options={options3}
-                                selectedKey="0"
+                                options={infantOptions}
+                                selectedKey={criteria.infants}
                                 styles={{
                                     root: {
                                         flexBasis: "25%",
                                         marginRight: "16px"
                                     }
                                 }}
+                                onChange={handleOnInfantOptionChange}
                             />
                             <Dropdown
-                                options={options4}
-                                selectedKey="0"
+                                options={classTypeOptions}
+                                selectedKey={criteria.classType}
                                 styles={{
                                     root: {
                                         flexBasis: "25%",
                                         marginRight: "16px"
                                     }
                                 }}
+                                onChange={handleOnClassTypeOptionChange}
                             />
                         </Stack>
                     </Stack>
@@ -244,11 +251,18 @@ export const SearchFlights: React.FunctionComponent = () => {
                         >
                             <DatePicker
                                 placeholder="Depart"
-                                className={datePickerClass1}
+                                className={mergeStyles({
+                                    marginRight: '16px',
+                                    flexBasis: '50%'
+                                })}
+                                value={criteria.departDate}
+                                onSelectDate={handleOnSelectDepartDate}
                             />
                             <DatePicker
                                 placeholder="Return"
-                                className={datePickerClass2}
+                                className={mergeStyles({ flexBasis: '50%' })}
+                                value={criteria.returnDate}
+                                onSelectDate={handleOnSelectReturnDate}
                             />
                         </Stack>
                         <PrimaryButton
@@ -265,6 +279,7 @@ export const SearchFlights: React.FunctionComponent = () => {
                                     backgroundColor: "rgb(50, 208, 149)"
                                 }
                             }}
+                            onClick={handleSearchFlightsClick}
                         />
                     </Stack>
                 </Stack>

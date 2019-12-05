@@ -1,33 +1,27 @@
 import React from "react";
-import { Stack, initializeIcons } from "office-ui-fabric-react";
-import { AppHeader } from "./AppHeader";
-import { AppBody } from "./AppBody";
-import { AppFooter } from "./AppFooter";
+import { initializeIcons } from "office-ui-fabric-react";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
 
-const rootStyle = {
-    root: {
-        margin: "0 auto",
-        color: "#605e5c",
-        fontSize: "14px",
-        background: "#F2F2F2"
-    }
-};
+import { BookingPage } from "./pages/booking/BookingPage";
+import { HomePage } from "./pages/home/HomePage";
 
 initializeIcons();
 
 export const App: React.FunctionComponent = () => {
     return (
-        <Stack
-            horizontalAlign="center"
-            verticalFill
-            styles={{
-                root: rootStyle.root
-            }}
-            gap={20}
-        >
-            <AppHeader></AppHeader>
-            <AppBody></AppBody>
-            <AppFooter></AppFooter>
-        </Stack>
+        <Router>
+            <Switch>
+                <Route exact path="/">
+                    <HomePage />
+                </Route>
+                <Route path="/booking">
+                    <BookingPage />
+                </Route>
+            </Switch>
+        </Router>
     );
 };

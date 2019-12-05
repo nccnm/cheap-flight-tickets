@@ -1,40 +1,50 @@
 import React from "react";
+import { Stack } from "office-ui-fabric-react";
 import {
-    Stack,
-    IStackTokens,
+    Switch,
+    Route,
+    useRouteMatch
+} from "react-router-dom";
 
-} from "office-ui-fabric-react";
-import { SearchFilter } from "./SearchFilter";
-import { SearchResult } from "./SearchResult";
-import { SearchFlights } from "./SearchFlights";
+import { AppHeader } from "../../AppHeader";
+import { AppFooter } from "../../AppFooter";
+
+import { SearchFlightsPage } from "../../pages/search-flights/SearchFlightsPage";
+import { BookFlightPage } from "../../pages/book-flight/BookFlightPage";
 
 const rootStyle = {
     root: {
+        margin: "0 auto",
         color: "#605e5c",
         fontSize: "14px",
-        width: "1024px"
+        background: "#F2F2F2"
     }
 };
-
-const verticalGapStackTokens: IStackTokens = {
-    childrenGap: 20
-};
-
 export const BookingPage: React.FunctionComponent = () => {
+    // The `path` lets us build <Route> paths that are
+    // relative to the parent route, while the `url` lets
+    // us build relative links.
+    let { path } = useRouteMatch();
+
     return (
         <Stack
-            tokens={verticalGapStackTokens}
-            verticalAlign="start"
+            horizontalAlign="center"
+            verticalFill
             styles={{
                 root: rootStyle.root
             }}
+            gap={20}
         >
-            <SearchFlights></SearchFlights>
-            <Stack horizontal gap="20">
-                <SearchFilter></SearchFilter>
-                <SearchResult></SearchResult>
-
-            </Stack>
+            <AppHeader></AppHeader>
+            <Switch>
+                <Route path={`${path}/book-flight`}>
+                    <BookFlightPage />
+                </Route>
+                <Route path={`${path}/search-flights`}>
+                    <SearchFlightsPage />
+                </Route>
+            </Switch>
+            <AppFooter></AppFooter>
         </Stack>
     );
 };

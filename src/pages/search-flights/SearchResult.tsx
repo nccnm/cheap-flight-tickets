@@ -2,13 +2,8 @@ import React from "react";
 import {
     Stack,
     Label,
-    PrimaryButton,
     Dropdown,
-    IDropdownOption,
-    Image,
-    DefaultButton,
-    FontWeights,
-    Separator
+    IDropdownOption
 } from "office-ui-fabric-react";
 import { FlyInfoItem } from "./FlyInfoItem";
 
@@ -18,8 +13,6 @@ const options: IDropdownOption[] = [
     { key: "stops", text: "Stops" },
     { key: "airlines", text: "Airlines" }
 ];
-
-
 
 const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
