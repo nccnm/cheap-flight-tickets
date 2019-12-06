@@ -47,42 +47,69 @@ const flytimeClass = mergeStyles({
 });
 
 type SearchFlightsProps = {
-    criteria: SearchFlightCriteria,
+    criteria: SearchFlightCriteria;
     onCriteriaChanges: (criteria: SearchFlightCriteria) => void;
-}
+};
 
-export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({ criteria, onCriteriaChanges }: SearchFlightsProps) => {
-    const handleOnSelectDepartDate = useCallback((date: Date | null | undefined) => {
-        onCriteriaChanges({ departDate: date || undefined });
-    }, [onCriteriaChanges]);
+export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
+    criteria,
+    onCriteriaChanges
+}: SearchFlightsProps) => {
+    const handleOnSelectDepartDate = useCallback(
+        (date: Date | null | undefined) => {
+            onCriteriaChanges({ departDate: date || undefined });
+        },
+        [onCriteriaChanges]
+    );
 
-    const handleOnSelectReturnDate = useCallback((date: Date | null | undefined) => {
-        onCriteriaChanges({ returnDate: date || undefined });
-    }, [onCriteriaChanges]);
+    const handleOnSelectReturnDate = useCallback(
+        (date: Date | null | undefined) => {
+            onCriteriaChanges({ returnDate: date || undefined });
+        },
+        [onCriteriaChanges]
+    );
 
-    const handleOnFromChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
-        onCriteriaChanges({ from: option ? option.key.toString() : criteria.from });
-    }, [criteria.from, onCriteriaChanges]);
+    const handleOnFromChange = useCallback(
+        (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+            onCriteriaChanges({ from: option ? option.key.toString() : criteria.from });
+        },
+        [criteria.from, onCriteriaChanges]
+    );
 
-    const handleOnToChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
-        onCriteriaChanges({ to: option ? option.key.toString() : criteria.to });
-    }, [, criteria.to, onCriteriaChanges]);
+    const handleOnToChange = useCallback(
+        (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+            onCriteriaChanges({ to: option ? option.key.toString() : criteria.to });
+        },
+        [, criteria.to, onCriteriaChanges]
+    );
 
-    const handleOnAdultOptionChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
-        onCriteriaChanges({ adults: option ? option.key.toString() : criteria.adults });
-    }, [criteria.adults, onCriteriaChanges]);
+    const handleOnAdultOptionChange = useCallback(
+        (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+            onCriteriaChanges({ adults: option ? option.key.toString() : criteria.adults });
+        },
+        [criteria.adults, onCriteriaChanges]
+    );
 
-    const handleOnChildrenOptionChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
-        onCriteriaChanges({ children: option ? option.key.toString() : criteria.children });
-    }, [criteria.children, onCriteriaChanges]);
+    const handleOnChildrenOptionChange = useCallback(
+        (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+            onCriteriaChanges({ children: option ? option.key.toString() : criteria.children });
+        },
+        [criteria.children, onCriteriaChanges]
+    );
 
-    const handleOnInfantOptionChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
-        onCriteriaChanges({ infants: option ? option.key.toString() : criteria.infants });
-    }, [criteria.infants, onCriteriaChanges]);
+    const handleOnInfantOptionChange = useCallback(
+        (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+            onCriteriaChanges({ infants: option ? option.key.toString() : criteria.infants });
+        },
+        [criteria.infants, onCriteriaChanges]
+    );
 
-    const handleOnClassTypeOptionChange = useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
-        onCriteriaChanges({ classType: option ? option.key.toString() : criteria.classType });
-    }, [criteria.classType, onCriteriaChanges]);
+    const handleOnClassTypeOptionChange = useCallback(
+        (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+            onCriteriaChanges({ classType: option ? option.key.toString() : criteria.classType });
+        },
+        [criteria.classType, onCriteriaChanges]
+    );
 
     const handleSearchFlightsClick = useCallback(() => {
         console.log(criteria);
@@ -99,23 +126,29 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({ cri
                 }
             }}
         >
-            <Stack
-                horizontal
-                horizontalAlign="space-between"
-                verticalAlign="center"
-            >
-                <Stack horizontal horizontalAlign="space-between" verticalAlign="center" tokens={{
-                    childrenGap: 15
-                }}>
+            <Stack horizontal horizontalAlign="space-between" verticalAlign="center">
+                <Stack
+                    horizontal
+                    horizontalAlign="space-between"
+                    verticalAlign="center"
+                    tokens={{
+                        childrenGap: 15
+                    }}
+                >
                     <FontIcon iconName="Airplane" className={departureIconClass} />
                     <Stack>
                         <Text className={flynameClass}>Los Angeles - Istanbul</Text>
                         <Text className={flytimeClass}>JUN 04, SAT | 2 TRAVELLERS</Text>
                     </Stack>
                 </Stack>
-                <Stack horizontal horizontalAlign="space-between" verticalAlign="center" tokens={{
-                    childrenGap: 15
-                }}>
+                <Stack
+                    horizontal
+                    horizontalAlign="space-between"
+                    verticalAlign="center"
+                    tokens={{
+                        childrenGap: 15
+                    }}
+                >
                     <FontIcon iconName="Airplane" className={returnIconClass} />
                     <Stack>
                         <Text className={flynameClass}>Istanbul - Los Angeles</Text>
@@ -130,7 +163,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({ cri
                 <Stack
                     styles={{
                         root: {
-                            marginTop: "20px",
+                            marginTop: "20px"
                         }
                     }}
                 >
@@ -141,8 +174,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({ cri
                         styles={{
                             flexContainer: {
                                 display: "flex"
-                            },
-
+                            }
                         }}
                         className={mergeStyles({ display: "flex" })}
                     />
@@ -154,9 +186,9 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({ cri
                                 flexBasis: "60%"
                             }
                         }}
-
                     >
-                        <Stack horizontal
+                        <Stack
+                            horizontal
                             styles={{
                                 root: {
                                     margin: "16px 0"
@@ -242,7 +274,8 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({ cri
                             }
                         }}
                     >
-                        <Stack horizontal
+                        <Stack
+                            horizontal
                             styles={{
                                 root: {
                                     margin: "16px 0"
@@ -251,16 +284,18 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({ cri
                         >
                             <DatePicker
                                 placeholder="Depart"
+                                allowTextInput={true}
                                 className={mergeStyles({
-                                    marginRight: '16px',
-                                    flexBasis: '50%'
+                                    marginRight: "16px",
+                                    flexBasis: "50%"
                                 })}
                                 value={criteria.departDate}
                                 onSelectDate={handleOnSelectDepartDate}
                             />
                             <DatePicker
                                 placeholder="Return"
-                                className={mergeStyles({ flexBasis: '50%' })}
+                                allowTextInput={true}
+                                className={mergeStyles({ flexBasis: "50%" })}
                                 value={criteria.returnDate}
                                 onSelectDate={handleOnSelectReturnDate}
                             />
@@ -283,9 +318,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({ cri
                         />
                     </Stack>
                 </Stack>
-
             </Stack>
-        </Stack >
-
+        </Stack>
     );
 };
