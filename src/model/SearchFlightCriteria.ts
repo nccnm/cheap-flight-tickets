@@ -7,5 +7,9 @@ export class SearchFlightCriteria {
     public children?: string | null = "";
     public infants?: string | null = "";
     public classType?: string | null = "";
+    public roundTrip?: number = 1;
+    public priceFrom?: number = 1;
+    public priceTo?: number = 1;
+    public departTime?: string | null = "";
+    public airlines?: string[] = [];
 }
-

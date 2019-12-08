@@ -1,13 +1,52 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Stack, Label, SpinButton, Separator, DefaultButton, PrimaryButton, Checkbox } from "office-ui-fabric-react";
 import { Position } from "office-ui-fabric-react/lib/utilities/positioning";
+import { theme } from "../../style/theme";
+import { SearchFlightCriteria } from "../../model/SearchFlightCriteria";
 
-export const SearchFilter: React.FunctionComponent = () => {
+import { airlines } from "../../data/airlines";
+
+type SearchFlightsProps = {
+    criteria: SearchFlightCriteria;
+    onCriteriaChanges: (criteria: SearchFlightCriteria) => void;
+    onSearchClick: (criteria: SearchFlightCriteria) => void;
+};
+
+export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
+    criteria,
+    onCriteriaChanges,
+    onSearchClick
+}: SearchFlightsProps) => {
+    const [before6am, setBefore6am] = useState(true);
+    const [six_am_12am, setSix_am_12am] = useState(true);
+    const [twelve_pm_6pm, setTwelve_pm_6pm] = useState(true);
+    const [after6pm, setAfter6pm] = useState(true);
+
+    const handleDepartTimeOnClick1 = () => {
+        setBefore6am(!before6am);
+    };
+
+    const handleDepartTimeOnClick2 = () => {
+        setSix_am_12am(!six_am_12am);
+    };
+
+    const handleDepartTimeOnClick3 = () => {
+        setTwelve_pm_6pm(!twelve_pm_6pm);
+    };
+
+    const handleDepartTimeOnClick4 = () => {
+        setAfter6pm(!after6pm);
+    };
+
+    const handleSearchFlightsClick = () => {
+        onSearchClick(criteria);
+    };
+
     return (
         <Stack
             styles={{
                 root: {
-                    backgroundColor: "#FFFFFF",
+                    backgroundColor: theme.palette.white,
                     borderRadius: "6px 6px 0 0"
                 }
             }}
@@ -19,8 +58,8 @@ export const SearchFilter: React.FunctionComponent = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         borderRadius: "6px 6px 0 0",
-                        backgroundColor: "rgb(64, 65, 86)",
-                        color: "#FFFFFF",
+                        backgroundColor: theme.palette.themePrimary,
+                        color: theme.palette.white,
                         textAlign: "center",
                         height: "42px"
                     }
@@ -38,11 +77,12 @@ export const SearchFilter: React.FunctionComponent = () => {
             >
                 <Label>Price Range</Label>
                 <SpinButton
-                    defaultValue="0"
+                    defaultValue="100"
                     label={"From ($):"}
                     labelPosition={Position.top}
                     min={0}
-                    step={1}
+                    max={10000}
+                    step={10}
                     incrementButtonAriaLabel={"Increase value by 1"}
                     decrementButtonAriaLabel={"Decrease value by 1"}
                     styles={{
@@ -52,11 +92,12 @@ export const SearchFilter: React.FunctionComponent = () => {
                     }}
                 />
                 <SpinButton
-                    defaultValue="0"
+                    defaultValue="1000"
                     label={"To ($):"}
                     labelPosition={Position.top}
                     min={0}
-                    step={1}
+                    max={10000}
+                    step={10}
                     incrementButtonAriaLabel={"Increase value by 1"}
                     decrementButtonAriaLabel={"Decrease value by 1"}
                     styles={{
@@ -78,6 +119,7 @@ export const SearchFilter: React.FunctionComponent = () => {
                 </Label>
 
                 <DefaultButton
+                    id="Before 6am"
                     text="Before 6am"
                     iconProps={{
                         iconName: "PartlyCloudyDay"
@@ -88,6 +130,8 @@ export const SearchFilter: React.FunctionComponent = () => {
                             margin: "6px 0px"
                         }
                     }}
+                    onClick={handleDepartTimeOnClick1}
+                    checked={before6am}
                 />
                 <DefaultButton
                     text="6am - 12am"
@@ -100,7 +144,8 @@ export const SearchFilter: React.FunctionComponent = () => {
                             margin: "6px 0px"
                         }
                     }}
-                    checked={true}
+                    onClick={handleDepartTimeOnClick2}
+                    checked={six_am_12am}
                 />
                 <DefaultButton
                     text="12pm - 6pm"
@@ -113,6 +158,8 @@ export const SearchFilter: React.FunctionComponent = () => {
                             margin: "6px 0px"
                         }
                     }}
+                    onClick={handleDepartTimeOnClick3}
+                    checked={twelve_pm_6pm}
                 />
                 <DefaultButton
                     text="After 6pm"
@@ -125,10 +172,12 @@ export const SearchFilter: React.FunctionComponent = () => {
                             margin: "6px 0px"
                         }
                     }}
+                    onClick={handleDepartTimeOnClick4}
+                    checked={after6pm}
                 />
                 <Separator></Separator>
 
-                <Label
+                {/* <Label
                     styles={{
                         root: {
                             marginBottom: "12px"
@@ -137,12 +186,17 @@ export const SearchFilter: React.FunctionComponent = () => {
                 >
                     Stops
                 </Label>
-                <Stack horizontal gap="12px">
+                <Stack
+                    horizontal
+                    tokens={{
+                        childrenGap: "12px"
+                    }}
+                >
                     <DefaultButton text="0" />
                     <DefaultButton checked={true} text="1" />
                     <DefaultButton text="2+" />
                 </Stack>
-                <Separator></Separator>
+                <Separator></Separator> */}
 
                 <Label
                     styles={{
@@ -153,14 +207,15 @@ export const SearchFilter: React.FunctionComponent = () => {
                 >
                     Airlines
                 </Label>
-                <Stack gap="12px">
+                <Stack
+                    tokens={{
+                        childrenGap: "12px"
+                    }}
+                >
                     <Checkbox label="All" />
-                    <Checkbox label="Aeroflot" />
-                    <Checkbox label="Air Berlin" defaultChecked />
-                    <Checkbox label="Air Canada" />
-                    <Checkbox label="Air France" defaultChecked />
-                    <Checkbox label="Alitalia" />
-                    <Checkbox label="Austrian Airline" />
+                    {airlines.map(i => {
+                        return <Checkbox key={i} label={i} />;
+                    })}
                 </Stack>
                 <Separator></Separator>
 
@@ -178,6 +233,7 @@ export const SearchFilter: React.FunctionComponent = () => {
                             backgroundColor: "#737373"
                         }
                     }}
+                    onClick={handleSearchFlightsClick}
                 />
             </Stack>
         </Stack>

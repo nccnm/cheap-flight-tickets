@@ -3,6 +3,7 @@ import { Stack, PrimaryButton } from "office-ui-fabric-react";
 import { PassengerInfoForm } from "./PassengerInfoForm";
 import { Payment } from "./Payment";
 import { Confirmation } from "./Confirmation";
+import { theme } from "../../style/theme";
 
 export const PassengerForm: React.FunctionComponent = () => {
     return (
@@ -14,15 +15,15 @@ export const PassengerForm: React.FunctionComponent = () => {
                 text="Buy Now"
                 styles={{
                     root: {
-                        backgroundColor: "rgb(50, 208, 149)",
+                        backgroundColor: theme.palette.themeSecondary,
                         width: "160px"
                     },
                     rootHovered: {
-                        backgroundColor: "rgb(50, 208, 149)",
+                        backgroundColor: theme.palette.themeSecondary,
                         opacity: "0.8"
                     },
                     rootPressed: {
-                        backgroundColor: "rgb(50, 208, 149)"
+                        backgroundColor: theme.palette.themeSecondary
                     }
                 }}
             />

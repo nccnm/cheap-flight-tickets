@@ -1,5 +1,6 @@
 import React from "react";
-import { Stack, Label, Image, FontWeights } from "office-ui-fabric-react";
+import { Stack, Label, Image, FontWeights, DefaultPalette } from "office-ui-fabric-react";
+import { theme } from "../../style/theme";
 
 const airlineInfoStyle = {
     airlineName: {
@@ -36,7 +37,7 @@ const airlineInfoStyle = {
     stops: {
         root: {
             fontSize: "13px",
-            color: "rgb(50, 208, 149)",
+            color: DefaultPalette.themeSecondary,
             padding: "0px"
         }
     },
@@ -59,7 +60,7 @@ export const FlightOnewayDetailItem: React.FunctionComponent = () => {
             styles={{
                 root: {
                     borderRadius: "2px",
-                    backgroundColor: "#FFFFFF",
+                    backgroundColor: theme.palette.white,
                     flexBasis: "100%",
                     maxWidth: "100%",
                     justifyContent: "space-between"
@@ -67,7 +68,8 @@ export const FlightOnewayDetailItem: React.FunctionComponent = () => {
             }}
         >
             <Stack
-                verticalAlign="center" horizontalAlign="center"
+                verticalAlign="center"
+                horizontalAlign="center"
                 styles={{
                     root: {
                         marginRight: "16px"
@@ -85,7 +87,8 @@ export const FlightOnewayDetailItem: React.FunctionComponent = () => {
                 </Stack>
             </Stack>
             <Stack
-                verticalAlign="center" horizontalAlign="center"
+                verticalAlign="center"
+                horizontalAlign="center"
                 styles={{
                     root: {
                         marginRight: "16px"
@@ -99,7 +102,8 @@ export const FlightOnewayDetailItem: React.FunctionComponent = () => {
                 </Stack>
             </Stack>
             <Stack
-                verticalAlign="center" horizontalAlign="center"
+                verticalAlign="center"
+                horizontalAlign="center"
                 styles={{
                     root: {
                         marginRight: "16px",
@@ -134,6 +138,5 @@ export const FlightOnewayDetailItem: React.FunctionComponent = () => {
                 </Stack>
             </Stack>
         </Stack>
-
     );
 };

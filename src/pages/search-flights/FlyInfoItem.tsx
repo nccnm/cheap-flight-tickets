@@ -1,37 +1,50 @@
 import React from "react";
+import moment from "moment";
 import {
-    Stack, Label, Separator, Image, DefaultButton, PrimaryButton, FontWeights,
-    Dialog, DialogType, DialogFooter
+    Stack,
+    Label,
+    Separator,
+    Image,
+    DefaultButton,
+    PrimaryButton,
+    FontWeights,
+    Dialog,
+    DialogType,
+    DialogFooter,
+    FontSizes
 } from "office-ui-fabric-react";
 import { Card } from "@uifabric/react-cards";
-import { FlightOnewayDetailItem } from "./FlightOnewayDetailItem"
+import { FlightOnewayDetailItem } from "./FlightOnewayDetailItem";
+import { theme } from "../../style/theme";
+import { FlightDetail } from "../../model/FlightDetail";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, useLocation } from "react-router-dom";
 
 const airlineInfoStyle = {
     airlineName: {
         root: {
-            fontSize: "11px",
-            color: "#737373",
+            fontSize: FontSizes.small,
+            color: theme.palette.neutralSecondary,
             padding: "0px"
         }
     },
     depart: {
         time: {
             root: {
-                fontSize: "20px",
+                fontSize: FontSizes.large,
                 color: "rgb(50, 49, 48)",
                 padding: "0px"
             }
         },
         date: {
             root: {
-                fontSize: "13px",
-                color: "#737373",
+                fontSize: FontSizes.medium,
+                color: theme.palette.neutralSecondary,
                 padding: "0px"
             }
         },
         airport: {
             root: {
-                fontSize: "11px",
+                fontSize: FontSizes.small,
                 fontWeight: FontWeights.bold,
                 color: "rgb(50, 49, 48)",
                 padding: "16px 0px 0px 0px"
@@ -41,7 +54,7 @@ const airlineInfoStyle = {
     stops: {
         root: {
             fontSize: "13px",
-            color: "rgb(50, 208, 149)",
+            color: theme.palette.themeSecondary,
             padding: "0px"
         }
     },
@@ -60,172 +73,186 @@ export interface IDialogLargeHeaderExampleState {
     hideDialog: boolean;
 }
 
-export class FlyInfoItem extends React.Component<{}, IDialogLargeHeaderExampleState> {
-    public state: IDialogLargeHeaderExampleState = { hideDialog: true };
+type FlyInfoItemProps = {
+    item: FlightDetail;
+};
 
-    private _showDialog = (): void => {
-        this.setState({ hideDialog: false });
+export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: FlyInfoItemProps) => {
+    let history = useHistory();
+    const handleBookClick = (): void => {
+        history.push("/booking/book-flight?_id=" + props.item._id);
     };
 
-    private _closeDialog = (): void => {
-        this.setState({ hideDialog: true });
-    };
-
-    public render() {
-        return (
-            <>
-                <Card
-                    horizontal
+    return (
+        <>
+            <Card
+                horizontal
+                styles={{
+                    root: {
+                        borderRadius: "2px",
+                        backgroundColor: theme.palette.white,
+                        padding: "16px",
+                        flexBasis: "100%",
+                        maxWidth: "100%",
+                        marginTop: "16px !important",
+                        justifyContent: "space-between"
+                    }
+                }}
+            >
+                <Card.Section
                     styles={{
                         root: {
-                            borderRadius: "2px",
-                            backgroundColor: "#FFFFFF",
-                            padding: "16px",
-                            flexBasis: "100%",
-                            maxWidth: "100%",
-                            marginTop: "16px !important",
-                            justifyContent: "space-between"
+                            flexBasis: "180px"
                         }
                     }}
                 >
-                    <Card.Section
-                        styles={{
-                            root: {
-                                marginRight: "16px"
-                            }
-                        }}
-                    >
-                        <Stack
-                            horizontal
-                            verticalAlign="center"
-                            tokens={{
-                                childrenGap: 12
-                            }} >
-                            <Stack>
-                                <Image src="http://placehold.it/30x30" />
-                            </Stack>
-                            <Stack>
-                                <Label styles={airlineInfoStyle.airlineName}>American Airlines</Label>
-                                <Label styles={airlineInfoStyle.airlineName}>BA-3271</Label>
-                            </Stack>
-                        </Stack>
-                        <Stack horizontal verticalAlign="center" tokens={{
+                    <Stack
+                        horizontal
+                        verticalAlign="center"
+                        tokens={{
                             childrenGap: 12
-                        }}>
-                            <Stack>
-                                <Image src="http://placehold.it/30x30" />
-                            </Stack>
-                            <Stack>
-                                <Label styles={airlineInfoStyle.airlineName}>Singapore Airlines</Label>
-                                <Label styles={airlineInfoStyle.airlineName}>BA-3271</Label>
-                            </Stack>
+                        }}
+                    >
+                        <Stack>
+                            <Image src={props.item.DepartAirlinePicture} />
                         </Stack>
-                    </Card.Section>
-                    <Card.Section
+                        <Stack>
+                            <Label styles={airlineInfoStyle.airlineName}>{props.item.DepartAirlineName}</Label>
+                            <Label styles={airlineInfoStyle.airlineName}>{props.item.DepartAirlinePlane}</Label>
+                        </Stack>
+                    </Stack>
+                    <Stack
+                        horizontal
+                        verticalAlign="center"
+                        tokens={{
+                            childrenGap: 12
+                        }}
+                    >
+                        <Stack>
+                            <Image src={props.item.ReturnAirlinePicture} />
+                        </Stack>
+                        <Stack>
+                            <Label styles={airlineInfoStyle.airlineName}>{props.item.ReturnAirlineName}</Label>
+                            <Label styles={airlineInfoStyle.airlineName}>{props.item.ReturnAirlinePlane}</Label>
+                        </Stack>
+                    </Stack>
+                </Card.Section>
+                <Card.Section
+                    styles={{
+                        root: {
+                            flexBasis: "20%"
+                        }
+                    }}
+                >
+                    <Stack verticalAlign="start">
+                        <Label styles={airlineInfoStyle.depart.time}>
+                            {moment(props.item.DepartTime).format("LT")}
+                        </Label>
+                        <Label styles={airlineInfoStyle.depart.date}>
+                            {moment(props.item.DepartTime).format("LL")}
+                        </Label>
+                        <Label styles={airlineInfoStyle.depart.airport}>{props.item.Depart}</Label>
+                    </Stack>
+                </Card.Section>
+                <Card.Section
+                    styles={{
+                        root: {
+                            alignItems: "center",
+                            flexBasis: "20%"
+                        }
+                    }}
+                >
+                    <Stack
+                        verticalAlign="center"
+                        horizontalAlign="center"
                         styles={{
                             root: {
-                                marginRight: "16px"
+                                flexBasis: "100%"
                             }
                         }}
                     >
-                        <Stack verticalAlign="start">
-                            <Label styles={airlineInfoStyle.depart.time}>09:45PM</Label>
-                            <Label styles={airlineInfoStyle.depart.date}>JUN 04, SUN</Label>
-                            <Label styles={airlineInfoStyle.depart.airport}>LOS ANGELES LAX</Label>
-                        </Stack>
-                    </Card.Section>
-                    <Card.Section
-                        styles={{
-                            root: {
-                                marginRight: "16px",
-                                alignItems: "center"
-                            }
-                        }}
-                    >
-                        <Stack
-                            verticalAlign="center"
-                            horizontalAlign="center"
-                            styles={{
-                                root: {
-                                    flexBasis: "100%"
-                                }
-                            }}
-                        >
-                            <Label styles={airlineInfoStyle.depart.date}>31h 10m</Label>
-                            <Label styles={airlineInfoStyle.stops}>2 stops</Label>
-                            <DefaultButton
+                        <Label styles={airlineInfoStyle.depart.date}>{props.item.TotalTime}</Label>
+                        <Label styles={airlineInfoStyle.stops}>
+                            {props.item.Stops.length > 0 ? props.item.Stops.length + " stops" : "Non stop"}
+                        </Label>
+                        {/* <DefaultButton
                                 text="Detail"
                                 styles={{
                                     root: {
                                         marginTop: "14px !important",
                                         height: "22px",
                                         fontSize: "12px",
-                                        color: "#FFFFFF",
+                                        color: theme.palette.white,
                                         backgroundColor: "rgb(64, 65, 86)"
                                     }
                                 }}
                                 onClick={this._showDialog}
-                            />
-                        </Stack>
-                    </Card.Section>
-                    <Card.Section
+                            /> */}
+                    </Stack>
+                </Card.Section>
+                <Card.Section
+                    styles={{
+                        root: {
+                            flexBasis: "20%"
+                        }
+                    }}
+                >
+                    <Stack verticalAlign="start">
+                        <Label styles={airlineInfoStyle.depart.time}>
+                            {moment(props.item.ReturnTime).format("LT")}
+                        </Label>
+                        <Label styles={airlineInfoStyle.depart.date}>
+                            {moment(props.item.ReturnTime).format("LL")}
+                        </Label>
+                        <Label styles={airlineInfoStyle.depart.airport}>{props.item.Return}</Label>
+                    </Stack>
+                </Card.Section>
+                <Card.Section
+                    styles={{
+                        root: {
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            flexBasis: "120px"
+                        }
+                    }}
+                >
+                    <Separator vertical></Separator>
+                    <Stack
+                        verticalAlign="center"
+                        horizontalAlign="center"
                         styles={{
                             root: {
-                                marginRight: "16px"
+                                marginTop: "0px !important"
                             }
                         }}
                     >
-                        <Stack verticalAlign="start">
-                            <Label styles={airlineInfoStyle.depart.time}>12:55PM</Label>
-                            <Label styles={airlineInfoStyle.depart.date}>JUN 06, FRI</Label>
-                            <Label styles={airlineInfoStyle.depart.airport}>ISTANBUL IST</Label>
-                        </Stack>
-                    </Card.Section>
-                    <Card.Section
-                        styles={{
-                            root: {
-                                marginRight: "16px",
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                flexBasis: "120px"
-                            }
-                        }}
-                    >
-                        <Separator vertical></Separator>
-                        <Stack
-                            verticalAlign="center"
-                            horizontalAlign="center"
+                        <Label styles={airlineInfoStyle.price.text}>${props.item.TotalMoney}</Label>
+                        <PrimaryButton
+                            text="Book"
+                            onClick={handleBookClick}
                             styles={{
                                 root: {
-                                    marginTop: "0px !important"
+                                    backgroundColor: theme.palette.themeSecondary
+                                },
+                                rootHovered: {
+                                    backgroundColor: theme.palette.themeSecondary,
+                                    opacity: "0.8"
+                                },
+                                rootPressed: {
+                                    backgroundColor: theme.palette.themeSecondary
                                 }
                             }}
-                        >
-                            <Label styles={airlineInfoStyle.price.text}>$583</Label>
-                            <PrimaryButton
-                                text="Book"
-                                styles={{
-                                    root: {
-                                        backgroundColor: "rgb(50, 208, 149)"
-                                    },
-                                    rootHovered: {
-                                        backgroundColor: "rgb(50, 208, 149)",
-                                        opacity: "0.8"
-                                    },
-                                    rootPressed: {
-                                        backgroundColor: "rgb(50, 208, 149)"
-                                    }
-                                }}
-                            />
-                        </Stack>
-                    </Card.Section>
-                </Card>
-                <Dialog
+                        />
+                    </Stack>
+                </Card.Section>
+            </Card>
+
+            {/* <Dialog
                     hidden={this.state.hideDialog}
                     onDismiss={this._closeDialog}
                     dialogContentProps={{
                         type: DialogType.largeHeader,
-                        title: 'Flight Details'
+                        title: "Flight Details"
                     }}
                     modalProps={{
                         isBlocking: false,
@@ -235,13 +262,12 @@ export class FlyInfoItem extends React.Component<{}, IDialogLargeHeaderExampleSt
                     <Label
                         styles={{
                             root: {
-
                                 fontSize: "16px"
                             }
                         }}
                     >
                         DEPARTURE: LOSANGELES - ISTANBUL
-                </Label>
+                    </Label>
                     <FlightOnewayDetailItem></FlightOnewayDetailItem>
                     <Stack
                         verticalAlign="center"
@@ -253,7 +279,8 @@ export class FlyInfoItem extends React.Component<{}, IDialogLargeHeaderExampleSt
                                 backgroundColor: "rgb(237, 235, 233)",
                                 height: "40px"
                             }
-                        }}>
+                        }}
+                    >
                         <Label>Layover: LHR London | Time: 20h 50m</Label>
                     </Stack>
                     <FlightOnewayDetailItem></FlightOnewayDetailItem>
@@ -261,51 +288,47 @@ export class FlyInfoItem extends React.Component<{}, IDialogLargeHeaderExampleSt
                     <Label
                         styles={{
                             root: {
-
                                 fontSize: "16px"
                             }
                         }}
                     >
                         RETURNS: ISTANBUL - LOSANGELES
-                </Label>
+                    </Label>
                     <FlightOnewayDetailItem></FlightOnewayDetailItem>
-                    <DialogFooter >
-                        <Stack horizontal verticalAlign="end" horizontalAlign="space-between" >
-                            <Stack
-                                verticalAlign="center"
-                                horizontalAlign="start"
-                            >
+                    <DialogFooter>
+                        <Stack horizontal verticalAlign="end" horizontalAlign="space-between">
+                            <Stack verticalAlign="center" horizontalAlign="start">
                                 <Label styles={airlineInfoStyle.price.text}>$583</Label>
                                 <Label>Total Price</Label>
                             </Stack>
-                            <Stack horizontal verticalAlign="space-between" tokens={{
-                                childrenGap: 20
-                            }}>
+                            <Stack
+                                horizontal
+                                verticalAlign="space-between"
+                                tokens={{
+                                    childrenGap: 20
+                                }}
+                            >
                                 <PrimaryButton
                                     onClick={this._closeDialog}
                                     text="Select"
                                     styles={{
                                         root: {
-                                            backgroundColor: "rgb(50, 208, 149)"
+                                            backgroundColor: theme.palette.themeSecondary
                                         },
                                         rootHovered: {
-                                            backgroundColor: "rgb(50, 208, 149)",
+                                            backgroundColor: theme.palette.themeSecondary,
                                             opacity: "0.8"
                                         },
                                         rootPressed: {
-                                            backgroundColor: "rgb(50, 208, 149)"
+                                            backgroundColor: theme.palette.themeSecondary
                                         }
                                     }}
                                 />
                                 <DefaultButton onClick={this._closeDialog} text="Cancel" />
                             </Stack>
-
                         </Stack>
                     </DialogFooter>
-                </Dialog>
-            </>
-        );
-
-
-    }
+                </Dialog> */}
+        </>
+    );
 };

@@ -1,0 +1,30 @@
+[
+  {
+    'repeat(100, 100)': {
+      _id: '{{objectId()}}',
+      TotalMoney: '{{random("580", "671", "742", "499", "573", "672", "564")}}',
+      RoundTrip: "1",
+      Depart: '{{random("Shanghai", "Beijing", "Seoul", "Jakarta", "Tokyo", "Mexico City")}}',
+      DepartTime: '{{moment(this.date(new Date(2019, 12, 12), new Date(2019, 12, 15)))}}',  
+      DepartAirport: '{{random("Shanghai SH, China", "Beijing BJ, China", "Istanbul ISB, Turkey", "Mumbai MB, India", "Moscow MC, Rusia", "Cairo CR, Egypt", "São Paulo SP, Brazil ", "Seoul SU, Korean", "Jakarta JK, Indonesia", "Tokyo TK, Japan", "	Mexico City MC, Mexico", "New York City NY, USA", "London LD, England", "Bangkok BK, Thailand", "Ho Chi Minh City HCM, Vietnam", "Hong Kong HK, China", "Hanoi HN, Vietnam", "Rio de Janeiro RJ , Brazil", "Singapore SG, Singapore", "Los Angeles LA, USA", "Cape Town CT, USA", "Berlin BL, Germany")}}',
+      Return: '{{random("Shanghai", "Beijing", "Seoul", "Jakarta", "Tokyo", "Mexico City")}}',
+      ReturnAirport: '{{random("Shanghai SH, China", "Beijing BJ, China", "Istanbul ISB, Turkey", "Mumbai MB, India", "Moscow MC, Rusia", "Cairo CR, Egypt", "São Paulo SP, Brazil ", "Seoul SU, Korean", "Jakarta JK, Indonesia", "Tokyo TK, Japan", "	Mexico City MC, Mexico", "New York City NY, USA", "London LD, England", "Bangkok BK, Thailand", "Ho Chi Minh City HCM, Vietnam", "Hong Kong HK, China", "Hanoi HN, Vietnam", "Rio de Janeiro RJ , Brazil", "Singapore SG, Singapore", "Los Angeles LA, USA", "Cape Town CT, USA", "Berlin BL, Germany")}}',
+      ReturnTime: '{{moment(this.date(new Date(2019, 12, 15), new Date(2019, 12, 18)))}}',  
+      
+      Stops: [],     
+      TotalTime(tags) {
+        var duration = moment.duration((new moment(this.ReturnTime)).diff(new moment(this.DepartTime)));
+        
+        return duration.humanize();
+      },
+      ClassType: '{{random("Economy", "Business Class")}}',
+      DepartAirlinePicture: 'http://placehold.it/30x30',
+      DepartAirlineName: '{{random("Vietnam Airlines", "US Airways ", "Thai Airways", "Singapore Airlines", "Malaysia Airlines", "Japan Airlines", "China Airlines", "British Airways", "Austrian Airlines", "Air France", "Air Canada", "Air India", "Air New Zealand", "All Nippon Airways", "Korean Air")}}',
+      DepartAirlinePlane: '{{random("A320-214", "737-824", "757-224", "EMB-145XR", "CL-600-2D24", "767-332", "A321-211")}}',
+      ReturnAirlinePicture: 'http://placehold.it/30x30',
+      ReturnAirlineName: '{{random("Vietnam Airlines", "US Airways ", "Thai Airways", "Singapore Airlines", "Malaysia Airlines", "Japan Airlines", "China Airlines", "British Airways", "Austrian Airlines", "Air France", "Air Canada", "Air India", "Air New Zealand", "All Nippon Airways", "Korean Air")}}',
+      ReturnAirlinePlane: '{{random("A320-214", "737-824", "757-224", "EMB-145XR", "CL-600-2D24", "767-332", "A321-211")}}'     
+    }
+    
+  }
+]

@@ -1,0 +1,20 @@
+export class FlightDetail {
+    _id: string = "";
+    RoundTrip: number = 0;
+    Depart: string = "";
+    DepartTime: string = "";
+    DepartAirport: string = "";
+    Return: string = "";
+    ReturnTime: string = "";
+    ReturnAirport: string = "";
+    Stops: FlightDetail[] = [];
+    TotalTime: string = "";
+    ClassType: string = "";
+    DepartAirlinePicture: string = "";
+    DepartAirlineName: string = "";
+    DepartAirlinePlane: string = "";
+    ReturnAirlinePicture: string = "";
+    ReturnAirlineName: string = "";
+    ReturnAirlinePlane: string = "";
+    TotalMoney: number = 0;
+}

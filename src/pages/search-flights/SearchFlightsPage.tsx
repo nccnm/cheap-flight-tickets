@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import {
-    Stack,
-    IStackTokens,
-} from "office-ui-fabric-react";
+import { Stack, IStackTokens } from "office-ui-fabric-react";
 
-import { useQuery } from "../../hooks/useQuery"
+import { useQuery } from "../../hooks/useQuery";
 
 import { SearchFilter } from "./SearchFilter";
 import { SearchResult } from "./SearchResult";
 import { SearchFlights } from "./SearchFlights";
 
 import { SearchFlightCriteria } from "../../model/SearchFlightCriteria";
+import { FlightDetail } from "../../model/FlightDetail";
+import { FlightService } from "../../service/FlightService";
 
 const rootStyle = {
     root: {
@@ -22,31 +21,6 @@ const rootStyle = {
 
 const verticalGapStackTokens: IStackTokens = {
     childrenGap: 20
-};
-
-export const SearchFlightsPage: React.FunctionComponent = () => {
-    const query = useQuery();
-    const [searchFlightCriteria, setSearchFlightCriteria] = useState(getSearchFlightCriteria(query));
-
-    const onCriteriaChanges = (criteria: SearchFlightCriteria) => {
-        setSearchFlightCriteria({ ...criteria });
-    };
-
-    return (
-        <Stack
-            tokens={verticalGapStackTokens}
-            verticalAlign="start"
-            styles={{
-                root: rootStyle.root
-            }}
-        >
-            <SearchFlights criteria={searchFlightCriteria} onCriteriaChanges={onCriteriaChanges}></SearchFlights>
-            <Stack horizontal gap="20">
-                <SearchFilter></SearchFilter>
-                <SearchResult></SearchResult>
-            </Stack>
-        </Stack>
-    );
 };
 
 function getSearchFlightCriteria(query: any): SearchFlightCriteria {
@@ -63,3 +37,47 @@ function getSearchFlightCriteria(query: any): SearchFlightCriteria {
 
     return searchFlightCriteria;
 }
+
+export const SearchFlightsPage: React.FunctionComponent = () => {
+    const fightService = new FlightService();
+    const query = useQuery();
+    const [searchFlightCriteria, setSearchFlightCriteria] = useState(getSearchFlightCriteria(query));
+    const [searchResult, setSearchResult] = useState<FlightDetail[]>(fightService.search(searchFlightCriteria));
+
+    const onCriteriaChanges = (criteria: SearchFlightCriteria) => {
+        setSearchFlightCriteria({ ...searchFlightCriteria, ...criteria });
+    };
+
+    const onSearchClick = (criteria: SearchFlightCriteria) => {
+        setSearchResult(fightService.search(criteria));
+    };
+
+    return (
+        <Stack
+            tokens={verticalGapStackTokens}
+            verticalAlign="start"
+            styles={{
+                root: rootStyle.root
+            }}
+        >
+            <SearchFlights
+                criteria={searchFlightCriteria}
+                onCriteriaChanges={onCriteriaChanges}
+                onSearchClick={onSearchClick}
+            ></SearchFlights>
+            <Stack
+                horizontal
+                tokens={{
+                    childrenGap: 20
+                }}
+            >
+                <SearchFilter
+                    criteria={searchFlightCriteria}
+                    onCriteriaChanges={onCriteriaChanges}
+                    onSearchClick={onSearchClick}
+                ></SearchFilter>
+                <SearchResult result={searchResult}></SearchResult>
+            </Stack>
+        </Stack>
+    );
+};

@@ -1,10 +1,6 @@
 import React from "react";
 import { Stack } from "office-ui-fabric-react";
-import {
-    Switch,
-    Route,
-    useRouteMatch
-} from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import { AppHeader } from "../../AppHeader";
 import { AppFooter } from "../../AppFooter";
@@ -33,7 +29,9 @@ export const BookingPage: React.FunctionComponent = () => {
             styles={{
                 root: rootStyle.root
             }}
-            gap={20}
+            tokens={{
+                childrenGap: 20
+            }}
         >
             <AppHeader></AppHeader>
             <Switch>

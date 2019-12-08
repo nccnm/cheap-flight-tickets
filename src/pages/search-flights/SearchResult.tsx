@@ -1,22 +1,20 @@
 import React from "react";
-import {
-    Stack,
-    Label,
-    Dropdown,
-    IDropdownOption
-} from "office-ui-fabric-react";
+import { Stack, Label, Dropdown, IDropdownOption } from "office-ui-fabric-react";
 import { FlyInfoItem } from "./FlyInfoItem";
+import { FlightDetail } from "../../model/FlightDetail";
 
 const options: IDropdownOption[] = [
     { key: "price", text: "Price by Adult" },
     { key: "departTime", text: "Depart Time" },
-    { key: "stops", text: "Stops" },
+    // { key: "stops", text: "Stops" },
     { key: "airlines", text: "Airlines" }
 ];
 
-const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+type SearchResultProp = {
+    result: FlightDetail[];
+};
 
-export const SearchResult: React.FunctionComponent = () => {
+export const SearchResult: React.FunctionComponent<SearchResultProp> = (props: SearchResultProp) => {
     return (
         <Stack
             styles={{
@@ -29,11 +27,11 @@ export const SearchResult: React.FunctionComponent = () => {
                 horizontal
                 horizontalAlign="space-between"
                 verticalAlign="center"
-            // styles={{
-            //     root: {
-            //         flexBasis: "44px"
-            //     }
-            // }}
+                // styles={{
+                //     root: {
+                //         flexBasis: "44px"
+                //     }
+                // }}
             >
                 <Label
                     styles={{
@@ -43,11 +41,13 @@ export const SearchResult: React.FunctionComponent = () => {
                         }
                     }}
                 >
-                    565 Results
+                    {props.result.length} Results
                 </Label>
                 <Stack
                     horizontal
-                    gap="12px"
+                    tokens={{
+                        childrenGap: "12px"
+                    }}
                     horizontalAlign="end"
                     verticalAlign="center"
                     styles={{
@@ -70,8 +70,8 @@ export const SearchResult: React.FunctionComponent = () => {
             </Stack>
             <Stack>
                 <Stack>
-                    {list.map(item => (
-                        <FlyInfoItem key={item} ></FlyInfoItem>
+                    {props.result.map(item => (
+                        <FlyInfoItem key={item._id} item={item}></FlyInfoItem>
                     ))}
                 </Stack>
             </Stack>

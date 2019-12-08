@@ -5,12 +5,13 @@ import {
     DatePicker,
     PrimaryButton,
     Text,
-    DefaultButton,
+    IChoiceGroupOption,
     ChoiceGroup,
     Dropdown,
     IDropdownOption
 } from "office-ui-fabric-react";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
+import { theme } from "../../style/theme";
 
 import { SearchFlightCriteria } from "../../model/SearchFlightCriteria";
 import { flightWaysOption } from "../../data/flightWaysOption";
@@ -30,7 +31,7 @@ const departureIconClass = mergeStyles({
 
 const returnIconClass = mergeStyles({
     fontSize: 30,
-    color: "#FFFFFF",
+    color: theme.palette.white,
     height: 30,
     width: 30,
     transform: "rotate(225deg)"
@@ -49,11 +50,13 @@ const flytimeClass = mergeStyles({
 type SearchFlightsProps = {
     criteria: SearchFlightCriteria;
     onCriteriaChanges: (criteria: SearchFlightCriteria) => void;
+    onSearchClick: (criteria: SearchFlightCriteria) => void;
 };
 
 export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
     criteria,
-    onCriteriaChanges
+    onCriteriaChanges,
+    onSearchClick
 }: SearchFlightsProps) => {
     const handleOnSelectDepartDate = useCallback(
         (date: Date | null | undefined) => {
@@ -111,9 +114,24 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
         [criteria.classType, onCriteriaChanges]
     );
 
+    const handleRoundtripOnChange = useCallback(
+        (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, option?: IChoiceGroupOption) => {
+            onCriteriaChanges({ roundTrip: option ? parseInt(option.key) : criteria.roundTrip });
+        },
+        [criteria.classType, onCriteriaChanges]
+    );
+
+    const findFromToText = useCallback(
+        (key: string) => {
+            const from = fromToOptions.find(f => f.key === key);
+            return from ? from.text : "";
+        },
+        [fromToOptions]
+    );
+
     const handleSearchFlightsClick = useCallback(() => {
-        console.log(criteria);
-    }, []);
+        onSearchClick(criteria);
+    }, [criteria]);
 
     return (
         <Stack
@@ -137,8 +155,13 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                 >
                     <FontIcon iconName="Airplane" className={departureIconClass} />
                     <Stack>
-                        <Text className={flynameClass}>Los Angeles - Istanbul</Text>
-                        <Text className={flytimeClass}>JUN 04, SAT | 2 TRAVELLERS</Text>
+                        <Text className={flynameClass}>
+                            {findFromToText(criteria.from)} - {findFromToText(criteria.to)}
+                        </Text>
+                        <Text className={flytimeClass}>
+                            {criteria.departDate ? criteria.departDate.toDateString() + " | " : ""}
+                            {parseInt(criteria.adults) + parseInt(criteria.children)} TRAVELLERS
+                        </Text>
                     </Stack>
                 </Stack>
                 <Stack
@@ -151,13 +174,16 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                 >
                     <FontIcon iconName="Airplane" className={returnIconClass} />
                     <Stack>
-                        <Text className={flynameClass}>Istanbul - Los Angeles</Text>
-                        <Text className={flytimeClass}>MAY 27, SAT | 2 TRAVELLERS</Text>
+                        <Text className={flynameClass}>
+                            {findFromToText(criteria.to)} - {findFromToText(criteria.from)}
+                        </Text>
+                        <Text className={flytimeClass}>
+                            {criteria.departDate ? criteria.departDate.toDateString() + " | " : ""}
+                            {parseInt(criteria.adults) + parseInt(criteria.children)} TRAVELLERS
+                        </Text>
                     </Stack>
                 </Stack>
-                <Stack>
-                    <DefaultButton text="Change" />
-                </Stack>
+                <Stack></Stack>
             </Stack>
             <Stack>
                 <Stack
@@ -168,7 +194,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                     }}
                 >
                     <ChoiceGroup
-                        defaultSelectedKey="A"
+                        defaultSelectedKey="1"
                         options={flightWaysOption}
                         required={true}
                         styles={{
@@ -177,6 +203,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                             }
                         }}
                         className={mergeStyles({ display: "flex" })}
+                        onChange={handleRoundtripOnChange}
                     />
                 </Stack>
                 <Stack horizontal horizontalAlign="space-between">
@@ -304,14 +331,14 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                             text="Search Flights"
                             styles={{
                                 root: {
-                                    backgroundColor: "rgb(50, 208, 149)"
+                                    backgroundColor: theme.palette.themeSecondary
                                 },
                                 rootHovered: {
-                                    backgroundColor: "rgb(50, 208, 149)",
+                                    backgroundColor: theme.palette.themeSecondary,
                                     opacity: "0.8"
                                 },
                                 rootPressed: {
-                                    backgroundColor: "rgb(50, 208, 149)"
+                                    backgroundColor: theme.palette.themeSecondary
                                 }
                             }}
                             onClick={handleSearchFlightsClick}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Stack, Panel, Label, FontWeights } from "office-ui-fabric-react";
+import { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
 
 import { FlightSummary } from "./FlightSummary";
 import { PassengerForm } from "./PassengerForm";
@@ -13,6 +14,8 @@ const rootStyle = {
 };
 
 export const BookFlightPage: React.FunctionComponent = () => {
+    let { _id } = useParams();
+
     return (
         <Stack
             verticalAlign="start"
