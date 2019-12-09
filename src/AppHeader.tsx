@@ -20,7 +20,9 @@ export const AppHeader: React.FunctionComponent = () => {
         <>
             <Stack
                 horizontal
-                gap={15}
+                tokens={{
+                    childrenGap: 15
+                }}
                 horizontalAlign="center"
                 styles={{
                     root: {
@@ -67,7 +69,8 @@ export const AppHeader: React.FunctionComponent = () => {
                         >
                             Register
                         </Link>
-                        <Separator vertical
+                        <Separator
+                            vertical
                             styles={{
                                 root: {
                                     marginRight: "22px",
@@ -80,7 +83,7 @@ export const AppHeader: React.FunctionComponent = () => {
                             styles={{
                                 root: {
                                     fontSize: "12px",
-                                    color: "rgb(255, 255, 255);",
+                                    color: "rgb(255, 255, 255);"
                                 }
                             }}
                         >
@@ -91,7 +94,9 @@ export const AppHeader: React.FunctionComponent = () => {
             </Stack>
             <Stack
                 horizontal
-                gap={15}
+                tokens={{
+                    childrenGap: 15
+                }}
                 horizontalAlign="center"
                 styles={{
                     root: {

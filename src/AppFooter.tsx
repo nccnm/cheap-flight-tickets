@@ -6,7 +6,9 @@ export const AppFooter: React.FunctionComponent = () => {
         <>
             <Stack
                 horizontal
-                gap={15}
+                tokens={{
+                    childrenGap: 15
+                }}
                 horizontalAlign="center"
                 styles={{
                     root: {
@@ -88,7 +90,9 @@ export const AppFooter: React.FunctionComponent = () => {
             </Stack>
             <Stack
                 horizontal
-                gap={15}
+                tokens={{
+                    childrenGap: 15
+                }}
                 horizontalAlign="center"
                 styles={{
                     root: {

@@ -1,18 +1,5 @@
 import React from "react";
-import {
-    Checkbox,
-    ChoiceGroup,
-    DatePicker,
-    Dropdown,
-    FontIcon,
-    FontSizes,
-    FontWeights,
-    Icon,
-    Label,
-    SpinButton,
-    Stack,
-    TextField
-} from "office-ui-fabric-react";
+import { ChoiceGroup, Dropdown, FontSizes, Label, Stack, TextField } from "office-ui-fabric-react";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
 import { creditCardTypeOptions } from "../../data/creditCardTypeOptions";
 
@@ -48,7 +35,9 @@ export const Payment: React.FunctionComponent = () => {
                         backgroundColor: "#FFFFFF"
                     }
                 }}
-                gap="24px"
+                tokens={{
+                    childrenGap: 24
+                }}
             >
                 <Stack
                     styles={{
@@ -64,7 +53,9 @@ export const Payment: React.FunctionComponent = () => {
                                 marginTop: "8px !important"
                             }
                         }}
-                        gap="16px"
+                        tokens={{
+                            childrenGap: 16
+                        }}
                     >
                         <ChoiceGroup
                             defaultSelectedKey="1"
@@ -85,7 +76,9 @@ export const Payment: React.FunctionComponent = () => {
                                 marginTop: "8px !important"
                             }
                         }}
-                        gap="16px"
+                        tokens={{
+                            childrenGap: 16
+                        }}
                     >
                         <TextField
                             styles={{
@@ -111,7 +104,9 @@ export const Payment: React.FunctionComponent = () => {
                                     flexBasis: "100%"
                                 }
                             }}
-                            gap="16px"
+                            tokens={{
+                                childrenGap: 16
+                            }}
                         >
                             <TextField
                                 placeholder="MM"
@@ -148,7 +143,9 @@ export const Payment: React.FunctionComponent = () => {
                                 marginTop: "8px !important"
                             }
                         }}
-                        gap="16px"
+                        tokens={{
+                            childrenGap: 16
+                        }}
                     >
                         <Dropdown
                             styles={{
@@ -175,7 +172,9 @@ export const Payment: React.FunctionComponent = () => {
                                     flexBasis: "100%"
                                 }
                             }}
-                            gap="16px"
+                            tokens={{
+                                childrenGap: 16
+                            }}
                         >
                             <Dropdown
                                 styles={{

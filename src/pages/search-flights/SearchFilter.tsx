@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Stack, Label, SpinButton, Separator, DefaultButton, PrimaryButton, Checkbox } from "office-ui-fabric-react";
 import { Position } from "office-ui-fabric-react/lib/utilities/positioning";
 import { theme } from "../../style/theme";

@@ -33,7 +33,9 @@ export const Confirmation: React.FunctionComponent = () => {
                         backgroundColor: "#FFFFFF"
                     }
                 }}
-                gap="24px"
+                tokens={{
+                    childrenGap: 24
+                }}
             >
                 <Stack
                     styles={{
@@ -41,7 +43,9 @@ export const Confirmation: React.FunctionComponent = () => {
                             marginTop: "0px !important"
                         }
                     }}
-                    gap="16px"
+                    tokens={{
+                        childrenGap: 16
+                    }}
                 >
                     <Stack
                         horizontal
@@ -50,7 +54,9 @@ export const Confirmation: React.FunctionComponent = () => {
                                 marginTop: "8px !important"
                             }
                         }}
-                        gap="16px"
+                        tokens={{
+                            childrenGap: 16
+                        }}
                     >
                         <TextField
                             styles={{
@@ -76,7 +82,9 @@ export const Confirmation: React.FunctionComponent = () => {
                                 flexBasis: "100%"
                             }
                         }}
-                        gap="16px"
+                        tokens={{
+                            childrenGap: 16
+                        }}
                     >
                         <Checkbox label="I Accept the Rules of this Trip" />
                         <Checkbox label="Send Me the Best Deals by Email" />

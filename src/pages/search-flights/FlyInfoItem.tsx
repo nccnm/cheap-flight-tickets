@@ -1,23 +1,11 @@
 import React from "react";
 import moment from "moment";
-import {
-    Stack,
-    Label,
-    Separator,
-    Image,
-    DefaultButton,
-    PrimaryButton,
-    FontWeights,
-    Dialog,
-    DialogType,
-    DialogFooter,
-    FontSizes
-} from "office-ui-fabric-react";
+import { Stack, Label, Separator, Image, PrimaryButton, FontWeights, FontSizes } from "office-ui-fabric-react";
 import { Card } from "@uifabric/react-cards";
-import { FlightOnewayDetailItem } from "./FlightOnewayDetailItem";
+import { SearchFlightCriteria } from "../../model/SearchFlightCriteria";
 import { theme } from "../../style/theme";
 import { FlightDetail } from "../../model/FlightDetail";
-import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const airlineInfoStyle = {
     airlineName: {
@@ -75,12 +63,15 @@ export interface IDialogLargeHeaderExampleState {
 
 type FlyInfoItemProps = {
     item: FlightDetail;
+    criteria: SearchFlightCriteria;
 };
 
 export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: FlyInfoItemProps) => {
     let history = useHistory();
     const handleBookClick = (): void => {
-        history.push("/book?_id=" + props.item._id);
+        history.push(
+            `/book?_id=${props.item._id}&adults=${props.criteria.adults}&childrens=${props.criteria.children}&infants=${props.criteria.infants}&classType=${props.criteria.classType}`
+        );
     };
 
     return (

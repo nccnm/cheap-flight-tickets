@@ -56,7 +56,9 @@ export const FlightOnewayDetailItem: React.FunctionComponent = () => {
     return (
         <Stack
             horizontal
-            gap="20"
+            tokens={{
+                childrenGap: 20
+            }}
             styles={{
                 root: {
                     borderRadius: "2px",
@@ -76,7 +78,14 @@ export const FlightOnewayDetailItem: React.FunctionComponent = () => {
                     }
                 }}
             >
-                <Stack horizontal verticalAlign="center" horizontalAlign="center" gap="12">
+                <Stack
+                    horizontal
+                    verticalAlign="center"
+                    horizontalAlign="center"
+                    tokens={{
+                        childrenGap: 12
+                    }}
+                >
                     <Stack>
                         <Image src="http://placehold.it/30x30" />
                     </Stack>

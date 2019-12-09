@@ -9,12 +9,25 @@ import {
     SpinButton,
     FontIcon,
     FontWeights,
-    FontSizes,
-    Icon
+    FontSizes
 } from "office-ui-fabric-react";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
+import { Order } from "../../model/Order";
+import { Traverller } from "../../model/Traverller";
 
-export const PassengerInfoForm: React.FunctionComponent = () => {
+type PassengerInfoFormProps = {
+    order: Order;
+    onChange: (traveller: Traverller) => void;
+};
+
+export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> = ({ order, onChange }) => {
+    const onTextChange = (...args) => {
+        console.log(args);
+        onChange({
+            ...order.Traverllers[0]
+        });
+    };
+
     return (
         <>
             <Stack
@@ -38,9 +51,9 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                     Who's Travelling?
                 </Label>
             </Stack>
-            {[1, 2].map(item => (
+            {order.Traverllers.map((item, index) => (
                 <Stack
-                    key={item}
+                    key={item._id}
                     styles={{
                         root: {
                             borderRadius: "4px",
@@ -48,7 +61,9 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                             backgroundColor: "#FFFFFF"
                         }
                     }}
-                    gap="24px"
+                    tokens={{
+                        childrenGap: 24
+                    }}
                 >
                     <Stack
                         styles={{
@@ -77,7 +92,7 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                     }
                                 }}
                             >
-                                1
+                                {index + 1}
                             </Label>
                         </Stack>
                         <Label
@@ -88,7 +103,7 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                 }
                             }}
                         >
-                            Olivia Davidson
+                            {item.FirstName + " " + item.LastName}
                         </Label>
                     </Stack>
                     <Stack
@@ -125,7 +140,9 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                     marginTop: "8px !important"
                                 }
                             }}
-                            gap="16px"
+                            tokens={{
+                                childrenGap: 16
+                            }}
                         >
                             <TextField
                                 styles={{
@@ -134,6 +151,9 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                     }
                                 }}
                                 label="First Name"
+                                value={item.FirstName}
+                                id="FirstName"
+                                onChange={onTextChange}
                             />
                             <TextField
                                 styles={{
@@ -142,6 +162,9 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                     }
                                 }}
                                 label="Last Name"
+                                value={item.LastName}
+                                id="LastName"
+                                onChange={onTextChange}
                             />
                             <Stack
                                 horizontal
@@ -150,7 +173,9 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                         flexBasis: "100%"
                                     }
                                 }}
-                                gap="16px"
+                                tokens={{
+                                    childrenGap: 16
+                                }}
                             >
                                 <DatePicker
                                     allowTextInput={true}
@@ -177,7 +202,9 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                     marginTop: "8px !important"
                                 }
                             }}
-                            gap="16px"
+                            tokens={{
+                                childrenGap: 16
+                            }}
                         >
                             <Dropdown
                                 styles={{
@@ -204,7 +231,9 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                         flexBasis: "100%"
                                     }
                                 }}
-                                gap="16px"
+                                tokens={{
+                                    childrenGap: 16
+                                }}
                             >
                                 <TextField
                                     placeholder="MM"
@@ -269,7 +298,9 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                     marginTop: "8px !important"
                                 }
                             }}
-                            gap="16px"
+                            tokens={{
+                                childrenGap: 16
+                            }}
                         >
                             <SpinButton
                                 styles={{
@@ -277,7 +308,7 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                         flexBasis: "100%"
                                     }
                                 }}
-                                label="Checked Baggae"
+                                label="Checked Baggages"
                             />
                             <Stack
                                 styles={{
@@ -329,7 +360,9 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                     marginTop: "8px !important"
                                 }
                             }}
-                            gap="16px"
+                            tokens={{
+                                childrenGap: 16
+                            }}
                         >
                             <Stack
                                 styles={{
@@ -354,35 +387,65 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                         }
                                     }}
                                 >
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="Cancel"
                                             className={mergeStyles({ color: "#F21D6B", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Medical Expenses</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="Cancel"
                                             className={mergeStyles({ color: "#F21D6B", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Trip Cancellation</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="Cancel"
                                             className={mergeStyles({ color: "#F21D6B", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Lost Baggage</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="Cancel"
                                             className={mergeStyles({ color: "#F21D6B", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Air Travel Insurance</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="Cancel"
                                             className={mergeStyles({ color: "#F21D6B", fontWeight: FontWeights.bold })}
@@ -413,35 +476,65 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                         }
                                     }}
                                 >
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="CheckMark"
                                             className={mergeStyles({ color: "#32d095", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Medical Expenses</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="CheckMark"
                                             className={mergeStyles({ color: "#32d095", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Trip Cancellation</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="Cancel"
                                             className={mergeStyles({ color: "#F21D6B", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Lost Baggage</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="Cancel"
                                             className={mergeStyles({ color: "#F21D6B", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Air Travel Insurance</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="Cancel"
                                             className={mergeStyles({ color: "#F21D6B", fontWeight: FontWeights.bold })}
@@ -472,35 +565,65 @@ export const PassengerInfoForm: React.FunctionComponent = () => {
                                         }
                                     }}
                                 >
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="CheckMark"
                                             className={mergeStyles({ color: "#32d095", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Medical Expenses</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="CheckMark"
                                             className={mergeStyles({ color: "#32d095", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Trip Cancellation</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="CheckMark"
                                             className={mergeStyles({ color: "#32d095", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Lost Baggage</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="CheckMark"
                                             className={mergeStyles({ color: "#32d095", fontWeight: FontWeights.bold })}
                                         />
                                         <Label>Air Travel Insurance</Label>
                                     </Stack>
-                                    <Stack horizontal verticalAlign="center" gap="4px">
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        tokens={{
+                                            childrenGap: 4
+                                        }}
+                                    >
                                         <FontIcon
                                             iconName="CheckMark"
                                             className={mergeStyles({ color: "#32d095", fontWeight: FontWeights.bold })}

@@ -1,9 +1,11 @@
-import React from "react";
-import { Stack, Panel, Label, FontWeights } from "office-ui-fabric-react";
-import { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import qs from "qs";
+import { Stack, Panel } from "office-ui-fabric-react";
+import { useLocation } from "react-router-dom";
 
 import { FlightSummary } from "./FlightSummary";
 import { PassengerForm } from "./PassengerForm";
+import { Order } from "../../model/Order";
 
 const rootStyle = {
     root: {
@@ -14,17 +16,24 @@ const rootStyle = {
 };
 
 export const BookFlightPage: React.FunctionComponent = () => {
-    let { _id } = useParams();
+    const { search } = useLocation();
+    const [order, setOrder] = useState<Order>(new Order(qs.parse(search.substr(1))));
+
+    const onOrderChange = (order: Order) => {
+        console.log(order);
+    };
 
     return (
         <Stack
             verticalAlign="start"
-            gap={20}
+            tokens={{
+                childrenGap: 20
+            }}
             styles={{
                 root: rootStyle.root
             }}
         >
-            <PassengerForm></PassengerForm>
+            <PassengerForm order={order} onChange={onOrderChange}></PassengerForm>
             <Panel headerText="SUMMARY" isBlocking={false} isOpen={true}>
                 <FlightSummary></FlightSummary>
             </Panel>

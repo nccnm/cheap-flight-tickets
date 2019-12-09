@@ -83,7 +83,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
         (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
             onCriteriaChanges({ to: option ? option.key.toString() : criteria.to });
         },
-        [, criteria.to, onCriteriaChanges]
+        [criteria.to, onCriteriaChanges]
     );
 
     const handleOnAdultOptionChange = useCallback(
@@ -118,20 +118,17 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
         (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, option?: IChoiceGroupOption) => {
             onCriteriaChanges({ roundTrip: option ? parseInt(option.key) : criteria.roundTrip });
         },
-        [criteria.classType, onCriteriaChanges]
+        [criteria.roundTrip, onCriteriaChanges]
     );
 
-    const findFromToText = useCallback(
-        (key: string) => {
-            const from = fromToOptions.find(f => f.key === key);
-            return from ? from.text : "";
-        },
-        [fromToOptions]
-    );
+    const findFromToText = useCallback((key: string) => {
+        const from = fromToOptions.find(f => f.key === key);
+        return from ? from.text : "";
+    }, []);
 
     const handleSearchFlightsClick = useCallback(() => {
         onSearchClick(criteria);
-    }, [criteria]);
+    }, [criteria, onSearchClick]);
 
     return (
         <Stack

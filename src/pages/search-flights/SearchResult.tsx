@@ -2,6 +2,7 @@ import React from "react";
 import { Stack, Label, Dropdown, IDropdownOption } from "office-ui-fabric-react";
 import { FlyInfoItem } from "./FlyInfoItem";
 import { FlightDetail } from "../../model/FlightDetail";
+import { SearchFlightCriteria } from "../../model/SearchFlightCriteria";
 
 const options: IDropdownOption[] = [
     { key: "price", text: "Price by Adult" },
@@ -12,6 +13,7 @@ const options: IDropdownOption[] = [
 
 type SearchResultProp = {
     result: FlightDetail[];
+    criteria: SearchFlightCriteria;
 };
 
 export const SearchResult: React.FunctionComponent<SearchResultProp> = (props: SearchResultProp) => {
@@ -71,7 +73,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProp> = (props: S
             <Stack>
                 <Stack>
                     {props.result.map(item => (
-                        <FlyInfoItem key={item._id} item={item}></FlyInfoItem>
+                        <FlyInfoItem key={item._id} item={item} criteria={props.criteria}></FlyInfoItem>
                     ))}
                 </Stack>
             </Stack>
