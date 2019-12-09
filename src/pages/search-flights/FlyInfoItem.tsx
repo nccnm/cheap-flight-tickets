@@ -80,7 +80,7 @@ type FlyInfoItemProps = {
 export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: FlyInfoItemProps) => {
     let history = useHistory();
     const handleBookClick = (): void => {
-        history.push("/booking/book-flight?_id=" + props.item._id);
+        history.push("/book?_id=" + props.item._id);
     };
 
     return (
