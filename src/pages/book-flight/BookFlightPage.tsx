@@ -7,6 +7,8 @@ import { FlightSummary } from "./FlightSummary";
 import { PassengerForm } from "./PassengerForm";
 import { Order } from "../../model/Order";
 
+import { Traveller } from "../../model/Traverller";
+
 const rootStyle = {
     root: {
         color: "#605e5c",
@@ -17,10 +19,11 @@ const rootStyle = {
 
 export const BookFlightPage: React.FunctionComponent = () => {
     const { search } = useLocation();
-    const [order, setOrder] = useState<Order>(new Order(qs.parse(search.substr(1))));
+    const order = new Order(qs.parse(search.substr(1)));
+    const [travellers, setTravellers] = useState<Traveller[]>(order.Travellers);
 
     const onOrderChange = (order: Order) => {
-        console.log(order);
+        setTravellers(order.Travellers);
     };
 
     return (
@@ -35,7 +38,7 @@ export const BookFlightPage: React.FunctionComponent = () => {
         >
             <PassengerForm order={order} onChange={onOrderChange}></PassengerForm>
             <Panel headerText="SUMMARY" isBlocking={false} isOpen={true}>
-                <FlightSummary></FlightSummary>
+                <FlightSummary travellers={travellers}></FlightSummary>
             </Panel>
         </Stack>
     );

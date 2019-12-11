@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Checkbox, FontSizes, Label, Stack, TextField } from "office-ui-fabric-react";
+import { ConfirmationInfo } from "../../model/ConfirmationInfo";
 
-export const Confirmation: React.FunctionComponent = () => {
+type PaymentProps = {
+    confirmation: ConfirmationInfo;
+    onChange: (confirmation: ConfirmationInfo) => void;
+};
+
+export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmation, onChange }) => {
+    const [localConfirmationInfo, setConfirmationInfo] = useState<ConfirmationInfo>(confirmation);
+    const handleFormElementValueChange = newItem => {
+        setConfirmationInfo({
+            ...localConfirmationInfo,
+            ...newItem
+        });
+
+        onChange({
+            ...localConfirmationInfo,
+            ...newItem
+        });
+    };
+
     return (
         <>
             <Stack
@@ -65,6 +84,11 @@ export const Confirmation: React.FunctionComponent = () => {
                                 }
                             }}
                             label="Email Address"
+                            value={confirmation.EmailAddress}
+                            id="EmailAddress"
+                            onChange={(event: any, newValue) => {
+                                handleFormElementValueChange({ EmailAddress: newValue });
+                            }}
                         ></TextField>
                         <TextField
                             styles={{
@@ -73,6 +97,11 @@ export const Confirmation: React.FunctionComponent = () => {
                                 }
                             }}
                             label="Phone Number"
+                            value={confirmation.PhoneNumber}
+                            id="PhoneNumber"
+                            onChange={(event: any, newValue) => {
+                                handleFormElementValueChange({ PhoneNumber: newValue });
+                            }}
                         />
                     </Stack>
                     <Stack
@@ -86,8 +115,22 @@ export const Confirmation: React.FunctionComponent = () => {
                             childrenGap: 16
                         }}
                     >
-                        <Checkbox label="I Accept the Rules of this Trip" />
-                        <Checkbox label="Send Me the Best Deals by Email" />
+                        <Checkbox
+                            label="I Accept the Rules of this Trip"
+                            checked={confirmation.IsAcceptedRule}
+                            id="IsAcceptedRule"
+                            onChange={(event: any, newValue) => {
+                                handleFormElementValueChange({ IsAcceptedRule: newValue });
+                            }}
+                        />
+                        <Checkbox
+                            label="Send Me the Best Deals by Email"
+                            checked={confirmation.IsSendEmail}
+                            id="IsSendEmail"
+                            onChange={(event: any, newValue) => {
+                                handleFormElementValueChange({ IsSendEmail: newValue });
+                            }}
+                        />
                     </Stack>
                 </Stack>
             </Stack>

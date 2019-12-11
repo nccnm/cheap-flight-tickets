@@ -5,7 +5,9 @@ import { Payment } from "./Payment";
 import { Confirmation } from "./Confirmation";
 import { theme } from "../../style/theme";
 import { Order } from "../../model/Order";
-import { Traverller } from "../../model/Traverller";
+import { Traveller } from "../../model/Traverller";
+import { PaymentInfo } from "../../model/PaymentInfo";
+import { ConfirmationInfo } from "../../model/ConfirmationInfo";
 
 type PassengerFormProps = {
     order: Order;
@@ -13,8 +15,23 @@ type PassengerFormProps = {
 };
 
 export const PassengerForm: React.FunctionComponent<PassengerFormProps> = ({ order, onChange }) => {
-    const onPassengerInfoForm = (traveller: Traverller) => {
+    const handlePassengerInfoFormOnChange = (travellers: Traveller[]) => {
+        order.Travellers = travellers;
         onChange(order);
+    };
+
+    const handlePaymentOnChange = (payment: PaymentInfo) => {
+        order.Payment = payment;
+        onChange(order);
+    };
+
+    const handleConfirmationOnChange = (confirmation: ConfirmationInfo) => {
+        order.Confirmation = confirmation;
+        onChange(order);
+    };
+
+    const handleBuyNowClick = () => {
+        console.log(order);
     };
 
     return (
@@ -23,9 +40,12 @@ export const PassengerForm: React.FunctionComponent<PassengerFormProps> = ({ ord
                 childrenGap: 20
             }}
         >
-            <PassengerInfoForm order={order} onChange={onPassengerInfoForm}></PassengerInfoForm>
-            <Payment></Payment>
-            <Confirmation></Confirmation>
+            <PassengerInfoForm
+                travellers={order.Travellers}
+                onChange={handlePassengerInfoFormOnChange}
+            ></PassengerInfoForm>
+            <Payment payment={order.Payment} onChange={handlePaymentOnChange}></Payment>
+            <Confirmation confirmation={order.Confirmation} onChange={handleConfirmationOnChange}></Confirmation>
             <PrimaryButton
                 text="Buy Now"
                 styles={{
@@ -41,6 +61,7 @@ export const PassengerForm: React.FunctionComponent<PassengerFormProps> = ({ ord
                         backgroundColor: theme.palette.themeSecondary
                     }
                 }}
+                onClick={handleBuyNowClick}
             />
         </Stack>
     );

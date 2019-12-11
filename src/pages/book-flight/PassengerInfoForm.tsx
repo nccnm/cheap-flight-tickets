@@ -1,31 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Stack,
     Label,
     TextField,
     DatePicker,
-    Dropdown,
+    ComboBox,
+    IDropdownOption,
     Checkbox,
     SpinButton,
     FontIcon,
     FontWeights,
-    FontSizes
+    FontSizes,
+    ChoiceGroup
 } from "office-ui-fabric-react";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
-import { Order } from "../../model/Order";
-import { Traverller } from "../../model/Traverller";
+import { Traveller } from "../../model/Traverller";
+import { genderOptions } from "../../data/genderOptions";
+import { nationalitiesOptions } from "../../data/nationalitiesOptions";
+import { travelInsuranceOptions } from "../../data/travelInsuranceOptions";
 
 type PassengerInfoFormProps = {
-    order: Order;
-    onChange: (traveller: Traverller) => void;
+    travellers: Traveller[];
+    onChange: (travellers: Traveller[]) => void;
 };
 
-export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> = ({ order, onChange }) => {
-    const onTextChange = (...args) => {
-        console.log(args);
-        onChange({
-            ...order.Traverllers[0]
-        });
+export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> = ({ travellers, onChange }) => {
+    const [localTravellers, setLocalTravellers] = useState<Traveller[]>(travellers);
+    const handleFormElementValueChange = (index, newItem) => {
+        localTravellers[index] = {
+            ...localTravellers[index],
+            ...newItem
+        };
+
+        setLocalTravellers([...localTravellers]);
+
+        onChange(localTravellers);
     };
 
     return (
@@ -51,7 +60,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                     Who's Travelling?
                 </Label>
             </Stack>
-            {order.Traverllers.map((item, index) => (
+            {localTravellers.map((item, index) => (
                 <Stack
                     key={item._id}
                     styles={{
@@ -153,7 +162,9 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 label="First Name"
                                 value={item.FirstName}
                                 id="FirstName"
-                                onChange={onTextChange}
+                                onChange={(event: any, newValue) => {
+                                    handleFormElementValueChange(index, { FirstName: newValue });
+                                }}
                             />
                             <TextField
                                 styles={{
@@ -164,7 +175,9 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 label="Last Name"
                                 value={item.LastName}
                                 id="LastName"
-                                onChange={onTextChange}
+                                onChange={(event: any, newValue) => {
+                                    handleFormElementValueChange(index, { LastName: newValue });
+                                }}
                             />
                             <Stack
                                 horizontal
@@ -183,16 +196,30 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         flexBasis: "50%"
                                     })}
                                     label="Date of Birth"
+                                    id="DateOfBirth"
+                                    value={item.DateOfBirth}
+                                    onSelectDate={(date: any) => {
+                                        handleFormElementValueChange(index, { DateOfBirth: date });
+                                    }}
                                 />
-                                <Dropdown
+                                <ComboBox
                                     styles={{
-                                        root: {
+                                        container: {
                                             flexBasis: "50%"
                                         }
                                     }}
                                     label="Gender"
-                                    options={[]}
-                                ></Dropdown>
+                                    id="Gender"
+                                    options={genderOptions}
+                                    allowFreeform
+                                    autoComplete="on"
+                                    selectedKey={item.Gender}
+                                    onChange={(event: any, option?: IDropdownOption) => {
+                                        handleFormElementValueChange(index, {
+                                            Gender: option ? option.key : item.Gender
+                                        });
+                                    }}
+                                ></ComboBox>
                             </Stack>
                         </Stack>
                         <Stack
@@ -206,15 +233,24 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 childrenGap: 16
                             }}
                         >
-                            <Dropdown
+                            <ComboBox
                                 styles={{
-                                    root: {
+                                    container: {
                                         flexBasis: "100%"
                                     }
                                 }}
                                 label="Nationality"
-                                options={[]}
-                            ></Dropdown>
+                                id="Nationality"
+                                options={nationalitiesOptions}
+                                allowFreeform
+                                autoComplete="on"
+                                selectedKey={item.Nationality}
+                                onChange={(event: any, option?: IDropdownOption) => {
+                                    handleFormElementValueChange(index, {
+                                        Nationality: option ? option.key : item.Nationality
+                                    });
+                                }}
+                            ></ComboBox>
                             <TextField
                                 styles={{
                                     root: {
@@ -222,10 +258,14 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }
                                 }}
                                 label="Pasport or ID number"
+                                value={item.PasportId}
+                                id="PasportId"
+                                onChange={(event: any, newValue) => {
+                                    handleFormElementValueChange(index, { PasportId: newValue });
+                                }}
                             />
                             <Stack
                                 horizontal
-                                verticalAlign="end"
                                 styles={{
                                     root: {
                                         flexBasis: "100%"
@@ -243,6 +283,11 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         }
                                     }}
                                     label="Expiry Date"
+                                    value={item.PasportExpiryDateMonth}
+                                    id="PasportExpiryDateMonth"
+                                    onChange={(event: any, newValue) => {
+                                        handleFormElementValueChange(index, { PasportExpiryDateMonth: newValue });
+                                    }}
                                 />
                                 <TextField
                                     placeholder="YYYY"
@@ -251,15 +296,26 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                             flexBasis: "100%"
                                         }
                                     }}
-                                    label=""
+                                    label="&nbsp;"
+                                    value={item.PasportExpiryDateYear}
+                                    id="PasportExpiryDateYear"
+                                    onChange={(event: any, newValue) => {
+                                        handleFormElementValueChange(index, { PasportExpiryDateYear: newValue });
+                                    }}
                                 />
                                 <Checkbox
                                     styles={{
                                         root: {
-                                            flexBasis: "100%"
+                                            flexBasis: "100%",
+                                            alignSelf: "center"
                                         }
                                     }}
                                     label="No expiry"
+                                    checked={item.PasportNoExpiry}
+                                    id="PasportNoExpiry"
+                                    onChange={(event: any, checked) => {
+                                        handleFormElementValueChange(index, { PasportNoExpiry: checked });
+                                    }}
                                 ></Checkbox>
                             </Stack>
                         </Stack>
@@ -308,7 +364,34 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         flexBasis: "100%"
                                     }
                                 }}
+                                min={0}
+                                max={10}
                                 label="Checked Baggages"
+                                value={item.CheckedBaggae}
+                                onChange={(event: any) => {
+                                    const numberValue = Number(event.target.value);
+                                    if (numberValue) {
+                                        if (numberValue <= 10 && numberValue >= 0) {
+                                            handleFormElementValueChange(index, { CheckedBaggae: event.target.value });
+                                        } else {
+                                            handleFormElementValueChange(index, { CheckedBaggae: item.CheckedBaggae });
+                                        }
+                                    } else {
+                                        handleFormElementValueChange(index, { CheckedBaggae: item.CheckedBaggae });
+                                    }
+                                }}
+                                onBlur={(event: any) => {
+                                    const numberValue = Number(event.target.value);
+                                    if (numberValue) {
+                                        if (numberValue <= 10 && numberValue >= 0) {
+                                            handleFormElementValueChange(index, { CheckedBaggae: event.target.value });
+                                        } else {
+                                            handleFormElementValueChange(index, { CheckedBaggae: item.CheckedBaggae });
+                                        }
+                                    } else {
+                                        handleFormElementValueChange(index, { CheckedBaggae: item.CheckedBaggae });
+                                    }
+                                }}
                             />
                             <Stack
                                 styles={{
@@ -364,29 +447,51 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 childrenGap: 16
                             }}
                         >
+                            <ChoiceGroup
+                                defaultSelectedKey="0"
+                                options={travelInsuranceOptions}
+                                required={true}
+                                styles={{
+                                    root: {
+                                        display: "flex",
+                                        flexBasis: "100%"
+                                    },
+                                    flexContainer: {
+                                        display: "flex",
+                                        flexBasis: "100%"
+                                    }
+                                }}
+                                className={mergeStyles({
+                                    display: "flex",
+                                    flexBasis: "100%",
+                                    flexDirection: "row"
+                                })}
+                                id="TravelInsurance"
+                                selectedKey={item.TravelInsurance}
+                                onChange={(event: any, checked) => {
+                                    handleFormElementValueChange(index, { TravelInsurance: checked.key });
+                                }}
+                            />
+                        </Stack>
+                        <Stack
+                            horizontal
+                            styles={{
+                                root: {
+                                    marginTop: "0px !important"
+                                }
+                            }}
+                            tokens={{
+                                childrenGap: 16
+                            }}
+                        >
                             <Stack
                                 styles={{
                                     root: {
-                                        flexBasis: "100%",
-                                        marginTop: "8px !important"
+                                        flexBasis: "100%"
                                     }
                                 }}
                             >
-                                <Checkbox
-                                    styles={{
-                                        root: {
-                                            flexBasis: "100%"
-                                        }
-                                    }}
-                                    label="No Insurance"
-                                />
-                                <Stack
-                                    styles={{
-                                        root: {
-                                            marginTop: "8px !important"
-                                        }
-                                    }}
-                                >
+                                <Stack>
                                     <Stack
                                         horizontal
                                         verticalAlign="center"
@@ -461,21 +566,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }
                                 }}
                             >
-                                <Checkbox
-                                    styles={{
-                                        root: {
-                                            flexBasis: "100%"
-                                        }
-                                    }}
-                                    label="Travel Basic"
-                                />
-                                <Stack
-                                    styles={{
-                                        root: {
-                                            marginTop: "8px !important"
-                                        }
-                                    }}
-                                >
+                                <Stack>
                                     <Stack
                                         horizontal
                                         verticalAlign="center"
@@ -550,21 +641,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }
                                 }}
                             >
-                                <Checkbox
-                                    styles={{
-                                        root: {
-                                            flexBasis: "100%"
-                                        }
-                                    }}
-                                    label="Travel Plus"
-                                />
-                                <Stack
-                                    styles={{
-                                        root: {
-                                            marginTop: "8px !important"
-                                        }
-                                    }}
-                                >
+                                <Stack>
                                     <Stack
                                         horizontal
                                         verticalAlign="center"

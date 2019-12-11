@@ -1,4 +1,4 @@
-export class Payment {
+export class PaymentInfo {
     public CreditCardType?: string;
     public CardNumber?: string;
     public NameOnTheCard?: string;
@@ -7,6 +7,6 @@ export class Payment {
     public CVVCode?: string;
     public CountryId?: string;
     public BillingAddress?: string;
-    public CityId?: string;
+    public City?: string;
     public ZIPCode?: string;
 }

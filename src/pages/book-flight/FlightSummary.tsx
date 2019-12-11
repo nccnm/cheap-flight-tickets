@@ -1,7 +1,12 @@
 import React from "react";
 import { Stack, Label, FontWeights, FontSizes } from "office-ui-fabric-react";
+import { Traveller } from "../../model/Traverller";
 
-export const FlightSummary: React.FunctionComponent = () => {
+type FlightSummaryProp = {
+    travellers: Traveller[];
+};
+
+export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ travellers }) => {
     return (
         <Stack
             verticalAlign="start"
@@ -258,7 +263,7 @@ export const FlightSummary: React.FunctionComponent = () => {
                                 }
                             }}
                         >
-                            Traverllers
+                            Travellers
                         </Label>
                         <Label
                             styles={{
@@ -271,193 +276,102 @@ export const FlightSummary: React.FunctionComponent = () => {
                             $186
                         </Label>
                     </Stack>
-
-                    <Stack
-                        styles={{
-                            root: {
-                                marginTop: "12px !important"
-                            }
-                        }}
-                    >
-                        <Stack>
-                            <Label
-                                styles={{
-                                    root: {
-                                        color: "#404156",
-                                        fontSize: FontSizes.mediumPlus
-                                    }
-                                }}
-                            >
-                                Olivia Davidson
-                            </Label>
-                        </Stack>
-                        <Stack horizontal>
-                            <Stack
-                                styles={{
-                                    root: {
-                                        marginRight: "72px",
-                                        padding: 2
-                                    }
-                                }}
-                            >
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    1 x cabin bag
-                                </Label>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    0x checked bag
-                                </Label>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    Insurance
-                                </Label>
-                            </Stack>
+                    {travellers.map((item, index) => (
+                        <Stack
+                            key={item._id}
+                            styles={{
+                                root: {
+                                    marginTop: "12px !important"
+                                }
+                            }}
+                        >
                             <Stack>
                                 <Label
                                     styles={{
                                         root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
+                                            color: "#404156",
+                                            fontSize: FontSizes.mediumPlus
                                         }
                                     }}
                                 >
-                                    free
-                                </Label>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    $80
-                                </Label>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    $13
+                                    {item.FirstName + " " + item.LastName}
                                 </Label>
                             </Stack>
-                        </Stack>
-                    </Stack>
-                    <Stack
-                        styles={{
-                            root: {
-                                marginTop: "12px !important"
-                            }
-                        }}
-                    >
-                        <Stack>
-                            <Label
-                                styles={{
-                                    root: {
-                                        color: "#404156",
-                                        padding: 2,
-                                        fontSize: FontSizes.mediumPlus
-                                    }
-                                }}
-                            >
-                                Adult 2
-                            </Label>
-                        </Stack>
-                        <Stack horizontal>
-                            <Stack
-                                styles={{
-                                    root: {
-                                        marginRight: "72px"
-                                    }
-                                }}
-                            >
-                                <Label
+                            <Stack horizontal>
+                                <Stack
                                     styles={{
                                         root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
+                                            marginRight: "72px",
+                                            padding: 2
                                         }
                                     }}
                                 >
-                                    1 x cabin bag
-                                </Label>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    0x checked bag
-                                </Label>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    Insurance
-                                </Label>
-                            </Stack>
-                            <Stack>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    free
-                                </Label>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    $160
-                                </Label>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    $13
-                                </Label>
+                                    <Label
+                                        styles={{
+                                            root: {
+                                                padding: 2,
+                                                fontSize: FontSizes.small
+                                            }
+                                        }}
+                                    >
+                                        1 x cabin bag
+                                    </Label>
+                                    <Label
+                                        styles={{
+                                            root: {
+                                                padding: 2,
+                                                fontSize: FontSizes.small
+                                            }
+                                        }}
+                                    >
+                                        {item.CheckedBaggae}x checked bag
+                                    </Label>
+                                    <Label
+                                        styles={{
+                                            root: {
+                                                padding: 2,
+                                                fontSize: FontSizes.small
+                                            }
+                                        }}
+                                    >
+                                        Insurance
+                                    </Label>
+                                </Stack>
+                                <Stack>
+                                    <Label
+                                        styles={{
+                                            root: {
+                                                padding: 2,
+                                                fontSize: FontSizes.small
+                                            }
+                                        }}
+                                    >
+                                        free
+                                    </Label>
+                                    <Label
+                                        styles={{
+                                            root: {
+                                                padding: 2,
+                                                fontSize: FontSizes.small
+                                            }
+                                        }}
+                                    >
+                                        $80
+                                    </Label>
+                                    <Label
+                                        styles={{
+                                            root: {
+                                                padding: 2,
+                                                fontSize: FontSizes.small
+                                            }
+                                        }}
+                                    >
+                                        $13
+                                    </Label>
+                                </Stack>
                             </Stack>
                         </Stack>
-                    </Stack>
+                    ))}
                 </Stack>
             </Stack>
             <Stack>

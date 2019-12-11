@@ -1,4 +1,4 @@
-export class Traverller {
+export class Traveller {
     public _id?: string;
     public PersonType?: string = "";
     public FirstName?: string = "";
@@ -9,8 +9,8 @@ export class Traverller {
     public PasportId?: string = "";
     public PasportExpiryDateMonth?: string = "";
     public PasportExpiryDateYear?: string = "";
-    public PasportNoExpiry?: string = "";
-    public CheckedBaggae?: number = 0;
+    public PasportNoExpiry?: boolean = false;
+    public CheckedBaggae?: string = "0";
     public TravelInsurance?: string = "";
 }
 
