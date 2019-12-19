@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Stack, IStackTokens } from "office-ui-fabric-react";
 
 import { useQuery } from "../../hooks/useQuery";
@@ -42,14 +42,22 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
     const fightService = new FlightService();
     const query = useQuery();
     const [searchFlightCriteria, setSearchFlightCriteria] = useState(getSearchFlightCriteria(query));
-    const [searchResult, setSearchResult] = useState<FlightDetail[]>(fightService.search(searchFlightCriteria));
+    // const [searchResult, setSearchResult] = useState<FlightDetail[]>(fightService.search(searchFlightCriteria));
+    const [searchResult, setSearchResult] = useState<FlightDetail[]>([]);
+
+    useEffect(() => {
+        fightService.search(searchFlightCriteria).then(function(flights) {
+            setSearchResult(flights || []);
+        });
+    }, []);
 
     const onCriteriaChanges = (criteria: SearchFlightCriteria) => {
         setSearchFlightCriteria({ ...searchFlightCriteria, ...criteria });
     };
 
-    const onSearchClick = (criteria: SearchFlightCriteria) => {
-        setSearchResult(fightService.search(criteria));
+    const onSearchClick = async (criteria: SearchFlightCriteria) => {
+        var flights = await fightService.search(criteria);
+        setSearchResult(flights);
     };
 
     return (
@@ -64,7 +72,7 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
                 criteria={searchFlightCriteria}
                 onCriteriaChanges={onCriteriaChanges}
                 onSearchClick={onSearchClick}
-            ></SearchFlights>
+            />
             <Stack
                 horizontal
                 tokens={{
@@ -75,8 +83,8 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
                     criteria={searchFlightCriteria}
                     onCriteriaChanges={onCriteriaChanges}
                     onSearchClick={onSearchClick}
-                ></SearchFilter>
-                <SearchResult result={searchResult} criteria={searchFlightCriteria}></SearchResult>
+                />
+                <SearchResult result={searchResult} criteria={searchFlightCriteria} />
             </Stack>
         </Stack>
     );
