@@ -60,6 +60,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProp> = (props: S
                 >
                     <Label>Sort by:</Label>
                     <Dropdown
+                        id="SortBy"
                         defaultSelectedKey="price"
                         options={options}
                         styles={{
@@ -73,7 +74,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProp> = (props: S
             <Stack>
                 <Stack>
                     {props.result.map(item => (
-                        <FlyInfoItem key={item.id} item={item} criteria={props.criteria}></FlyInfoItem>
+                        <FlyInfoItem key={item.id} item={item} criteria={props.criteria} />
                     ))}
                 </Stack>
             </Stack>

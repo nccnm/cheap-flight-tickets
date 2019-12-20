@@ -180,7 +180,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                         </Text>
                     </Stack>
                 </Stack>
-                <Stack></Stack>
+                <Stack />
             </Stack>
             <Stack>
                 <Stack
@@ -220,6 +220,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                             }}
                         >
                             <Dropdown
+                                id="From"
                                 placeholder="From"
                                 options={fromToOptions}
                                 selectedKey={criteria.from}
@@ -232,6 +233,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                                 onChange={handleOnFromChange}
                             />
                             <Dropdown
+                                id="To"
                                 placeholder="To"
                                 options={fromToOptions}
                                 selectedKey={criteria.to}
@@ -246,6 +248,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                         </Stack>
                         <Stack horizontal horizontalAlign="space-between">
                             <Dropdown
+                                id="Adults"
                                 options={adultOptions}
                                 selectedKey={criteria.adults}
                                 styles={{
@@ -257,6 +260,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                                 onChange={handleOnAdultOptionChange}
                             />
                             <Dropdown
+                                id="Children"
                                 options={childrenOptions}
                                 selectedKey={criteria.children}
                                 styles={{
@@ -268,6 +272,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                                 onChange={handleOnChildrenOptionChange}
                             />
                             <Dropdown
+                                id="Infants"
                                 options={infantOptions}
                                 selectedKey={criteria.infants}
                                 styles={{
@@ -279,6 +284,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                                 onChange={handleOnInfantOptionChange}
                             />
                             <Dropdown
+                                id="classType"
                                 options={classTypeOptions}
                                 selectedKey={criteria.classType}
                                 styles={{
