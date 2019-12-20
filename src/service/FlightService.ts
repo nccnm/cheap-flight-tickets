@@ -1,3 +1,4 @@
+import { Order } from './../model/Order';
 import { SearchFlightCriteria } from "../model/SearchFlightCriteria";
 import { FlightDetail } from "../model/FlightDetail";
 import { fromToOptions } from "../data/fromToOptions";
@@ -37,6 +38,17 @@ export class FlightService {
 
     public async getById(id: string): Promise<FlightDetail> {
         return axios.get(API_PATH + 'flight/' + id)
+            .then(function (response) {
+                return response.data.model || {};
+            })
+            .catch(function (error) {
+                console.error(error);
+                return {};
+            });
+    }
+
+    public async booking(order: Order): Promise<void> {
+        return axios.post(API_PATH + 'booking/', order)
             .then(function (response) {
                 return response.data.model || {};
             })

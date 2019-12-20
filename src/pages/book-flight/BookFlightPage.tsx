@@ -30,8 +30,7 @@ export const BookFlightPage: React.FunctionComponent = () => {
 
     const onClick = () => {
         const fightService = new FlightService();
-
-        console.log(order);
+        fightService.booking(order);
     };
 
     return (

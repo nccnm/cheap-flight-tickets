@@ -120,7 +120,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                         }}
                     >
                         <Stack>
-                            <Image src={props.item.returnAirlinePicture} />
+                            <Image width="30px" height="30px" src={props.item.returnAirlinePicture} />
                         </Stack>
                         <Stack>
                             <Label styles={airlineInfoStyle.airlineName}>{props.item.returnAirlineName}</Label>
