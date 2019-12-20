@@ -73,7 +73,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProp> = (props: S
             <Stack>
                 <Stack>
                     {props.result.map(item => (
-                        <FlyInfoItem key={item._id} item={item} criteria={props.criteria}></FlyInfoItem>
+                        <FlyInfoItem key={item.id} item={item} criteria={props.criteria}></FlyInfoItem>
                     ))}
                 </Stack>
             </Stack>

@@ -1,5 +1,5 @@
 export class Traveller {
-    public _id?: string;
+    public id?: string;
     public PersonType?: string = "";
     public FirstName?: string = "";
     public LastName?: string = "";

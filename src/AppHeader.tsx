@@ -77,7 +77,7 @@ export const AppHeader: React.FunctionComponent = () => {
                                     marginLeft: "22px"
                                 }
                             }}
-                        ></Separator>
+                        />
                         <FontIcon iconName="Lock" className={iconClass} />
                         <Link
                             styles={{
@@ -168,7 +168,7 @@ export const AppHeader: React.FunctionComponent = () => {
                                 }
                             }}
                         >
-                            flyplan
+                            HaiLua AirLine
                         </Link>
                     </Stack>
                     <Stack verticalAlign="center">

@@ -15,7 +15,7 @@ export class Order {
         for (let i = 0; i < parseInt(queries.adults); i++) {
             let traverller = new Traveller();
 
-            traverller._id = uuidv4();
+            traverller.id = uuidv4();
             traverller.PersonType = "adult";
 
             this.Travellers.push(traverller);
@@ -24,7 +24,7 @@ export class Order {
         for (let i = 0; i < parseInt(queries.childrens); i++) {
             let traverller = new Traveller();
 
-            traverller._id = uuidv4();
+            traverller.id = uuidv4();
             traverller.PersonType = "children";
 
             this.Travellers.push(traverller);
@@ -33,7 +33,7 @@ export class Order {
         for (let i = 0; i < parseInt(queries.infants); i++) {
             let traverller = new Traveller();
 
-            traverller._id = uuidv4();
+            traverller.id = uuidv4();
             traverller.PersonType = "infant";
 
             this.Travellers.push(traverller);

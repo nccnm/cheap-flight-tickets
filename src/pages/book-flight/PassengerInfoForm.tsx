@@ -62,7 +62,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
             </Stack>
             {localTravellers.map((item, index) => (
                 <Stack
-                    key={item._id}
+                    key={item.id}
                     styles={{
                         root: {
                             borderRadius: "4px",

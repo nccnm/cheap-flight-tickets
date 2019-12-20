@@ -6,11 +6,11 @@ import axios from "axios";
 
 export class FlightService {
     public async search(criteria: SearchFlightCriteria): Promise<FlightDetail[]> {
-        // let from = fromToOptions.find(f => f.key === criteria.from);
-        // let to = fromToOptions.find(t => t.key === criteria.to);
+        let from = fromToOptions.find(f => f.key === criteria.from);
+        let to = fromToOptions.find(t => t.key === criteria.to);
 
-        // const departText = from ? from.text : "";
-        // const returnText = to ? to.text : "";       
+        const departText = from ? from.text : "";
+        const returnText = to ? to.text : "";
 
         // if (criteria.roundTrip) {
         //     result = flightsRoundTrip.filter(f => {
@@ -22,20 +22,24 @@ export class FlightService {
         //     });
         // }
 
-        return axios.post('http://zerotoheroautomation-api.azurewebsites.net/api/flight', {
-            "from": "Shanghai",
-            "to": "Seoul",
-            "departDate": "2020-01-14T00:00:00.000Z",
-            "returnDate": "2020-01-16T00:00:00.000Z",
+        return axios.post('https://flyplanapi.azurewebsites.net/api/flight', {
+            "from": departText,
+            "to": returnText,
+            "departDate": criteria.departDate ? criteria.departDate.getFullYear() + "-" + (criteria.departDate.getMonth() + 1) + "-" + criteria.departDate.getDate() : null,
+            "returnDate": criteria.returnDate ? criteria.returnDate.getFullYear() + "-" + (criteria.returnDate.getMonth() + 1) + "-" + criteria.returnDate.getDate() : null,
             "classType": "Business Class",
-            "priceFrom": 700,
-            "priceTo": 790
+            "priceFrom": 0,
+            "priceTo": 1000,
+            "roundTrip": criteria.roundTrip
         })
             .then(function (response) {
+                if (response.data.model.length > 10) {
+                    return response.data.model.slice(0, 10);
+                }
                 return response.data.model || [];
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
                 return [];
             });
     }

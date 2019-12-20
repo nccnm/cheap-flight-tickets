@@ -278,7 +278,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                     </Stack>
                     {travellers.map((item, index) => (
                         <Stack
-                            key={item._id}
+                            key={item.id}
                             styles={{
                                 root: {
                                     marginTop: "12px !important"

@@ -70,7 +70,9 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
     let history = useHistory();
     const handleBookClick = (): void => {
         history.push(
-            `/book?_id=${props.item._id}&adults=${props.criteria.adults}&childrens=${props.criteria.children}&infants=${props.criteria.infants}&classType=${props.criteria.classType}`
+            `/book?id=${props.item.id}&adults=${props.criteria.adults}&childrens=${props.criteria.children}&infants=${
+                props.criteria.infants
+            }&classType=${props.criteria.classType}`
         );
     };
 
@@ -105,11 +107,11 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                         }}
                     >
                         <Stack>
-                            <Image src={props.item.DepartAirlinePicture} />
+                            <Image src={props.item.departAirlinePicture} />
                         </Stack>
                         <Stack>
-                            <Label styles={airlineInfoStyle.airlineName}>{props.item.DepartAirlineName}</Label>
-                            <Label styles={airlineInfoStyle.airlineName}>{props.item.DepartAirlinePlane}</Label>
+                            <Label styles={airlineInfoStyle.airlineName}>{props.item.departAirlineName}</Label>
+                            <Label styles={airlineInfoStyle.airlineName}>{props.item.departAirlinePlane}</Label>
                         </Stack>
                     </Stack>
                     <Stack
@@ -120,11 +122,11 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                         }}
                     >
                         <Stack>
-                            <Image src={props.item.ReturnAirlinePicture} />
+                            <Image src={props.item.returnAirlinePicture} />
                         </Stack>
                         <Stack>
-                            <Label styles={airlineInfoStyle.airlineName}>{props.item.ReturnAirlineName}</Label>
-                            <Label styles={airlineInfoStyle.airlineName}>{props.item.ReturnAirlinePlane}</Label>
+                            <Label styles={airlineInfoStyle.airlineName}>{props.item.returnAirlineName}</Label>
+                            <Label styles={airlineInfoStyle.airlineName}>{props.item.returnAirlinePlane}</Label>
                         </Stack>
                     </Stack>
                 </Card.Section>
@@ -137,12 +139,12 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                 >
                     <Stack verticalAlign="start">
                         <Label styles={airlineInfoStyle.depart.time}>
-                            {moment(props.item.DepartTime).format("LT")}
+                            {moment(props.item.departTime).format("LT")}
                         </Label>
                         <Label styles={airlineInfoStyle.depart.date}>
-                            {moment(props.item.DepartTime).format("LL")}
+                            {moment(props.item.departTime).format("LL")}
                         </Label>
-                        <Label styles={airlineInfoStyle.depart.airport}>{props.item.Depart}</Label>
+                        <Label styles={airlineInfoStyle.depart.airport}>{props.item.depart}</Label>
                     </Stack>
                 </Card.Section>
                 <Card.Section
@@ -162,9 +164,11 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                             }
                         }}
                     >
-                        <Label styles={airlineInfoStyle.depart.date}>{props.item.TotalTime}</Label>
+                        <Label styles={airlineInfoStyle.depart.date}>{props.item.totalTime}</Label>
                         <Label styles={airlineInfoStyle.stops}>
-                            {props.item.Stops.length > 0 ? props.item.Stops.length + " stops" : "Non stop"}
+                            {props.item && props.item.stops && props.item.stops.length > 0
+                                ? props.item.stops.length + " stops"
+                                : "Non stop"}
                         </Label>
                         {/* <DefaultButton
                                 text="Detail"
@@ -190,12 +194,12 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                 >
                     <Stack verticalAlign="start">
                         <Label styles={airlineInfoStyle.depart.time}>
-                            {moment(props.item.ReturnTime).format("LT")}
+                            {moment(props.item.returnTime).format("LT")}
                         </Label>
                         <Label styles={airlineInfoStyle.depart.date}>
-                            {moment(props.item.ReturnTime).format("LL")}
+                            {moment(props.item.returnTime).format("LL")}
                         </Label>
-                        <Label styles={airlineInfoStyle.depart.airport}>{props.item.Return}</Label>
+                        <Label styles={airlineInfoStyle.depart.airport}>{props.item.return}</Label>
                     </Stack>
                 </Card.Section>
                 <Card.Section
@@ -207,7 +211,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                         }
                     }}
                 >
-                    <Separator vertical></Separator>
+                    <Separator vertical />
                     <Stack
                         verticalAlign="center"
                         horizontalAlign="center"
@@ -217,7 +221,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                             }
                         }}
                     >
-                        <Label styles={airlineInfoStyle.price.text}>${props.item.TotalMoney}</Label>
+                        <Label styles={airlineInfoStyle.price.text}>${props.item.totalMoney}</Label>
                         <PrimaryButton
                             text="Book"
                             onClick={handleBookClick}
