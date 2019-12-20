@@ -1,6 +1,6 @@
 export class ConfirmationInfo {
-    public EmailAddress?: string;
-    public PhoneNumber?: string;
-    public IsAcceptedRule?: boolean;
-    public IsSendEmail?: boolean;
+    public emailAddress?: string;
+    public phoneNumber?: string;
+    public isAcceptedRule?: boolean;
+    public isSendEmail?: boolean;
 }

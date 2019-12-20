@@ -4,39 +4,39 @@ import { PaymentInfo } from "./PaymentInfo"
 import { ConfirmationInfo } from "./ConfirmationInfo"
 
 export class Order {
-    public FlightId: string;
-    public Travellers: Traveller[] = [];
-    public Payment: PaymentInfo = new PaymentInfo();
-    public Confirmation: ConfirmationInfo = new ConfirmationInfo();
+    public flightId: string;
+    public travellerViewModels: Traveller[] = [];
+    public paymentViewModel: PaymentInfo = new PaymentInfo();
+    public confirmationInfoViewModel: ConfirmationInfo = new ConfirmationInfo();
 
     constructor(queries) {
-        this.FlightId = queries._id;
+        this.flightId = queries.id;
 
         for (let i = 0; i < parseInt(queries.adults); i++) {
             let traverller = new Traveller();
 
             traverller.id = uuidv4();
-            traverller.PersonType = "adult";
+            traverller.personType = "adult";
 
-            this.Travellers.push(traverller);
+            this.travellerViewModels.push(traverller);
         }
 
         for (let i = 0; i < parseInt(queries.childrens); i++) {
             let traverller = new Traveller();
 
             traverller.id = uuidv4();
-            traverller.PersonType = "children";
+            traverller.personType = "children";
 
-            this.Travellers.push(traverller);
+            this.travellerViewModels.push(traverller);
         }
 
         for (let i = 0; i < parseInt(queries.infants); i++) {
             let traverller = new Traveller();
 
             traverller.id = uuidv4();
-            traverller.PersonType = "infant";
+            traverller.personType = "infant";
 
-            this.Travellers.push(traverller);
+            this.travellerViewModels.push(traverller);
         }
     }
 }

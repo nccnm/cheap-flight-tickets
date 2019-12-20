@@ -12,26 +12,27 @@ import { ConfirmationInfo } from "../../model/ConfirmationInfo";
 type PassengerFormProps = {
     order: Order;
     onChange: (order: Order) => void;
+    onClick: () => void;
 };
 
-export const PassengerForm: React.FunctionComponent<PassengerFormProps> = ({ order, onChange }) => {
+export const PassengerForm: React.FunctionComponent<PassengerFormProps> = ({ order, onChange, onClick }) => {
     const handlePassengerInfoFormOnChange = (travellers: Traveller[]) => {
-        order.Travellers = travellers;
+        order.travellerViewModels = travellers;
         onChange(order);
     };
 
     const handlePaymentOnChange = (payment: PaymentInfo) => {
-        order.Payment = payment;
+        order.paymentViewModel = payment;
         onChange(order);
     };
 
     const handleConfirmationOnChange = (confirmation: ConfirmationInfo) => {
-        order.Confirmation = confirmation;
+        order.confirmationInfoViewModel = confirmation;
         onChange(order);
     };
 
     const handleBuyNowClick = () => {
-        console.log(order);
+        onClick();
     };
 
     return (
@@ -40,12 +41,9 @@ export const PassengerForm: React.FunctionComponent<PassengerFormProps> = ({ ord
                 childrenGap: 20
             }}
         >
-            <PassengerInfoForm
-                travellers={order.Travellers}
-                onChange={handlePassengerInfoFormOnChange}
-            ></PassengerInfoForm>
-            <Payment payment={order.Payment} onChange={handlePaymentOnChange}></Payment>
-            <Confirmation confirmation={order.Confirmation} onChange={handleConfirmationOnChange}></Confirmation>
+            <PassengerInfoForm travellers={order.travellerViewModels} onChange={handlePassengerInfoFormOnChange} />
+            <Payment payment={order.paymentViewModel} onChange={handlePaymentOnChange} />
+            <Confirmation confirmation={order.confirmationInfoViewModel} onChange={handleConfirmationOnChange} />
             <PrimaryButton
                 text="Buy Now"
                 styles={{

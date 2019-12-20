@@ -112,7 +112,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 }
                             }}
                         >
-                            {item.FirstName + " " + item.LastName}
+                            {item.firstName + " " + item.lastName}
                         </Label>
                     </Stack>
                     <Stack
@@ -132,7 +132,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     marginRight: "16px"
                                 }
                             }}
-                        ></Stack>
+                        />
                         <Label>Personal information</Label>
                     </Stack>
                     <Stack
@@ -160,10 +160,10 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }
                                 }}
                                 label="First Name"
-                                value={item.FirstName}
+                                value={item.firstName}
                                 id="FirstName"
                                 onChange={(event: any, newValue) => {
-                                    handleFormElementValueChange(index, { FirstName: newValue });
+                                    handleFormElementValueChange(index, { firstName: newValue });
                                 }}
                             />
                             <TextField
@@ -173,10 +173,10 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }
                                 }}
                                 label="Last Name"
-                                value={item.LastName}
+                                value={item.lastName}
                                 id="LastName"
                                 onChange={(event: any, newValue) => {
-                                    handleFormElementValueChange(index, { LastName: newValue });
+                                    handleFormElementValueChange(index, { lastName: newValue });
                                 }}
                             />
                             <Stack
@@ -197,9 +197,9 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     })}
                                     label="Date of Birth"
                                     id="DateOfBirth"
-                                    value={item.DateOfBirth}
+                                    value={item.dateOfBirth}
                                     onSelectDate={(date: any) => {
-                                        handleFormElementValueChange(index, { DateOfBirth: date });
+                                        handleFormElementValueChange(index, { dateOfBirth: date });
                                     }}
                                 />
                                 <ComboBox
@@ -213,13 +213,13 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     options={genderOptions}
                                     allowFreeform
                                     autoComplete="on"
-                                    selectedKey={item.Gender}
+                                    selectedKey={item.gender}
                                     onChange={(event: any, option?: IDropdownOption) => {
                                         handleFormElementValueChange(index, {
-                                            Gender: option ? option.key : item.Gender
+                                            gender: option ? option.key : item.gender
                                         });
                                     }}
-                                ></ComboBox>
+                                />
                             </Stack>
                         </Stack>
                         <Stack
@@ -244,13 +244,13 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 options={nationalitiesOptions}
                                 allowFreeform
                                 autoComplete="on"
-                                selectedKey={item.Nationality}
+                                selectedKey={item.nationality}
                                 onChange={(event: any, option?: IDropdownOption) => {
                                     handleFormElementValueChange(index, {
-                                        Nationality: option ? option.key : item.Nationality
+                                        nationality: option ? option.key : item.nationality
                                     });
                                 }}
-                            ></ComboBox>
+                            />
                             <TextField
                                 styles={{
                                     root: {
@@ -258,10 +258,10 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }
                                 }}
                                 label="Pasport or ID number"
-                                value={item.PasportId}
+                                value={item.pasportId}
                                 id="PasportId"
                                 onChange={(event: any, newValue) => {
-                                    handleFormElementValueChange(index, { PasportId: newValue });
+                                    handleFormElementValueChange(index, { pasportId: newValue });
                                 }}
                             />
                             <Stack
@@ -283,10 +283,10 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         }
                                     }}
                                     label="Expiry Date"
-                                    value={item.PasportExpiryDateMonth}
+                                    value={item.pasportExpiryDateMonth}
                                     id="PasportExpiryDateMonth"
                                     onChange={(event: any, newValue) => {
-                                        handleFormElementValueChange(index, { PasportExpiryDateMonth: newValue });
+                                        handleFormElementValueChange(index, { pasportExpiryDateMonth: newValue });
                                     }}
                                 />
                                 <TextField
@@ -297,10 +297,10 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         }
                                     }}
                                     label="&nbsp;"
-                                    value={item.PasportExpiryDateYear}
+                                    value={item.pasportExpiryDateYear}
                                     id="PasportExpiryDateYear"
                                     onChange={(event: any, newValue) => {
-                                        handleFormElementValueChange(index, { PasportExpiryDateYear: newValue });
+                                        handleFormElementValueChange(index, { pasportExpiryDateYear: newValue });
                                     }}
                                 />
                                 <Checkbox
@@ -311,12 +311,12 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         }
                                     }}
                                     label="No expiry"
-                                    checked={item.PasportNoExpiry}
+                                    checked={item.pasportNoExpiry}
                                     id="PasportNoExpiry"
                                     onChange={(event: any, checked) => {
-                                        handleFormElementValueChange(index, { PasportNoExpiry: checked });
+                                        handleFormElementValueChange(index, { pasportNoExpiry: checked });
                                     }}
-                                ></Checkbox>
+                                />
                             </Stack>
                         </Stack>
                     </Stack>
@@ -337,7 +337,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     marginRight: "16px"
                                 }
                             }}
-                        ></Stack>
+                        />
                         <Label>Baggage</Label>
                     </Stack>
                     <Stack
@@ -367,29 +367,29 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 min={0}
                                 max={10}
                                 label="Checked Baggages"
-                                value={item.CheckedBaggae}
+                                value={item.checkedBaggae}
                                 onChange={(event: any) => {
                                     const numberValue = Number(event.target.value);
                                     if (numberValue) {
                                         if (numberValue <= 10 && numberValue >= 0) {
-                                            handleFormElementValueChange(index, { CheckedBaggae: event.target.value });
+                                            handleFormElementValueChange(index, { checkedBaggae: event.target.value });
                                         } else {
-                                            handleFormElementValueChange(index, { CheckedBaggae: item.CheckedBaggae });
+                                            handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
                                         }
                                     } else {
-                                        handleFormElementValueChange(index, { CheckedBaggae: item.CheckedBaggae });
+                                        handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
                                     }
                                 }}
                                 onBlur={(event: any) => {
                                     const numberValue = Number(event.target.value);
                                     if (numberValue) {
                                         if (numberValue <= 10 && numberValue >= 0) {
-                                            handleFormElementValueChange(index, { CheckedBaggae: event.target.value });
+                                            handleFormElementValueChange(index, { checkedBaggae: event.target.value });
                                         } else {
-                                            handleFormElementValueChange(index, { CheckedBaggae: item.CheckedBaggae });
+                                            handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
                                         }
                                     } else {
-                                        handleFormElementValueChange(index, { CheckedBaggae: item.CheckedBaggae });
+                                        handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
                                     }
                                 }}
                             />
@@ -399,14 +399,14 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         flexBasis: "100%"
                                     }
                                 }}
-                            ></Stack>
+                            />
                             <Stack
                                 styles={{
                                     root: {
                                         flexBasis: "100%"
                                     }
                                 }}
-                            ></Stack>
+                            />
                         </Stack>
                     </Stack>
                     <Stack
@@ -426,7 +426,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     marginRight: "16px"
                                 }
                             }}
-                        ></Stack>
+                        />
                         <Label>Travel Insurance</Label>
                     </Stack>
                     <Stack
@@ -467,9 +467,9 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     flexDirection: "row"
                                 })}
                                 id="TravelInsurance"
-                                selectedKey={item.TravelInsurance}
+                                selectedKey={item.travelInsurance}
                                 onChange={(event: any, checked) => {
-                                    handleFormElementValueChange(index, { TravelInsurance: checked.key });
+                                    handleFormElementValueChange(index, { travelInsurance: checked.key });
                                 }}
                             />
                         </Stack>

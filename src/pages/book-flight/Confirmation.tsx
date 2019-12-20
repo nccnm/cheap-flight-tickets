@@ -84,12 +84,12 @@ export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmati
                                 }
                             }}
                             label="Email Address"
-                            value={confirmation.EmailAddress}
+                            value={confirmation.emailAddress}
                             id="EmailAddress"
                             onChange={(event: any, newValue) => {
-                                handleFormElementValueChange({ EmailAddress: newValue });
+                                handleFormElementValueChange({ emailAddress: newValue });
                             }}
-                        ></TextField>
+                        />
                         <TextField
                             styles={{
                                 root: {
@@ -97,10 +97,10 @@ export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmati
                                 }
                             }}
                             label="Phone Number"
-                            value={confirmation.PhoneNumber}
+                            value={confirmation.phoneNumber}
                             id="PhoneNumber"
                             onChange={(event: any, newValue) => {
-                                handleFormElementValueChange({ PhoneNumber: newValue });
+                                handleFormElementValueChange({ phoneNumber: newValue });
                             }}
                         />
                     </Stack>
@@ -117,18 +117,18 @@ export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmati
                     >
                         <Checkbox
                             label="I Accept the Rules of this Trip"
-                            checked={confirmation.IsAcceptedRule}
+                            checked={confirmation.isAcceptedRule}
                             id="IsAcceptedRule"
                             onChange={(event: any, newValue) => {
-                                handleFormElementValueChange({ IsAcceptedRule: newValue });
+                                handleFormElementValueChange({ isAcceptedRule: newValue });
                             }}
                         />
                         <Checkbox
                             label="Send Me the Best Deals by Email"
-                            checked={confirmation.IsSendEmail}
+                            checked={confirmation.isSendEmail}
                             id="IsSendEmail"
                             onChange={(event: any, newValue) => {
-                                handleFormElementValueChange({ IsSendEmail: newValue });
+                                handleFormElementValueChange({ isSendEmail: newValue });
                             }}
                         />
                     </Stack>

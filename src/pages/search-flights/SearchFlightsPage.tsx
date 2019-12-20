@@ -42,7 +42,6 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
     const fightService = new FlightService();
     const query = useQuery();
     const [searchFlightCriteria, setSearchFlightCriteria] = useState(getSearchFlightCriteria(query));
-    // const [searchResult, setSearchResult] = useState<FlightDetail[]>(fightService.search(searchFlightCriteria));
     const [searchResult, setSearchResult] = useState<FlightDetail[]>([]);
 
     useEffect(() => {

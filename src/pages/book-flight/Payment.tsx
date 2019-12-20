@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-    ChoiceGroup,
-    ComboBox,
-    Dropdown,
-    IDropdownOption,
-    FontSizes,
-    Label,
-    Stack,
-    TextField
-} from "office-ui-fabric-react";
+import { ChoiceGroup, ComboBox, FontSizes, Label, Stack, TextField } from "office-ui-fabric-react";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
 import { creditCardTypeOptions } from "../../data/creditCardTypeOptions";
 import { countryOptions } from "../../data/countryOptions";
@@ -97,9 +88,9 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                             }}
                             className={mergeStyles({ display: "flex", color: "rgb(50, 49, 48)" })}
                             id="TravelInsurance"
-                            selectedKey={payment.CreditCardType}
+                            selectedKey={payment.creditCardType}
                             onChange={(event: any, checked) => {
-                                handleFormElementValueChange({ CreditCardType: checked.key });
+                                handleFormElementValueChange({ creditCardType: checked.key });
                             }}
                         />
                     </Stack>
@@ -121,12 +112,12 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                 }
                             }}
                             label="Card Number"
-                            value={payment.CardNumber}
+                            value={payment.cardNumber}
                             id="CardNumber"
                             onChange={(event: any, newValue) => {
-                                handleFormElementValueChange({ CardNumber: newValue });
+                                handleFormElementValueChange({ cardNumber: newValue });
                             }}
-                        ></TextField>
+                        />
                         <TextField
                             styles={{
                                 root: {
@@ -134,10 +125,10 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                 }
                             }}
                             label="Name on the Card"
-                            value={payment.NameOnTheCard}
+                            value={payment.nameOnTheCard}
                             id="NameOnTheCard"
                             onChange={(event: any, newValue) => {
-                                handleFormElementValueChange({ NameOnTheCard: newValue });
+                                handleFormElementValueChange({ nameOnTheCard: newValue });
                             }}
                         />
                         <Stack
@@ -160,10 +151,10 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                     }
                                 }}
                                 label="Expiry Date"
-                                value={payment.ExpiryDateInMonth}
+                                value={payment.expiryDateInMonth}
                                 id="ExpiryDateInMonth"
                                 onChange={(event: any, newValue) => {
-                                    handleFormElementValueChange({ ExpiryDateInMonth: newValue });
+                                    handleFormElementValueChange({ expiryDateInMonth: newValue });
                                 }}
                             />
                             <TextField
@@ -174,10 +165,10 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                     }
                                 }}
                                 label=""
-                                value={payment.ExpiryDateInYear}
+                                value={payment.expiryDateInYear}
                                 id="ExpiryDateInYear"
                                 onChange={(event: any, newValue) => {
-                                    handleFormElementValueChange({ ExpiryDateInYear: newValue });
+                                    handleFormElementValueChange({ expiryDateInYear: newValue });
                                 }}
                             />
                             <TextField
@@ -187,10 +178,10 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                     }
                                 }}
                                 label="CVV Code"
-                                value={payment.CVVCode}
+                                value={payment.cvvCode}
                                 id="CVVCode"
                                 onChange={(event: any, newValue) => {
-                                    handleFormElementValueChange({ CVVCode: newValue });
+                                    handleFormElementValueChange({ cvvCode: newValue });
                                 }}
                             />
                         </Stack>
@@ -216,12 +207,12 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                             allowFreeform
                             autoComplete="on"
                             options={countryOptions}
-                            selectedKey={payment.CountryId}
+                            selectedKey={payment.countryId}
                             id="CountryId"
                             onChange={(event: any, option) => {
-                                handleFormElementValueChange({ CountryId: option ? option.key : payment.CountryId });
+                                handleFormElementValueChange({ countryId: option ? option.key : payment.countryId });
                             }}
-                        ></ComboBox>
+                        />
                         <TextField
                             styles={{
                                 root: {
@@ -229,10 +220,10 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                 }
                             }}
                             label="Billing Address"
-                            value={payment.BillingAddress}
+                            value={payment.billingAddress}
                             id="BillingAddress"
                             onChange={(event: any, newValue) => {
-                                handleFormElementValueChange({ BillingAddress: newValue });
+                                handleFormElementValueChange({ billingAddress: newValue });
                             }}
                         />
                         <Stack
@@ -253,10 +244,10 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                     }
                                 }}
                                 label="City"
-                                value={payment.City}
+                                value={payment.city}
                                 id="City"
                                 onChange={(event: any, newValue) => {
-                                    handleFormElementValueChange({ City: newValue });
+                                    handleFormElementValueChange({ city: newValue });
                                 }}
                             />
                             <TextField
@@ -267,10 +258,10 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                     }
                                 }}
                                 label="ZIP Code"
-                                value={payment.ZIPCode}
+                                value={payment.zipCode}
                                 id="ZIPCode"
                                 onChange={(event: any, newValue) => {
-                                    handleFormElementValueChange({ ZIPCode: newValue });
+                                    handleFormElementValueChange({ zipCode: newValue });
                                 }}
                             />
                         </Stack>

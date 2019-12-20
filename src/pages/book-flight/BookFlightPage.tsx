@@ -6,8 +6,8 @@ import { useLocation } from "react-router-dom";
 import { FlightSummary } from "./FlightSummary";
 import { PassengerForm } from "./PassengerForm";
 import { Order } from "../../model/Order";
-
 import { Traveller } from "../../model/Traverller";
+import { FlightService } from "../../service/FlightService";
 
 const rootStyle = {
     root: {
@@ -19,11 +19,19 @@ const rootStyle = {
 
 export const BookFlightPage: React.FunctionComponent = () => {
     const { search } = useLocation();
-    const order = new Order(qs.parse(search.substr(1)));
-    const [travellers, setTravellers] = useState<Traveller[]>(order.Travellers);
+    const [order, setOrder] = useState<Order>(new Order(qs.parse(search.substr(1))));
+    const [travellers, setTravellers] = useState<Traveller[]>(order.travellerViewModels);
 
     const onOrderChange = (order: Order) => {
-        setTravellers(order.Travellers);
+        order.travellerViewModels = [...order.travellerViewModels];
+        setOrder(order);
+        setTravellers(order.travellerViewModels);
+    };
+
+    const onClick = () => {
+        const fightService = new FlightService();
+
+        console.log(order);
     };
 
     return (
@@ -36,10 +44,10 @@ export const BookFlightPage: React.FunctionComponent = () => {
                 root: rootStyle.root
             }}
         >
-            <PassengerForm order={order} onChange={onOrderChange}></PassengerForm>
-            <Panel headerText="SUMMARY" isBlocking={false} isOpen={true}>
-                <FlightSummary travellers={travellers}></FlightSummary>
-            </Panel>
+            <PassengerForm order={order} onChange={onOrderChange} onClick={onClick} />
+            {/* <Panel headerText="SUMMARY" isBlocking={false} isOpen={true}>
+                <FlightSummary travellers={travellers} />
+            </Panel> */}
         </Stack>
     );
 };

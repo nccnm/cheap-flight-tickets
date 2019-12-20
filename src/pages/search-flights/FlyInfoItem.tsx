@@ -70,9 +70,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
     let history = useHistory();
     const handleBookClick = (): void => {
         history.push(
-            `/book?id=${props.item.id}&adults=${props.criteria.adults}&childrens=${props.criteria.children}&infants=${
-                props.criteria.infants
-            }&classType=${props.criteria.classType}`
+            `/book?id=${props.item.id}&adults=${props.criteria.adults}&childrens=${props.criteria.children}&infants=${props.criteria.infants}&classType=${props.criteria.classType}`
         );
     };
 
@@ -107,7 +105,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                         }}
                     >
                         <Stack>
-                            <Image src={props.item.departAirlinePicture} />
+                            <Image width="30px" height="30px" src={props.item.departAirlinePicture} />
                         </Stack>
                         <Stack>
                             <Label styles={airlineInfoStyle.airlineName}>{props.item.departAirlineName}</Label>

@@ -1,8 +1,9 @@
 import { SearchFlightCriteria } from "../model/SearchFlightCriteria";
 import { FlightDetail } from "../model/FlightDetail";
-import { flightsRoundTrip, flightsOneWay } from "../data/flights";
 import { fromToOptions } from "../data/fromToOptions";
 import axios from "axios";
+
+const API_PATH = "https://flyplanapi.azurewebsites.net/api/";
 
 export class FlightService {
     public async search(criteria: SearchFlightCriteria): Promise<FlightDetail[]> {
@@ -12,17 +13,7 @@ export class FlightService {
         const departText = from ? from.text : "";
         const returnText = to ? to.text : "";
 
-        // if (criteria.roundTrip) {
-        //     result = flightsRoundTrip.filter(f => {
-        //         return f.Depart === departText && f.Return === returnText;
-        //     });
-        // } else {
-        //     result = flightsOneWay.filter(f => {
-        //         return f.Depart === departText && f.Return === returnText;
-        //     });
-        // }
-
-        return axios.post('https://flyplanapi.azurewebsites.net/api/flight', {
+        return axios.post(API_PATH + 'flight', {
             "from": departText,
             "to": returnText,
             "departDate": criteria.departDate ? criteria.departDate.getFullYear() + "-" + (criteria.departDate.getMonth() + 1) + "-" + criteria.departDate.getDate() : null,
@@ -41,6 +32,17 @@ export class FlightService {
             .catch(function (error) {
                 console.error(error);
                 return [];
+            });
+    }
+
+    public async getById(id: string): Promise<FlightDetail> {
+        return axios.get(API_PATH + 'flight/' + id)
+            .then(function (response) {
+                return response.data.model || {};
+            })
+            .catch(function (error) {
+                console.error(error);
+                return {};
             });
     }
 }

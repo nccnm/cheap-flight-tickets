@@ -294,7 +294,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                         }
                                     }}
                                 >
-                                    {item.FirstName + " " + item.LastName}
+                                    {item.firstName + " " + item.lastName}
                                 </Label>
                             </Stack>
                             <Stack horizontal>
@@ -324,7 +324,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                             }
                                         }}
                                     >
-                                        {item.CheckedBaggae}x checked bag
+                                        {item.checkedBaggae}x checked bag
                                     </Label>
                                     <Label
                                         styles={{
