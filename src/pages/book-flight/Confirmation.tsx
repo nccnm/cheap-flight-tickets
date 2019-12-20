@@ -86,6 +86,7 @@ export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmati
                             label="Email Address"
                             value={confirmation.emailAddress}
                             id="EmailAddress"
+                            required
                             onChange={(event: any, newValue) => {
                                 handleFormElementValueChange({ emailAddress: newValue });
                             }}
@@ -99,6 +100,7 @@ export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmati
                             label="Phone Number"
                             value={confirmation.phoneNumber}
                             id="PhoneNumber"
+                            required
                             onChange={(event: any, newValue) => {
                                 handleFormElementValueChange({ phoneNumber: newValue });
                             }}

@@ -162,6 +162,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 label="First Name"
                                 value={item.firstName}
                                 id="FirstName"
+                                required
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange(index, { firstName: newValue });
                                 }}
@@ -175,6 +176,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 label="Last Name"
                                 value={item.lastName}
                                 id="LastName"
+                                required
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange(index, { lastName: newValue });
                                 }}
@@ -210,6 +212,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }}
                                     label="Gender"
                                     id="Gender"
+                                    required
                                     options={genderOptions}
                                     allowFreeform
                                     autoComplete="on"
@@ -241,6 +244,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 }}
                                 label="Nationality"
                                 id="Nationality"
+                                required
                                 options={nationalitiesOptions}
                                 allowFreeform
                                 autoComplete="on"
@@ -260,6 +264,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 label="Pasport or ID number"
                                 value={item.pasportId}
                                 id="PasportId"
+                                required
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange(index, { pasportId: newValue });
                                 }}
@@ -285,6 +290,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     label="Expiry Date"
                                     value={item.pasportExpiryDateMonth}
                                     id="PasportExpiryDateMonth"
+                                    required
                                     onChange={(event: any, newValue) => {
                                         handleFormElementValueChange(index, { pasportExpiryDateMonth: newValue });
                                     }}
@@ -299,6 +305,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     label="&nbsp;"
                                     value={item.pasportExpiryDateYear}
                                     id="PasportExpiryDateYear"
+                                    required
                                     onChange={(event: any, newValue) => {
                                         handleFormElementValueChange(index, { pasportExpiryDateYear: newValue });
                                     }}

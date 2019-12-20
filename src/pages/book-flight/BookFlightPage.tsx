@@ -3,11 +3,10 @@ import qs from "qs";
 import { Stack, Panel } from "office-ui-fabric-react";
 import { useLocation } from "react-router-dom";
 
-import { FlightSummary } from "./FlightSummary";
 import { PassengerForm } from "./PassengerForm";
 import { Order } from "../../model/Order";
-import { Traveller } from "../../model/Traverller";
 import { FlightService } from "../../service/FlightService";
+import { OrderValidationResult } from "../../model/OrderValidationResult";
 
 const rootStyle = {
     root: {
@@ -20,16 +19,18 @@ const rootStyle = {
 export const BookFlightPage: React.FunctionComponent = () => {
     const { search } = useLocation();
     const [order, setOrder] = useState<Order>(new Order(qs.parse(search.substr(1))));
-    const [travellers, setTravellers] = useState<Traveller[]>(order.travellerViewModels);
+    const [validationResult, setValidationResult] = useState<OrderValidationResult>(
+        new OrderValidationResult(order.travellerViewModels.length)
+    );
 
     const onOrderChange = (order: Order) => {
         order.travellerViewModels = [...order.travellerViewModels];
         setOrder(order);
-        setTravellers(order.travellerViewModels);
     };
 
     const onClick = () => {
         const fightService = new FlightService();
+
         fightService.booking(order);
     };
 
