@@ -8,14 +8,21 @@ import { Order } from "../../model/Order";
 import { Traveller } from "../../model/Traverller";
 import { PaymentInfo } from "../../model/PaymentInfo";
 import { ConfirmationInfo } from "../../model/ConfirmationInfo";
+import { OrderResult, OrderValidationResult } from "../../model/OrderValidationResult";
 
 type PassengerFormProps = {
     order: Order;
     onChange: (order: Order) => void;
     onClick: () => void;
+    validation: OrderValidationResult;
 };
 
-export const PassengerForm: React.FunctionComponent<PassengerFormProps> = ({ order, onChange, onClick }) => {
+export const PassengerForm: React.FunctionComponent<PassengerFormProps> = ({
+    order,
+    onChange,
+    onClick,
+    validation
+}) => {
     const handlePassengerInfoFormOnChange = (travellers: Traveller[]) => {
         order.travellerViewModels = travellers;
         onChange(order);
@@ -41,9 +48,21 @@ export const PassengerForm: React.FunctionComponent<PassengerFormProps> = ({ ord
                 childrenGap: 20
             }}
         >
-            <PassengerInfoForm travellers={order.travellerViewModels} onChange={handlePassengerInfoFormOnChange} />
-            <Payment payment={order.paymentViewModel} onChange={handlePaymentOnChange} />
-            <Confirmation confirmation={order.confirmationInfoViewModel} onChange={handleConfirmationOnChange} />
+            <PassengerInfoForm
+                travellers={order.travellerViewModels}
+                onChange={handlePassengerInfoFormOnChange}
+                validation={validation.result.travellerViewModels}
+            />
+            <Payment
+                payment={order.paymentViewModel}
+                onChange={handlePaymentOnChange}
+                validation={validation.result.paymentViewModel}
+            />
+            <Confirmation
+                confirmation={order.confirmationInfoViewModel}
+                onChange={handleConfirmationOnChange}
+                validation={validation.result.confirmationInfoViewModel}
+            />
             <PrimaryButton
                 text="Buy Now"
                 styles={{

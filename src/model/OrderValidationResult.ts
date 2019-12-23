@@ -1,4 +1,4 @@
-class TravellerResult {
+export class TravellerResult {
     public personType?: string = "";
     public firstName?: string = "";
     public lastName?: string = "";
@@ -13,7 +13,7 @@ class TravellerResult {
     public travelInsurance?: string = "";
 }
 
-class PaymentInfoResult {
+export class PaymentInfoResult {
     public creditCardType?: string = "";
     public cardNumber?: string = "";
     public nameOnTheCard?: string = "";
@@ -26,29 +26,34 @@ class PaymentInfoResult {
     public zipCode?: string = "";
 }
 
-class ConfirmationInfoResult {
+export class ConfirmationInfoResult {
     public emailAddress?: string = "";
     public phoneNumber?: string = "";
     public isAcceptedRule?: string = "";
-    public isSendEmail?: string = "";
 }
 
-class OrderResult {
+export class OrderResult {
     travellerViewModels: TravellerResult[] = [];
     paymentViewModel: PaymentInfoResult = new PaymentInfoResult();
     confirmationInfoViewModel: ConfirmationInfoResult = new ConfirmationInfoResult();
 }
 
 export class OrderValidationResult {
-    isValid: boolean = false;
-    result: OrderResult;
+    result: OrderResult = new OrderResult();
 
-    constructor(numberOfTraveller: number) {
-        this.result = new OrderResult();
+    isValid(): boolean {
+        let result = true;
 
-        for (let i = 0; i < numberOfTraveller; i++) {
-            const travallerResult = new TravellerResult();
-            this.result.travellerViewModels.push(travallerResult);
+        if (this.result.confirmationInfoViewModel || this.result.paymentViewModel) {
+            result = false
         }
+
+        this.result.travellerViewModels.forEach(travellerResult => {
+            if (travellerResult) {
+                result = false
+            }
+        });
+
+        return result;
     }
 }

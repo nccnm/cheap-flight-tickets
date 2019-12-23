@@ -7,6 +7,7 @@ import { PassengerForm } from "./PassengerForm";
 import { Order } from "../../model/Order";
 import { FlightService } from "../../service/FlightService";
 import { OrderValidationResult } from "../../model/OrderValidationResult";
+import { FlightSummary } from "./FlightSummary";
 
 const rootStyle = {
     root: {
@@ -16,22 +17,29 @@ const rootStyle = {
     }
 };
 
+const flightService = new FlightService();
+
 export const BookFlightPage: React.FunctionComponent = () => {
     const { search } = useLocation();
     const [order, setOrder] = useState<Order>(new Order(qs.parse(search.substr(1))));
-    const [validationResult, setValidationResult] = useState<OrderValidationResult>(
-        new OrderValidationResult(order.travellerViewModels.length)
-    );
+    const [validationResult, setValidationResult] = useState<OrderValidationResult>(new OrderValidationResult());
 
     const onOrderChange = (order: Order) => {
         order.travellerViewModels = [...order.travellerViewModels];
-        setOrder(order);
+        order.paymentViewModel = { ...order.paymentViewModel };
+        order.confirmationInfoViewModel = { ...order.confirmationInfoViewModel };
+
+        setOrder({ ...order });
     };
 
     const onClick = () => {
-        const fightService = new FlightService();
+        const result = flightService.validate(order);
 
-        fightService.booking(order);
+        setValidationResult(result);
+
+        if (result.isValid()) {
+            flightService.booking(order).then(() => {});
+        }
     };
 
     return (
@@ -44,10 +52,10 @@ export const BookFlightPage: React.FunctionComponent = () => {
                 root: rootStyle.root
             }}
         >
-            <PassengerForm order={order} onChange={onOrderChange} onClick={onClick} />
-            {/* <Panel headerText="SUMMARY" isBlocking={false} isOpen={true}>
-                <FlightSummary travellers={travellers} />
-            </Panel> */}
+            <PassengerForm order={order} onChange={onOrderChange} onClick={onClick} validation={validationResult} />
+            <Panel headerText="SUMMARY" isBlocking={false} isOpen={true} hasCloseButton={false}>
+                <FlightSummary travellers={order.travellerViewModels} />
+            </Panel>
         </Stack>
     );
 };

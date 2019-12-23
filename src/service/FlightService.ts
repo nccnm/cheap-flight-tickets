@@ -1,8 +1,14 @@
+
+import { Traveller } from './../model/Traverller';
 import { Order } from './../model/Order';
 import { SearchFlightCriteria } from "../model/SearchFlightCriteria";
+import { OrderResult, PaymentInfoResult, ConfirmationInfoResult, TravellerResult, OrderValidationResult } from "../model/OrderValidationResult"
 import { FlightDetail } from "../model/FlightDetail";
 import { fromToOptions } from "../data/fromToOptions";
 import axios from "axios";
+import validate from "validate.js";
+import { PaymentInfo } from '../model/PaymentInfo';
+import { ConfirmationInfo } from '../model/ConfirmationInfo';
 
 const API_PATH = "https://flyplanapi.azurewebsites.net/api/";
 
@@ -56,5 +62,138 @@ export class FlightService {
                 console.error(error);
                 return {};
             });
+    }
+
+    public validate(order: Order) {
+        const validationResult = new OrderValidationResult();
+
+        for (let i = 0; i < order.travellerViewModels.length; i++) {
+            const travallerResult = this.validateTraveller(order.travellerViewModels[i]);
+
+            validationResult.result.travellerViewModels.push(travallerResult);
+        }
+
+        validationResult.result.paymentViewModel = this.validatePayment(order.paymentViewModel);
+
+        validationResult.result.confirmationInfoViewModel = this.validateConfirmationInfoViewModel(order.confirmationInfoViewModel);
+
+        return validationResult;
+    }
+
+    private validateTraveller(traveller: Traveller) {
+        var constraints = {
+            firstName: {
+                presence: { allowEmpty: false },
+            },
+            lastName: {
+                presence: { allowEmpty: false },
+            },
+            dateOfBirth: {
+                presence: { allowEmpty: false },
+            },
+            gender: {
+                presence: { allowEmpty: false },
+            },
+            nationality: {
+                presence: { allowEmpty: false },
+            },
+            pasportId: {
+                presence: { allowEmpty: false },
+            },
+            pasportExpiryDateMonth: {
+                presence: { allowEmpty: false, message: () => validate.format("^Expiry month can't be blank", {}) },
+            },
+            pasportExpiryDateYear: {
+                presence: { allowEmpty: false, message: () => validate.format("^Expiry year can't be blank", {}) },
+            },
+            pasportNoExpiry: {
+                presence: { allowEmpty: false },
+            }
+        };
+
+        return validate(traveller, constraints) as TravellerResult;
+    }
+
+    private validatePayment(payment: PaymentInfo) {
+        const constraints = {
+            creditCardType: {
+                presence: { allowEmpty: false },
+            },
+            cardNumber: {
+                presence: true,
+                format: {
+                    pattern: /^(34|37|4|5[1-5]).*$/,
+                    message: function (value, attribute, validatorOptions, attributes, globalOptions) {
+                        return validate.format("^%{num} is not a valid credit card number", {
+                            num: value
+                        });
+                    }
+                },
+                length: function (value, attributes, attributeName, options, constraints) {
+                    if (value) {
+                        // Visa, Mastercard
+                        if ((/^(4|5[1-5]).*$/).test(value)) return { is: 16 };
+                    }
+                    // Unknown card, don't validate length
+                    return false;
+                }
+            },
+            nameOnTheCard: {
+                presence: { allowEmpty: false },
+            },
+            expiryDateInMonth: {
+                presence: {
+                    allowEmpty: false,
+                    message: () => validate.format("^Expiry month can't be blank", {})
+                }
+            },
+            expiryDateInYear: {
+                presence: {
+                    allowEmpty: false,
+                    message: () => validate.format("^Expiry year can't be blank", {})
+                }
+            },
+            cvvCode: {
+                presence: { allowEmpty: false },
+            },
+            countryId: {
+                presence: {
+                    allowEmpty: false,
+                    message: () => validate.format("^Country can't be blank", {})
+                },
+            },
+            billingAddress: {
+                presence: { allowEmpty: false },
+            },
+            city: {
+                presence: { allowEmpty: false },
+            },
+            zipCode: {
+                presence: { allowEmpty: false },
+            },
+        }
+
+        return validate(payment, constraints) as PaymentInfoResult;
+    }
+
+    private validateConfirmationInfoViewModel(confirmationInfo: ConfirmationInfo) {
+        const constraints = {
+            emailAddress: {
+                presence: { allowEmpty: false },
+                email: true
+            },
+            phoneNumber: {
+                presence: { allowEmpty: false },
+            },
+            isAcceptedRule: {
+                inclusion: {
+                    within: [true],
+                    message: () => validate.format("^You must accept the rules", {})
+                }
+
+            }
+        };
+
+        return validate(confirmationInfo, constraints) as ConfirmationInfoResult;
     }
 }

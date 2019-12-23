@@ -1,5 +1,5 @@
 export class PaymentInfo {
-    public creditCardType?: string;
+    public creditCardType?: string = "Master";
     public cardNumber?: string;
     public nameOnTheCard?: string;
     public expiryDateInMonth?: string;

@@ -4,13 +4,15 @@ import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
 import { creditCardTypeOptions } from "../../data/creditCardTypeOptions";
 import { countryOptions } from "../../data/countryOptions";
 import { PaymentInfo } from "../../model/PaymentInfo";
+import { PaymentInfoResult } from "../../model/OrderValidationResult";
 
 type PaymentProps = {
     payment: PaymentInfo;
     onChange: (payment: PaymentInfo) => void;
+    validation: PaymentInfoResult;
 };
 
-export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChange }) => {
+export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChange, validation }) => {
     const [localPaymentInfo, setPaymentInfo] = useState<PaymentInfo>(payment);
     const handleFormElementValueChange = newItem => {
         setPaymentInfo({
@@ -78,7 +80,7 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                         }}
                     >
                         <ChoiceGroup
-                            defaultSelectedKey="1"
+                            defaultSelectedKey="Master"
                             options={creditCardTypeOptions}
                             required={true}
                             styles={{
@@ -88,7 +90,7 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                             }}
                             className={mergeStyles({ display: "flex", color: "rgb(50, 49, 48)" })}
                             id="TravelInsurance"
-                            selectedKey={payment.creditCardType}
+                            // selectedKey={payment.creditCardType}
                             onChange={(event: any, checked) => {
                                 handleFormElementValueChange({ creditCardType: checked.key });
                             }}
@@ -115,6 +117,7 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                             value={payment.cardNumber}
                             id="CardNumber"
                             required
+                            errorMessage={validation && validation.cardNumber}
                             onChange={(event: any, newValue) => {
                                 handleFormElementValueChange({ cardNumber: newValue });
                             }}
@@ -129,6 +132,7 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                             value={payment.nameOnTheCard}
                             id="NameOnTheCard"
                             required
+                            errorMessage={validation && validation.nameOnTheCard}
                             onChange={(event: any, newValue) => {
                                 handleFormElementValueChange({ nameOnTheCard: newValue });
                             }}
@@ -156,6 +160,7 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                 value={payment.expiryDateInMonth}
                                 id="ExpiryDateInMonth"
                                 required
+                                errorMessage={validation && validation.expiryDateInMonth}
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange({ expiryDateInMonth: newValue });
                                 }}
@@ -167,10 +172,11 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                         flexBasis: "100%"
                                     }
                                 }}
-                                label=""
+                                label="Expiry Year"
                                 value={payment.expiryDateInYear}
                                 id="ExpiryDateInYear"
                                 required
+                                errorMessage={validation && validation.expiryDateInYear}
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange({ expiryDateInYear: newValue });
                                 }}
@@ -178,13 +184,14 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                             <TextField
                                 styles={{
                                     root: {
-                                        flexBasis: "100%"
+                                        flexBasis: "90%"
                                     }
                                 }}
                                 label="CVV Code"
                                 value={payment.cvvCode}
                                 id="CVVCode"
                                 required
+                                errorMessage={validation && validation.cvvCode}
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange({ cvvCode: newValue });
                                 }}
@@ -215,6 +222,7 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                             selectedKey={payment.countryId}
                             id="CountryId"
                             required
+                            errorMessage={validation && validation.countryId}
                             onChange={(event: any, option) => {
                                 handleFormElementValueChange({ countryId: option ? option.key : payment.countryId });
                             }}
@@ -229,6 +237,7 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                             value={payment.billingAddress}
                             id="BillingAddress"
                             required
+                            errorMessage={validation && validation.billingAddress}
                             onChange={(event: any, newValue) => {
                                 handleFormElementValueChange({ billingAddress: newValue });
                             }}
@@ -254,6 +263,7 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                 value={payment.city}
                                 id="City"
                                 required
+                                errorMessage={validation && validation.city}
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange({ city: newValue });
                                 }}
@@ -269,6 +279,7 @@ export const Payment: React.FunctionComponent<PaymentProps> = ({ payment, onChan
                                 value={payment.zipCode}
                                 id="ZIPCode"
                                 required
+                                errorMessage={validation && validation.zipCode}
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange({ zipCode: newValue });
                                 }}

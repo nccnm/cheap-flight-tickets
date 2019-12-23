@@ -4,6 +4,7 @@ export const flightWaysOption: IChoiceGroupOption[] = [
     {
         key: "1",
         text: "Round Trip",
+        disabled: true,
         styles: {
             choiceFieldWrapper: {
                 marginRight: "16px",

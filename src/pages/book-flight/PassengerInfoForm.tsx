@@ -18,13 +18,19 @@ import { Traveller } from "../../model/Traverller";
 import { genderOptions } from "../../data/genderOptions";
 import { nationalitiesOptions } from "../../data/nationalitiesOptions";
 import { travelInsuranceOptions } from "../../data/travelInsuranceOptions";
+import { TravellerResult } from "../../model/OrderValidationResult";
 
 type PassengerInfoFormProps = {
     travellers: Traveller[];
     onChange: (travellers: Traveller[]) => void;
+    validation: TravellerResult[];
 };
 
-export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> = ({ travellers, onChange }) => {
+export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> = ({
+    travellers,
+    onChange,
+    validation
+}) => {
     const [localTravellers, setLocalTravellers] = useState<Traveller[]>(travellers);
     const handleFormElementValueChange = (index, newItem) => {
         localTravellers[index] = {
@@ -112,7 +118,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 }
                             }}
                         >
-                            {item.firstName + " " + item.lastName}
+                            {(item.firstName || "") + " " + (item.lastName || "")}
                         </Label>
                     </Stack>
                     <Stack
@@ -162,6 +168,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 label="First Name"
                                 value={item.firstName}
                                 id="FirstName"
+                                errorMessage={validation[index] && validation[index].firstName}
                                 required
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange(index, { firstName: newValue });
@@ -176,6 +183,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 label="Last Name"
                                 value={item.lastName}
                                 id="LastName"
+                                errorMessage={validation[index] && validation[index].lastName}
                                 required
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange(index, { lastName: newValue });
@@ -199,6 +207,8 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     })}
                                     label="Date of Birth"
                                     id="DateOfBirth"
+                                    isRequired={true}
+                                    // errorMessage={validation[index] && validation[index].dateOfBirth}
                                     value={item.dateOfBirth}
                                     onSelectDate={(date: any) => {
                                         handleFormElementValueChange(index, { dateOfBirth: date });
@@ -213,6 +223,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     label="Gender"
                                     id="Gender"
                                     required
+                                    errorMessage={validation[index] && validation[index].gender}
                                     options={genderOptions}
                                     allowFreeform
                                     autoComplete="on"
@@ -245,6 +256,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 label="Nationality"
                                 id="Nationality"
                                 required
+                                errorMessage={validation[index] && validation[index].nationality}
                                 options={nationalitiesOptions}
                                 allowFreeform
                                 autoComplete="on"
@@ -265,6 +277,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 value={item.pasportId}
                                 id="PasportId"
                                 required
+                                errorMessage={validation[index] && validation[index].pasportId}
                                 onChange={(event: any, newValue) => {
                                     handleFormElementValueChange(index, { pasportId: newValue });
                                 }}
@@ -291,6 +304,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     value={item.pasportExpiryDateMonth}
                                     id="PasportExpiryDateMonth"
                                     required
+                                    errorMessage={validation[index] && validation[index].pasportExpiryDateMonth}
                                     onChange={(event: any, newValue) => {
                                         handleFormElementValueChange(index, { pasportExpiryDateMonth: newValue });
                                     }}
@@ -302,10 +316,11 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                             flexBasis: "100%"
                                         }
                                     }}
-                                    label="&nbsp;"
+                                    label="Expiry Year"
                                     value={item.pasportExpiryDateYear}
                                     id="PasportExpiryDateYear"
                                     required
+                                    errorMessage={validation[index] && validation[index].pasportExpiryDateYear}
                                     onChange={(event: any, newValue) => {
                                         handleFormElementValueChange(index, { pasportExpiryDateYear: newValue });
                                     }}
@@ -313,7 +328,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 <Checkbox
                                     styles={{
                                         root: {
-                                            flexBasis: "100%",
+                                            flexBasis: "90%",
                                             alignSelf: "center"
                                         }
                                     }}
@@ -406,7 +421,9 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         flexBasis: "100%"
                                     }
                                 }}
-                            />
+                            >
+                                <Label>$12 per baggage</Label>
+                            </Stack>
                             <Stack
                                 styles={{
                                     root: {

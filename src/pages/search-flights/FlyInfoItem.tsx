@@ -77,6 +77,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
     return (
         <>
             <Card
+                className="flightInfo"
                 horizontal
                 styles={{
                     root: {
@@ -91,6 +92,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                 }}
             >
                 <Card.Section
+                    className="airlineInfo"
                     styles={{
                         root: {
                             flexBasis: "180px"
@@ -129,6 +131,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                     </Stack>
                 </Card.Section>
                 <Card.Section
+                    className="departInfo"
                     styles={{
                         root: {
                             flexBasis: "20%"
@@ -146,6 +149,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                     </Stack>
                 </Card.Section>
                 <Card.Section
+                    className="flightTimeInfo"
                     styles={{
                         root: {
                             alignItems: "center",
@@ -184,6 +188,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                     </Stack>
                 </Card.Section>
                 <Card.Section
+                    className="returnInfo"
                     styles={{
                         root: {
                             flexBasis: "20%"
@@ -201,6 +206,7 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                     </Stack>
                 </Card.Section>
                 <Card.Section
+                    className="priceInfo"
                     styles={{
                         root: {
                             flexDirection: "row",

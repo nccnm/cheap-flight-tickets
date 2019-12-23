@@ -38,17 +38,18 @@ function getSearchFlightCriteria(query: any): SearchFlightCriteria {
     return searchFlightCriteria;
 }
 
+const fightService = new FlightService();
+
 export const SearchFlightsPage: React.FunctionComponent = () => {
-    const fightService = new FlightService();
     const query = useQuery();
     const [searchFlightCriteria, setSearchFlightCriteria] = useState(getSearchFlightCriteria(query));
     const [searchResult, setSearchResult] = useState<FlightDetail[]>([]);
 
     useEffect(() => {
         fightService.search(searchFlightCriteria).then(function(flights) {
-            setSearchResult(flights || []);
+            setSearchResult(flights);
         });
-    }, []);
+    }, [fightService, searchFlightCriteria]);
 
     const onCriteriaChanges = (criteria: SearchFlightCriteria) => {
         setSearchFlightCriteria({ ...searchFlightCriteria, ...criteria });

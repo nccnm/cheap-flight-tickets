@@ -108,7 +108,7 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
                 />
                 <Separator></Separator>
 
-                <Label
+                {/* <Label
                     styles={{
                         root: {
                             marginBottom: "12px"
@@ -175,7 +175,7 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
                     onClick={handleDepartTimeOnClick4}
                     checked={after6pm}
                 />
-                <Separator></Separator>
+                <Separator></Separator> */}
 
                 {/* <Label
                     styles={{

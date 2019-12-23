@@ -5,7 +5,7 @@ import {
 export const travelInsuranceOptions: IChoiceGroupOption[] = [
     {
         key: "0",
-        text: "No Insurance",
+        text: "No Insurance (free)",
         styles: {
             root: {
                 flexBasis: "100%",
@@ -14,7 +14,7 @@ export const travelInsuranceOptions: IChoiceGroupOption[] = [
         }
     },
     {
-        key: "1", text: "Travel Basic", styles: {
+        key: "1", text: "Travel Basic ($20)", styles: {
             root: {
                 flexBasis: "100%",
                 marginLeft: "16px",
@@ -23,7 +23,7 @@ export const travelInsuranceOptions: IChoiceGroupOption[] = [
         }
     },
     {
-        key: "2", text: "Travel Plus", styles: {
+        key: "2", text: "Travel Plus ($30)", styles: {
             root: {
                 flexBasis: "100%",
                 marginLeft: "16px",

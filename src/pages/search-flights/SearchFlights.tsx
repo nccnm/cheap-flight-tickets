@@ -191,7 +191,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                     }}
                 >
                     <ChoiceGroup
-                        defaultSelectedKey="1"
+                        defaultSelectedKey="0"
                         options={flightWaysOption}
                         required={true}
                         styles={{
@@ -324,6 +324,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                             />
                             <DatePicker
                                 placeholder="Return"
+                                disabled={true}
                                 allowTextInput={true}
                                 className={mergeStyles({ flexBasis: "50%" })}
                                 value={criteria.returnDate}

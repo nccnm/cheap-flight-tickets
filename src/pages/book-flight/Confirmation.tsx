@@ -1,22 +1,18 @@
 import React, { useState } from "react";
-import { Checkbox, FontSizes, Label, Stack, TextField } from "office-ui-fabric-react";
+import { Checkbox, FontSizes, Label, Stack, TextField, MessageBar, MessageBarType } from "office-ui-fabric-react";
 import { ConfirmationInfo } from "../../model/ConfirmationInfo";
+import { ConfirmationInfoResult } from "../../model/OrderValidationResult";
 
 type PaymentProps = {
     confirmation: ConfirmationInfo;
     onChange: (confirmation: ConfirmationInfo) => void;
+    validation: ConfirmationInfoResult;
 };
 
-export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmation, onChange }) => {
-    const [localConfirmationInfo, setConfirmationInfo] = useState<ConfirmationInfo>(confirmation);
+export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmation, onChange, validation }) => {
     const handleFormElementValueChange = newItem => {
-        setConfirmationInfo({
-            ...localConfirmationInfo,
-            ...newItem
-        });
-
         onChange({
-            ...localConfirmationInfo,
+            ...confirmation,
             ...newItem
         });
     };
@@ -86,6 +82,7 @@ export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmati
                             label="Email Address"
                             value={confirmation.emailAddress}
                             id="EmailAddress"
+                            errorMessage={validation && validation.emailAddress}
                             required
                             onChange={(event: any, newValue) => {
                                 handleFormElementValueChange({ emailAddress: newValue });
@@ -100,6 +97,7 @@ export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmati
                             label="Phone Number"
                             value={confirmation.phoneNumber}
                             id="PhoneNumber"
+                            errorMessage={validation && validation.phoneNumber}
                             required
                             onChange={(event: any, newValue) => {
                                 handleFormElementValueChange({ phoneNumber: newValue });
@@ -124,7 +122,10 @@ export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmati
                             onChange={(event: any, newValue) => {
                                 handleFormElementValueChange({ isAcceptedRule: newValue });
                             }}
-                        />
+                        ></Checkbox>
+                        <p className="ms-TextField-errorMessage errorMessage-117" style={{ marginTop: "0px" }}>
+                            <span data-automation-id="error-message">{validation && validation.isAcceptedRule}</span>
+                        </p>
                         <Checkbox
                             label="Send Me the Best Deals by Email"
                             checked={confirmation.isSendEmail}
