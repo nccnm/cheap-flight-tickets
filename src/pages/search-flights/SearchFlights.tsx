@@ -151,7 +151,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                     }}
                 >
                     <FontIcon iconName="Airplane" className={departureIconClass} />
-                    <Stack>
+                    <Stack className="flight-info ">
                         <Text className={flynameClass}>
                             {findFromToText(criteria.from)} - {findFromToText(criteria.to)}
                         </Text>
@@ -161,7 +161,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                         </Text>
                     </Stack>
                 </Stack>
-                <Stack
+                {/* <Stack
                     horizontal
                     horizontalAlign="space-between"
                     verticalAlign="center"
@@ -180,7 +180,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                         </Text>
                     </Stack>
                 </Stack>
-                <Stack />
+                <Stack /> */}
             </Stack>
             <Stack>
                 <Stack

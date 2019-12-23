@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     Stack,
     Label,
@@ -31,16 +31,25 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
     onChange,
     validation
 }) => {
-    const [localTravellers, setLocalTravellers] = useState<Traveller[]>(travellers);
     const handleFormElementValueChange = (index, newItem) => {
-        localTravellers[index] = {
-            ...localTravellers[index],
+        travellers[index] = {
+            ...travellers[index],
             ...newItem
         };
 
-        setLocalTravellers([...localTravellers]);
-
-        onChange(localTravellers);
+        onChange([...travellers]);
+    };
+    const handleCheckedBaggagesValueChange = (value: any, index: number, item: Traveller) => {
+        const numberValue = Number(value);
+        if (numberValue) {
+            if (numberValue <= 10 && numberValue >= 0) {
+                handleFormElementValueChange(index, { checkedBaggae: numberValue });
+            } else {
+                handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
+            }
+        } else {
+            handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
+        }
     };
 
     return (
@@ -66,7 +75,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                     Who's Travelling?
                 </Label>
             </Stack>
-            {localTravellers.map((item, index) => (
+            {travellers.map((item, index) => (
                 <Stack
                     key={item.id}
                     styles={{
@@ -389,31 +398,11 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 min={0}
                                 max={10}
                                 label="Checked Baggages"
-                                value={item.checkedBaggae}
-                                onChange={(event: any) => {
-                                    const numberValue = Number(event.target.value);
-                                    if (numberValue) {
-                                        if (numberValue <= 10 && numberValue >= 0) {
-                                            handleFormElementValueChange(index, { checkedBaggae: event.target.value });
-                                        } else {
-                                            handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
-                                        }
-                                    } else {
-                                        handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
-                                    }
-                                }}
-                                onBlur={(event: any) => {
-                                    const numberValue = Number(event.target.value);
-                                    if (numberValue) {
-                                        if (numberValue <= 10 && numberValue >= 0) {
-                                            handleFormElementValueChange(index, { checkedBaggae: event.target.value });
-                                        } else {
-                                            handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
-                                        }
-                                    } else {
-                                        handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
-                                    }
-                                }}
+                                value={item.checkedBaggae + ""}
+                                onChange={(event: any) =>
+                                    handleCheckedBaggagesValueChange(event.target.value, index, item)
+                                }
+                                onBlur={event => handleCheckedBaggagesValueChange(event.target.value, index, item)}
                             />
                             <Stack
                                 styles={{

@@ -2,7 +2,7 @@
 import { Traveller } from './../model/Traverller';
 import { Order } from './../model/Order';
 import { SearchFlightCriteria } from "../model/SearchFlightCriteria";
-import { OrderResult, PaymentInfoResult, ConfirmationInfoResult, TravellerResult, OrderValidationResult } from "../model/OrderValidationResult"
+import { PaymentInfoResult, ConfirmationInfoResult, TravellerResult, OrderValidationResult } from "../model/OrderValidationResult"
 import { FlightDetail } from "../model/FlightDetail";
 import { fromToOptions } from "../data/fromToOptions";
 import axios from "axios";
@@ -195,5 +195,37 @@ export class FlightService {
         };
 
         return validate(confirmationInfo, constraints) as ConfirmationInfoResult;
+    }
+
+    public getFlightPrice(personType: string, price: number): number {
+        if (personType === "adult") {
+            return price;
+        }
+
+        if (personType === "children") {
+            return price * 0.5;
+        }
+
+        if (personType === "infant") {
+            return 0;
+        }
+    }
+
+    public getTotal(travellers: Traveller[], price: number) {
+        let total = 0;
+
+        travellers.forEach(t => {
+            total = total + this.getFlightPrice(t.personType, price) + this.getCheckedBaggae(t) + this.getInsurance(t);
+        });
+
+        return total;
+    }
+
+    public getCheckedBaggae(traveller: Traveller) {
+        return traveller.checkedBaggae * 12;
+    }
+
+    public getInsurance(traveller: Traveller) {
+        return traveller.travelInsurance === "1" ? 20 : traveller.travelInsurance === "2" ? 30 : 0
     }
 }

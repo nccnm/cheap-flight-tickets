@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Checkbox, FontSizes, Label, Stack, TextField, MessageBar, MessageBarType } from "office-ui-fabric-react";
+import React from "react";
+import { Checkbox, FontSizes, Label, Stack, TextField } from "office-ui-fabric-react";
 import { ConfirmationInfo } from "../../model/ConfirmationInfo";
 import { ConfirmationInfoResult } from "../../model/OrderValidationResult";
 

@@ -1,12 +1,17 @@
 import React from "react";
 import { Stack, Label, FontWeights, FontSizes } from "office-ui-fabric-react";
 import { Traveller } from "../../model/Traverller";
+import { FlightDetail } from "../../model/FlightDetail";
+import { FlightService } from "../../service/FlightService";
 
 type FlightSummaryProp = {
     travellers: Traveller[];
+    flight: FlightDetail;
 };
 
-export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ travellers }) => {
+const flightService = new FlightService();
+
+export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ travellers, flight }) => {
     return (
         <Stack
             verticalAlign="start"
@@ -46,9 +51,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                     color: "#404156"
                                 }
                             }}
-                        >
-                            $2,799
-                        </Label>
+                        ></Label>
                     </Stack>
                     <Stack
                         styles={{
@@ -87,7 +90,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                         }
                                     }}
                                 >
-                                    09:45PM | JUN 04, FRI
+                                    {flight.departTime}
                                 </Label>
                                 <Label
                                     styles={{
@@ -97,7 +100,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                         }
                                     }}
                                 >
-                                    LOS ANGELES LAX
+                                    {flight.depart}
                                 </Label>
                             </Stack>
                             <Stack
@@ -115,7 +118,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                         }
                                     }}
                                 >
-                                    09:45PM | JUN 06, FRI
+                                    {flight.returnTime}
                                 </Label>
                                 <Label
                                     styles={{
@@ -125,7 +128,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                         }
                                     }}
                                 >
-                                    ISTANBUL IST
+                                    {flight.return}
                                 </Label>
                             </Stack>
                         </Stack>
@@ -139,100 +142,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                     }
                                 }}
                             >
-                                1 Stop - London LHR
-                            </Label>
-                        </Stack>
-                    </Stack>
-                    <Stack
-                        styles={{
-                            root: {
-                                marginTop: "12px !important"
-                            }
-                        }}
-                    >
-                        <Stack>
-                            <Label
-                                styles={{
-                                    root: {
-                                        fontSize: 16,
-                                        color: "#404156",
-                                        padding: 2
-                                    }
-                                }}
-                            >
-                                Return
-                            </Label>
-                        </Stack>
-                        <Stack horizontal>
-                            <Stack
-                                styles={{
-                                    root: {
-                                        padding: 2,
-                                        marginRight: "16px"
-                                    }
-                                }}
-                            >
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    09:45PM | JUN 04, FRI
-                                </Label>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    ISTANBUL IST
-                                </Label>
-                            </Stack>
-                            <Stack
-                                styles={{
-                                    root: {
-                                        padding: 2
-                                    }
-                                }}
-                            >
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    09:45PM | JUN 06, FRI
-                                </Label>
-                                <Label
-                                    styles={{
-                                        root: {
-                                            padding: 2,
-                                            fontSize: FontSizes.small
-                                        }
-                                    }}
-                                >
-                                    LOS ANGELES LAX
-                                </Label>
-                            </Stack>
-                        </Stack>
-                        <Stack>
-                            <Label
-                                styles={{
-                                    root: {
-                                        color: "#32d095",
-                                        padding: 2,
-                                        fontSize: FontSizes.small
-                                    }
-                                }}
-                            >
-                                1 Stop - London LHR
+                                Non stop
                             </Label>
                         </Stack>
                     </Stack>
@@ -265,16 +175,6 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                         >
                             Travellers
                         </Label>
-                        <Label
-                            styles={{
-                                root: {
-                                    fontSize: 16,
-                                    color: "#404156"
-                                }
-                            }}
-                        >
-                            $186
-                        </Label>
                     </Stack>
                     {travellers.map((item, index) => (
                         <Stack
@@ -294,7 +194,11 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                         }
                                     }}
                                 >
-                                    {item.firstName + " " + item.lastName}
+                                    {(item.firstName || "") +
+                                        " " +
+                                        (item.lastName || "") +
+                                        " $" +
+                                        flightService.getFlightPrice(item.personType, flight.totalMoney)}
                                 </Label>
                             </Stack>
                             <Stack horizontal>
@@ -314,17 +218,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                             }
                                         }}
                                     >
-                                        1 x cabin bag
-                                    </Label>
-                                    <Label
-                                        styles={{
-                                            root: {
-                                                padding: 2,
-                                                fontSize: FontSizes.small
-                                            }
-                                        }}
-                                    >
-                                        {item.checkedBaggae}x checked bag
+                                        ${item.checkedBaggae + " x checked bag"}
                                     </Label>
                                     <Label
                                         styles={{
@@ -346,7 +240,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                             }
                                         }}
                                     >
-                                        free
+                                        ${item.checkedBaggae * 12}
                                     </Label>
                                     <Label
                                         styles={{
@@ -356,17 +250,11 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                             }
                                         }}
                                     >
-                                        $80
-                                    </Label>
-                                    <Label
-                                        styles={{
-                                            root: {
-                                                padding: 2,
-                                                fontSize: FontSizes.small
-                                            }
-                                        }}
-                                    >
-                                        $13
+                                        {item.travelInsurance === "1"
+                                            ? "$20"
+                                            : item.travelInsurance === "2"
+                                            ? "$30"
+                                            : "free"}
                                     </Label>
                                 </Stack>
                             </Stack>
@@ -412,7 +300,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                 }
                             }}
                         >
-                            $2,985
+                            ${flightService.getTotal(travellers, flight.totalMoney)}
                         </Label>
                     </Stack>
                 </Stack>

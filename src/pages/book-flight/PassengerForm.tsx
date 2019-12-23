@@ -8,7 +8,7 @@ import { Order } from "../../model/Order";
 import { Traveller } from "../../model/Traverller";
 import { PaymentInfo } from "../../model/PaymentInfo";
 import { ConfirmationInfo } from "../../model/ConfirmationInfo";
-import { OrderResult, OrderValidationResult } from "../../model/OrderValidationResult";
+import { OrderValidationResult } from "../../model/OrderValidationResult";
 
 type PassengerFormProps = {
     order: Order;

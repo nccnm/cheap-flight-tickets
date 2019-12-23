@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Stack, Label, SpinButton, Separator, DefaultButton, PrimaryButton, Checkbox } from "office-ui-fabric-react";
+import React from "react";
+import { Stack, Label, SpinButton, Separator, PrimaryButton, Checkbox } from "office-ui-fabric-react";
 import { Position } from "office-ui-fabric-react/lib/utilities/positioning";
 import { theme } from "../../style/theme";
 import { SearchFlightCriteria } from "../../model/SearchFlightCriteria";
@@ -17,26 +17,26 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
     onCriteriaChanges,
     onSearchClick
 }: SearchFlightsProps) => {
-    const [before6am, setBefore6am] = useState(true);
-    const [six_am_12am, setSix_am_12am] = useState(true);
-    const [twelve_pm_6pm, setTwelve_pm_6pm] = useState(true);
-    const [after6pm, setAfter6pm] = useState(true);
+    // const [before6am, setBefore6am] = useState(true);
+    // const [six_am_12am, setSix_am_12am] = useState(true);
+    // const [twelve_pm_6pm, setTwelve_pm_6pm] = useState(true);
+    // const [after6pm, setAfter6pm] = useState(true);
 
-    const handleDepartTimeOnClick1 = () => {
-        setBefore6am(!before6am);
-    };
+    // const handleDepartTimeOnClick1 = () => {
+    //     setBefore6am(!before6am);
+    // };
 
-    const handleDepartTimeOnClick2 = () => {
-        setSix_am_12am(!six_am_12am);
-    };
+    // const handleDepartTimeOnClick2 = () => {
+    //     setSix_am_12am(!six_am_12am);
+    // };
 
-    const handleDepartTimeOnClick3 = () => {
-        setTwelve_pm_6pm(!twelve_pm_6pm);
-    };
+    // const handleDepartTimeOnClick3 = () => {
+    //     setTwelve_pm_6pm(!twelve_pm_6pm);
+    // };
 
-    const handleDepartTimeOnClick4 = () => {
-        setAfter6pm(!after6pm);
-    };
+    // const handleDepartTimeOnClick4 = () => {
+    //     setAfter6pm(!after6pm);
+    // };
 
     const handleSearchFlightsClick = () => {
         onSearchClick(criteria);

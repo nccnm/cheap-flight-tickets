@@ -49,7 +49,7 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
         fightService.search(searchFlightCriteria).then(function(flights) {
             setSearchResult(flights);
         });
-    }, [fightService, searchFlightCriteria]);
+    }, [searchFlightCriteria]);
 
     const onCriteriaChanges = (criteria: SearchFlightCriteria) => {
         setSearchFlightCriteria({ ...searchFlightCriteria, ...criteria });

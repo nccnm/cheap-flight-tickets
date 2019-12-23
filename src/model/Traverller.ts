@@ -10,7 +10,7 @@ export class Traveller {
     public pasportExpiryDateMonth?: string;
     public pasportExpiryDateYear?: string;
     public pasportNoExpiry?: boolean = false;
-    public checkedBaggae?: string = "0";
+    public checkedBaggae?: number = 0;
     public travelInsurance?: string;
 }
 
