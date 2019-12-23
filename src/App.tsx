@@ -8,13 +8,15 @@ import { AppFooter } from "./AppFooter";
 
 import { BookFlightPage } from "./pages/book-flight/BookFlightPage";
 import { SearchFlightsPage } from "./pages/search-flights/SearchFlightsPage";
+import { BookingSuccessPage } from "./pages/booking-success/BookingSuccessPage";
 
 const rootStyle = {
     root: {
         margin: "0 auto",
         color: "#605e5c",
         fontSize: "14px",
-        background: "#F2F2F2"
+        background: "#F2F2F2",
+        height: "100vh"
     }
 };
 
@@ -40,6 +42,9 @@ export const App: React.FunctionComponent = () => {
                     </Route>
                     <Route path="/book">
                         <BookFlightPage />
+                    </Route>
+                    <Route path="/booking-success">
+                        <BookingSuccessPage />
                     </Route>
                 </Switch>
                 <AppFooter></AppFooter>

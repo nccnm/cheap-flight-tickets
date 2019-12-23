@@ -64,6 +64,17 @@ export class FlightService {
             });
     }
 
+    public async getBookingByCode(code: string): Promise<Order> {
+        return axios.get(API_PATH + 'booking/' + code)
+            .then(function (response) {
+                return response.data.model || {};
+            })
+            .catch(function (error) {
+                console.error(error);
+                return {};
+            });
+    }
+
     public validate(order: Order) {
         const validationResult = new OrderValidationResult();
 

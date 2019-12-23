@@ -9,6 +9,7 @@ import { FlightService } from "../../service/FlightService";
 import { OrderValidationResult } from "../../model/OrderValidationResult";
 import { FlightSummary } from "./FlightSummary";
 import { FlightDetail } from "../../model/FlightDetail";
+import { useHistory } from "react-router-dom";
 
 const rootStyle = {
     root: {
@@ -32,6 +33,8 @@ export const BookFlightPage: React.FunctionComponent = () => {
         });
     }, [order.flightId]);
 
+    let history = useHistory();
+
     const onOrderChange = (order: Order) => {
         order.travellerViewModels = [...order.travellerViewModels];
         order.paymentViewModel = { ...order.paymentViewModel };
@@ -46,7 +49,9 @@ export const BookFlightPage: React.FunctionComponent = () => {
         setValidationResult(result);
 
         if (result.isValid()) {
-            flightService.booking(order).then(() => {});
+            flightService.booking(order).then((result: any) => {
+                history.push(`booking-success/?code=${result.Code}`);
+            });
         }
     };
 

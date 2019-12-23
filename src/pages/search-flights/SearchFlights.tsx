@@ -29,13 +29,13 @@ const departureIconClass = mergeStyles({
     transform: "rotate(-45deg)"
 });
 
-const returnIconClass = mergeStyles({
-    fontSize: 30,
-    color: theme.palette.white,
-    height: 30,
-    width: 30,
-    transform: "rotate(225deg)"
-});
+// const returnIconClass = mergeStyles({
+//     fontSize: 30,
+//     color: theme.palette.white,
+//     height: 30,
+//     width: 30,
+//     transform: "rotate(225deg)"
+// });
 
 const flynameClass = mergeStyles({
     fontSize: 18,

@@ -9,34 +9,37 @@ export class Order {
     public paymentViewModel: PaymentInfo = new PaymentInfo();
     public confirmationInfoViewModel: ConfirmationInfo = new ConfirmationInfo();
 
-    constructor(queries) {
-        this.flightId = queries.id;
+    constructor(queries?) {
+        if (queries) {
+            this.flightId = queries.id;
+            for (let i = 0; i < parseInt(queries.adults); i++) {
+                let traverller = new Traveller();
 
-        for (let i = 0; i < parseInt(queries.adults); i++) {
-            let traverller = new Traveller();
+                traverller.id = uuidv4();
+                traverller.personType = "adult";
 
-            traverller.id = uuidv4();
-            traverller.personType = "adult";
+                this.travellerViewModels.push(traverller);
+            }
 
-            this.travellerViewModels.push(traverller);
+            for (let i = 0; i < parseInt(queries.childrens); i++) {
+                let traverller = new Traveller();
+
+                traverller.id = uuidv4();
+                traverller.personType = "children";
+
+                this.travellerViewModels.push(traverller);
+            }
+
+            for (let i = 0; i < parseInt(queries.infants); i++) {
+                let traverller = new Traveller();
+
+                traverller.id = uuidv4();
+                traverller.personType = "infant";
+
+                this.travellerViewModels.push(traverller);
+            }
         }
 
-        for (let i = 0; i < parseInt(queries.childrens); i++) {
-            let traverller = new Traveller();
 
-            traverller.id = uuidv4();
-            traverller.personType = "children";
-
-            this.travellerViewModels.push(traverller);
-        }
-
-        for (let i = 0; i < parseInt(queries.infants); i++) {
-            let traverller = new Traveller();
-
-            traverller.id = uuidv4();
-            traverller.personType = "infant";
-
-            this.travellerViewModels.push(traverller);
-        }
     }
 }
