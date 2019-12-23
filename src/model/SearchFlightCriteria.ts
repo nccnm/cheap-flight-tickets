@@ -8,8 +8,8 @@ export class SearchFlightCriteria {
     public infants?: string | null = "";
     public classType?: string | null = "";
     public roundTrip?: number = 0;
-    public priceFrom?: number = undefined;
-    public priceTo?: number = undefined;
+    public priceFrom?: number = 100;
+    public priceTo?: number = 1000;
     public departTime?: string | null = "";
     public airlines?: string[] = [];
 }

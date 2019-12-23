@@ -38,8 +38,8 @@ export class FlightService {
             "departDate": criteria.departDate ? criteria.departDate.getFullYear() + "-" + (criteria.departDate.getMonth() + 1) + "-" + criteria.departDate.getDate() : null,
             "returnDate": criteria.returnDate ? criteria.returnDate.getFullYear() + "-" + (criteria.returnDate.getMonth() + 1) + "-" + criteria.returnDate.getDate() : null,
             "classType": "Business Class",
-            "priceFrom": 0,
-            "priceTo": 1000,
+            "priceFrom": criteria.priceFrom,
+            "priceTo": criteria.priceTo,
             "roundTrip": criteria.roundTrip
         })
             .then(function (response) {

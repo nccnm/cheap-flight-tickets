@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Stack, Label, SpinButton, Separator, PrimaryButton, Checkbox } from "office-ui-fabric-react";
 import { Position } from "office-ui-fabric-react/lib/utilities/positioning";
 import { theme } from "../../style/theme";
@@ -12,11 +12,26 @@ type SearchFlightsProps = {
     onSearchClick: (criteria: SearchFlightCriteria) => void;
 };
 
+type AirlinesChecked = {
+    airline: string;
+    checked: boolean;
+};
+
 export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
     criteria,
     onCriteriaChanges,
     onSearchClick
 }: SearchFlightsProps) => {
+    const [allAirlines, setAllAirlines] = useState<boolean>(false);
+    const [selectedAirlines, setSelectedAirlines] = useState<AirlinesChecked[]>(
+        airlines.map(a => {
+            return {
+                airline: a,
+                checked: false
+            };
+        })
+    );
+
     // const [before6am, setBefore6am] = useState(true);
     // const [six_am_12am, setSix_am_12am] = useState(true);
     // const [twelve_pm_6pm, setTwelve_pm_6pm] = useState(true);
@@ -38,8 +53,38 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
     //     setAfter6pm(!after6pm);
     // };
 
+    const handleFormElementValueChange = newItem => {
+        onCriteriaChanges({ ...criteria, ...newItem });
+    };
+
     const handleSearchFlightsClick = () => {
         onSearchClick(criteria);
+    };
+
+    const handSelectAllAirlines = () => {
+        if (!allAirlines) {
+            selectedAirlines.forEach(a => {
+                a.checked = true;
+            });
+            setSelectedAirlines([...selectedAirlines]);
+        } else {
+            selectedAirlines.forEach(a => {
+                a.checked = false;
+            });
+            setSelectedAirlines([...selectedAirlines]);
+        }
+
+        setAllAirlines(!allAirlines);
+    };
+
+    const handSelectAirline = (airline: string, index: number) => {
+        selectedAirlines[index].checked = !selectedAirlines[index].checked;
+        setSelectedAirlines([...selectedAirlines]);
+        const airlines = selectedAirlines.filter(s => s.checked === true);
+
+        if (airlines) {
+            onCriteriaChanges({ ...criteria, ...airlines.map(a => a.airline) });
+        }
     };
 
     return (
@@ -77,12 +122,14 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
             >
                 <Label>Price Range</Label>
                 <SpinButton
-                    defaultValue="100"
                     label={"From ($):"}
                     labelPosition={Position.top}
                     min={0}
                     max={10000}
                     step={10}
+                    value={criteria.priceFrom + ""}
+                    onChange={(event: any) => handleFormElementValueChange({ priceFrom: event.target.value })}
+                    onBlur={event => handleFormElementValueChange({ priceFrom: event.target.value })}
                     incrementButtonAriaLabel={"Increase value by 1"}
                     decrementButtonAriaLabel={"Decrease value by 1"}
                     styles={{
@@ -92,12 +139,14 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
                     }}
                 />
                 <SpinButton
-                    defaultValue="1000"
                     label={"To ($):"}
                     labelPosition={Position.top}
                     min={0}
                     max={10000}
                     step={10}
+                    value={criteria.priceTo + ""}
+                    onChange={(event: any) => handleFormElementValueChange({ priceTo: event.target.value })}
+                    onBlur={event => handleFormElementValueChange({ priceTo: event.target.value })}
                     incrementButtonAriaLabel={"Increase value by 1"}
                     decrementButtonAriaLabel={"Decrease value by 1"}
                     styles={{
@@ -212,9 +261,16 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
                         childrenGap: "12px"
                     }}
                 >
-                    <Checkbox label="All" />
-                    {airlines.map(i => {
-                        return <Checkbox key={i} label={i} />;
+                    <Checkbox checked={allAirlines} label="All" onChange={handSelectAllAirlines} />
+                    {airlines.map((i, index) => {
+                        return (
+                            <Checkbox
+                                checked={selectedAirlines[index].checked}
+                                key={i}
+                                label={i}
+                                onChange={() => handSelectAirline(i, index)}
+                            />
+                        );
                     })}
                 </Stack>
                 <Separator></Separator>
