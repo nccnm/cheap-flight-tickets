@@ -12,6 +12,18 @@ import { ConfirmationInfo } from '../model/ConfirmationInfo';
 
 const API_PATH = "https://flyplanapi.azurewebsites.net/api/";
 
+validate.validators.isTrue = function (value, options, key, attributes) {
+    if (value === true) {
+        return undefined;
+    }
+
+    if (options.message) {
+        return options.message();
+    }
+
+    return "is not true value";
+};
+
 export class FlightService {
     public async search(criteria: SearchFlightCriteria): Promise<FlightDetail[]> {
         let from = fromToOptions.find(f => f.key === criteria.from);
@@ -197,8 +209,7 @@ export class FlightService {
                 presence: { allowEmpty: false },
             },
             isAcceptedRule: {
-                inclusion: {
-                    within: [true],
+                isTrue: {
                     message: () => validate.format("^You must accept the rules", {})
                 }
 
