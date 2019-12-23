@@ -40,7 +40,8 @@ export class FlightService {
             "classType": "Business Class",
             "priceFrom": criteria.priceFrom,
             "priceTo": criteria.priceTo,
-            "roundTrip": criteria.roundTrip
+            "roundTrip": criteria.roundTrip,
+            "airlines": criteria.airlines
         })
             .then(function (response) {
                 if (response.data.model.length > 10) {
