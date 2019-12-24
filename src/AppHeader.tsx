@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Stack, FontIcon, Link, FontWeights, Label, Separator } from "office-ui-fabric-react";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
+import { useWindowWidth } from "./hooks/useWindowWidth";
 
 const iconClass = mergeStyles({
     fontSize: 12,
@@ -15,7 +16,48 @@ const iconLogo = mergeStyles({
     margin: "6px 12px"
 });
 
-export const AppHeader: React.FunctionComponent = () => {
+type AppHeaderProps = {
+    isShowLeftPanel: boolean;
+};
+
+export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftPanel }) => {
+    const width = useWindowWidth();
+    const isBigScreen = () => !isShowLeftPanel || width >= 1800;
+    const [rootStyleHeader1, setRootStyleHeader1] = useState({
+        backgroundColor: "rgb(64, 65, 86)",
+        width: "100%",
+        justifyContent: isBigScreen() ? "center" : "start",
+        paddingLeft: isBigScreen() ? "0px" : (width - 1024 - 340) / 2 + "px"
+    });
+    const [rootStyleHeader2, setRootStyleHeader2] = useState({
+        backgroundColor: "rgb(255, 255, 255);",
+        width: "100%",
+        marginTop: "0 !important",
+        justifyContent: isBigScreen() ? "center" : "start",
+        paddingLeft: isBigScreen() ? "0px" : (width - 1024 - 340) / 2 + "px"
+    });
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (!isBigScreen()) {
+                const newStyle = {
+                    justifyContent: isBigScreen() ? "center" : "start",
+                    paddingLeft: (width - 1024 - 340) / 2 + "px"
+                };
+                setRootStyleHeader1({ ...rootStyleHeader1, ...newStyle });
+                setRootStyleHeader2({ ...rootStyleHeader2, ...newStyle });
+            } else {
+                const newStyle = { alignSelf: "center" };
+                setRootStyleHeader1({ ...rootStyleHeader1, ...newStyle });
+                setRootStyleHeader2({ ...rootStyleHeader2, ...newStyle });
+            }
+        };
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    });
+
     return (
         <>
             <Stack
@@ -24,11 +66,9 @@ export const AppHeader: React.FunctionComponent = () => {
                     childrenGap: 15
                 }}
                 horizontalAlign="center"
+                //@ts-ignore
                 styles={{
-                    root: {
-                        backgroundColor: "rgb(64, 65, 86)",
-                        width: "100%"
-                    }
+                    root: rootStyleHeader1
                 }}
             >
                 <Stack
@@ -98,12 +138,9 @@ export const AppHeader: React.FunctionComponent = () => {
                     childrenGap: 15
                 }}
                 horizontalAlign="center"
+                // @ts-ignore
                 styles={{
-                    root: {
-                        backgroundColor: "rgb(255, 255, 255);",
-                        width: "100%",
-                        marginTop: "0 !important"
-                    }
+                    root: rootStyleHeader2
                 }}
             >
                 <Stack

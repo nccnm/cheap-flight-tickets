@@ -1,5 +1,5 @@
-import React from "react";
-import { useMediaQuery } from "react-responsive";
+import React, { useState } from "react";
+
 import { initializeIcons } from "office-ui-fabric-react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Stack } from "office-ui-fabric-react";
@@ -17,19 +17,22 @@ const rootStyle = {
         color: "#605e5c",
         fontSize: "14px",
         background: "#F2F2F2",
-        height: "100vh"
+        height: "auto"
     }
 };
 
 initializeIcons();
 
 export const App: React.FunctionComponent = () => {
-    const isBigScreen = useMediaQuery({ query: "(min-device-width: 1600px)" });
+    const [isShowLeftPanel, setIsShowLeftPanel] = useState(false);
+    const isMounted = () => {
+        setIsShowLeftPanel(!isShowLeftPanel);
+    };
 
     return (
         <Router>
             <Stack
-                horizontalAlign={isBigScreen ? "center" : "start"}
+                horizontalAlign="center"
                 verticalFill
                 styles={{
                     root: rootStyle.root
@@ -38,13 +41,13 @@ export const App: React.FunctionComponent = () => {
                     childrenGap: 20
                 }}
             >
-                <AppHeader></AppHeader>
+                <AppHeader isShowLeftPanel={isShowLeftPanel}></AppHeader>
                 <Switch>
                     <Route exact path="/">
                         <SearchFlightsPage />
                     </Route>
                     <Route path="/book">
-                        <BookFlightPage />
+                        <BookFlightPage isMounted={isMounted} />
                     </Route>
                     <Route path="/booking-success">
                         <BookingSuccessPage />

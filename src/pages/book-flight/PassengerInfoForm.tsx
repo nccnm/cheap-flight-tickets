@@ -39,18 +39,6 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
 
         onChange([...travellers]);
     };
-    const handleCheckedBaggagesValueChange = (value: any, index: number, item: Traveller) => {
-        const numberValue = Number(value);
-        if (numberValue) {
-            if (numberValue <= 10 && numberValue >= 0) {
-                handleFormElementValueChange(index, { checkedBaggae: numberValue });
-            } else {
-                handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
-            }
-        } else {
-            handleFormElementValueChange(index, { checkedBaggae: item.checkedBaggae });
-        }
-    };
 
     return (
         <>
@@ -380,6 +368,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                     >
                         <Stack
                             horizontal
+                            horizontalAlign="center"
                             styles={{
                                 root: {
                                     marginTop: "8px !important"
@@ -389,7 +378,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 childrenGap: 16
                             }}
                         >
-                            <SpinButton
+                            <TextField
                                 styles={{
                                     root: {
                                         flexBasis: "100%"
@@ -397,12 +386,15 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 }}
                                 min={0}
                                 max={10}
-                                label="Checked Baggages"
+                                label="Checked Baggages ($12 per baggage)"
                                 value={item.checkedBaggae + ""}
-                                onChange={(event: any) =>
-                                    handleCheckedBaggagesValueChange(event.target.value, index, item)
-                                }
-                                onBlur={event => handleCheckedBaggagesValueChange(event.target.value, index, item)}
+                                onChange={(event: any, newValue) => {
+                                    // @ts-ignore
+                                    newValue = newValue >= 10 ? 10 : newValue;
+                                    // @ts-ignore
+                                    newValue = newValue < 0 ? 0 : newValue;
+                                    handleFormElementValueChange(index, { checkedBaggae: newValue });
+                                }}
                             />
                             <Stack
                                 styles={{
@@ -410,9 +402,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         flexBasis: "100%"
                                     }
                                 }}
-                            >
-                                <Label>$12 per baggage</Label>
-                            </Stack>
+                            ></Stack>
                             <Stack
                                 styles={{
                                     root: {
