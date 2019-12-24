@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Stack, FontIcon, Link, FontWeights, Label, Separator } from "office-ui-fabric-react";
+import { Stack, FontIcon, Link, FontWeights, Label, Separator, Dialog, DialogType } from "office-ui-fabric-react";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
 import { useWindowWidth } from "./hooks/useWindowWidth";
+import { FlightService } from "./service/FlightService";
+import { useHistory } from "react-router-dom";
 
 const iconClass = mergeStyles({
     fontSize: 12,
@@ -20,7 +22,10 @@ type AppHeaderProps = {
     isShowLeftPanel: boolean;
 };
 
+const fightService = new FlightService();
+
 export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftPanel }) => {
+    let history = useHistory();
     const width = useWindowWidth();
     const isBigScreen = () => !isShowLeftPanel || width >= 1800;
     const [rootStyleHeader1, setRootStyleHeader1] = useState({
@@ -36,6 +41,7 @@ export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftP
         justifyContent: isBigScreen() ? "center" : "start",
         paddingLeft: isBigScreen() ? "0px" : (width - 1024 - 340) / 2 + "px"
     });
+    const [hideDialog, setHideDialog] = useState(true);
 
     useEffect(() => {
         const handleResize = () => {
@@ -57,6 +63,22 @@ export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftP
             window.removeEventListener("resize", handleResize);
         };
     });
+
+    const handSearchBoxSearch = newValue => {
+        fightService.getBookingByCode(newValue).then(
+            () => {
+                history.push(`./booking-success/?code=${newValue}`);
+            },
+            () => {
+                showDialog();
+                console.log("error", newValue);
+            }
+        );
+    };
+
+    const showDialog = (): void => {
+        setHideDialog(!hideDialog);
+    };
 
     return (
         <>
@@ -211,7 +233,21 @@ export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftP
                         </Link>
                     </Stack>
                     <Stack verticalAlign="center">
-                        <SearchBox placeholder="Search" />
+                        <SearchBox placeholder="Search" onSearch={handSearchBoxSearch} />
+                        <Dialog
+                            hidden={hideDialog}
+                            onDismiss={showDialog}
+                            dialogContentProps={{
+                                type: DialogType.normal,
+                                title: "Please try again!",
+                                closeButtonAriaLabel: "Close",
+                                subText: "The code you entered is invalid"
+                            }}
+                            modalProps={{
+                                isBlocking: false,
+                                styles: { main: { maxWidth: 450 } }
+                            }}
+                        ></Dialog>
                     </Stack>
                 </Stack>
             </Stack>

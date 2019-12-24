@@ -10,7 +10,7 @@ import validate from "validate.js";
 import { PaymentInfo } from '../model/PaymentInfo';
 import { ConfirmationInfo } from '../model/ConfirmationInfo';
 
-const API_PATH = "http://zerotoheroautomation-api.azurewebsites.net/api/";
+const API_PATH = "https://flyplanapi.azurewebsites.net/api/";
 
 validate.validators.isTrue = function (value, options, key, attributes) {
     if (value === true) {
@@ -82,10 +82,6 @@ export class FlightService {
         return axios.get(API_PATH + 'booking/' + code)
             .then(function (response) {
                 return response.data.model || {};
-            })
-            .catch(function (error) {
-                console.error(error);
-                return {};
             });
     }
 

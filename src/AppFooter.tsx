@@ -37,7 +37,7 @@ export const AppFooter: React.FunctionComponent = () => {
                                 }
                             }}
                         >
-                            flyplan
+                            HaiLua Company
                         </Label>
                     </Stack>
                     <Separator vertical></Separator>
@@ -73,7 +73,7 @@ export const AppFooter: React.FunctionComponent = () => {
                                 }
                             }}
                         >
-                            flyplan@gmail.com
+                            admin@hailua.com
                         </Label>
                         <Label
                             styles={{
@@ -120,7 +120,7 @@ export const AppFooter: React.FunctionComponent = () => {
                             }
                         }}
                     >
-                        Copyright@me 2019
+                        Copyright@HaiLua Company 2019
                     </Label>
                 </Stack>
             </Stack>
