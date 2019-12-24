@@ -163,7 +163,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 }}
                                 label="First Name"
                                 value={item.firstName}
-                                id="FirstName"
+                                id={"FirstName" + index}
                                 errorMessage={validation[index] && validation[index].firstName}
                                 required
                                 onChange={(event: any, newValue) => {
@@ -178,7 +178,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 }}
                                 label="Last Name"
                                 value={item.lastName}
-                                id="LastName"
+                                id={"LastName" + index}
                                 errorMessage={validation[index] && validation[index].lastName}
                                 required
                                 onChange={(event: any, newValue) => {
@@ -202,7 +202,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         flexBasis: "50%"
                                     })}
                                     label="Date of Birth"
-                                    id="DateOfBirth"
+                                    id={"DateOfBirth" + index}
                                     isRequired={true}
                                     // errorMessage={validation[index] && validation[index].dateOfBirth}
                                     value={item.dateOfBirth}
@@ -217,7 +217,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                         }
                                     }}
                                     label="Gender"
-                                    id="Gender"
+                                    id={"Gender" + index}
                                     required
                                     errorMessage={validation[index] && validation[index].gender}
                                     options={genderOptions}
@@ -250,7 +250,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }
                                 }}
                                 label="Nationality"
-                                id="Nationality"
+                                id={"Nationality" + index}
                                 required
                                 errorMessage={validation[index] && validation[index].nationality}
                                 options={nationalitiesOptions}
@@ -271,7 +271,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 }}
                                 label="Pasport or ID number"
                                 value={item.pasportId}
-                                id="PasportId"
+                                id={"PasportId" + index}
                                 required
                                 errorMessage={validation[index] && validation[index].pasportId}
                                 onChange={(event: any, newValue) => {
@@ -298,7 +298,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }}
                                     label="Expiry Date"
                                     value={item.pasportExpiryDateMonth}
-                                    id="PasportExpiryDateMonth"
+                                    id={"PasportExpiryDateMonth" + index}
                                     required
                                     errorMessage={validation[index] && validation[index].pasportExpiryDateMonth}
                                     onChange={(event: any, newValue) => {
@@ -314,7 +314,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }}
                                     label="Expiry Year"
                                     value={item.pasportExpiryDateYear}
-                                    id="PasportExpiryDateYear"
+                                    id={"PasportExpiryDateYear" + index}
                                     required
                                     errorMessage={validation[index] && validation[index].pasportExpiryDateYear}
                                     onChange={(event: any, newValue) => {
@@ -330,7 +330,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     }}
                                     label="No expiry"
                                     checked={item.pasportNoExpiry}
-                                    id="PasportNoExpiry"
+                                    id={"PasportNoExpiry" + index}
                                     onChange={(event: any, checked) => {
                                         handleFormElementValueChange(index, { pasportNoExpiry: checked });
                                     }}
@@ -472,7 +472,7 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                     flexBasis: "100%",
                                     flexDirection: "row"
                                 })}
-                                id="TravelInsurance"
+                                id={"TravelInsurance" + index}
                                 selectedKey={item.travelInsurance}
                                 onChange={(event: any, checked) => {
                                     handleFormElementValueChange(index, { travelInsurance: checked.key });
