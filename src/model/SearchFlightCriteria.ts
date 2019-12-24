@@ -6,7 +6,7 @@ export class SearchFlightCriteria {
     public adults?: string | null = "";
     public children?: string | null = "";
     public infants?: string | null = "";
-    public classType?: string | null = "";
+    public classType?: string | null = "0";
     public roundTrip?: number = 0;
     public priceFrom?: number = 100;
     public priceTo?: number = 1000;

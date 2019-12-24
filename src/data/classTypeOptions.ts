@@ -3,6 +3,6 @@ import {
 } from "office-ui-fabric-react";
 
 export const classTypeOptions: IDropdownOption[] = [
-    { key: "Economy", text: "Economy" },
-    { key: "Business Class", text: "Business Class" },
+    { key: "0", text: "Economy" },
+    { key: "1", text: "Business Class" },
 ];

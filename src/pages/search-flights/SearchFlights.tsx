@@ -290,7 +290,6 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                                 id="classType"
                                 options={classTypeOptions}
                                 selectedKey={criteria.classType}
-                                defaultSelectedKey="Economy"
                                 styles={{
                                     root: {
                                         flexBasis: "25%",

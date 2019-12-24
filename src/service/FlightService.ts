@@ -9,6 +9,7 @@ import axios from "axios";
 import validate from "validate.js";
 import { PaymentInfo } from '../model/PaymentInfo';
 import { ConfirmationInfo } from '../model/ConfirmationInfo';
+import { classTypeOptions } from '../data/classTypeOptions'
 
 const API_PATH = "https://flyplanapi.azurewebsites.net/api/";
 
@@ -37,7 +38,7 @@ export class FlightService {
             "to": returnText,
             "departDate": criteria.departDate ? criteria.departDate.getFullYear() + "-" + (criteria.departDate.getMonth() + 1) + "-" + criteria.departDate.getDate() : null,
             "returnDate": criteria.returnDate ? criteria.returnDate.getFullYear() + "-" + (criteria.returnDate.getMonth() + 1) + "-" + criteria.returnDate.getDate() : null,
-            "classType": "Business Class",
+            "classType": classTypeOptions.find(t => t.key === criteria.classType).text,
             "priceFrom": criteria.priceFrom,
             "priceTo": criteria.priceTo,
             "roundTrip": criteria.roundTrip,

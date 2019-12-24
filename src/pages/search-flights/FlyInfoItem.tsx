@@ -140,10 +140,10 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                 >
                     <Stack verticalAlign="start">
                         <Label styles={airlineInfoStyle.depart.time}>
-                            {moment(props.item.departTime).format("LT")}
+                            {moment(new Date(props.item.departTime).toISOString()).format("LT")}
                         </Label>
                         <Label styles={airlineInfoStyle.depart.date}>
-                            {moment(props.item.departTime).format("LL")}
+                            {moment(new Date(props.item.departTime).toISOString()).format("LL")}
                         </Label>
                         <Label styles={airlineInfoStyle.depart.airport}>{props.item.depart}</Label>
                     </Stack>
@@ -197,10 +197,10 @@ export const FlyInfoItem: React.FunctionComponent<FlyInfoItemProps> = (props: Fl
                 >
                     <Stack verticalAlign="start">
                         <Label styles={airlineInfoStyle.depart.time}>
-                            {moment(props.item.returnTime).format("LT")}
+                            {moment(new Date(props.item.returnTime).toISOString()).format("LT")}
                         </Label>
                         <Label styles={airlineInfoStyle.depart.date}>
-                            {moment(props.item.returnTime).format("LL")}
+                            {moment(new Date(props.item.returnTime).toISOString()).format("LL")}
                         </Label>
                         <Label styles={airlineInfoStyle.depart.airport}>{props.item.return}</Label>
                     </Stack>
