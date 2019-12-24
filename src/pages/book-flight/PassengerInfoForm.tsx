@@ -7,7 +7,6 @@ import {
     ComboBox,
     IDropdownOption,
     Checkbox,
-    SpinButton,
     FontIcon,
     FontWeights,
     FontSizes,
@@ -386,14 +385,18 @@ export const PassengerInfoForm: React.FunctionComponent<PassengerInfoFormProps> 
                                 }}
                                 min={0}
                                 max={10}
-                                label="Checked Baggages ($12 per baggage)"
+                                label="Checked Baggages ($12 per baggage - maximum 10 baggages)"
                                 value={item.checkedBaggae + ""}
                                 onChange={(event: any, newValue) => {
                                     // @ts-ignore
-                                    newValue = newValue >= 10 ? 10 : newValue;
+                                    newValue = newValue >= 10 ? item.checkedBaggae : newValue;
                                     // @ts-ignore
-                                    newValue = newValue < 0 ? 0 : newValue;
-                                    handleFormElementValueChange(index, { checkedBaggae: newValue });
+                                    newValue = newValue < 0 ? item.checkedBaggae : newValue;
+
+                                    // @ts-ignore
+                                    if (!isNaN(newValue)) {
+                                        handleFormElementValueChange(index, { checkedBaggae: newValue });
+                                    }
                                 }}
                             />
                             <Stack

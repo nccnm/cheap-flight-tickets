@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import { initializeIcons } from "office-ui-fabric-react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -25,9 +25,9 @@ initializeIcons();
 
 export const App: React.FunctionComponent = () => {
     const [isShowLeftPanel, setIsShowLeftPanel] = useState(false);
-    const isMounted = () => {
+    const isMounted = useCallback(() => {
         setIsShowLeftPanel(!isShowLeftPanel);
-    };
+    }, [isShowLeftPanel]);
 
     return (
         <Router>

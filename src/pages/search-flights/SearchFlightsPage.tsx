@@ -52,7 +52,7 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
     }, [searchFlightCriteria]);
 
     const onCriteriaChanges = (criteria: SearchFlightCriteria) => {
-        setSearchFlightCriteria({ ...searchFlightCriteria, ...criteria });
+        setSearchFlightCriteria(Object.assign(searchFlightCriteria, criteria));
     };
 
     const onSearchClick = async (criteria: SearchFlightCriteria) => {
