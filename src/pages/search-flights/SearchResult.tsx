@@ -27,7 +27,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProp> = ({ result
         <Stack
             styles={{
                 root: {
-                    flexBasis: "70%"
+                    flexBasis: "80%"
                 }
             }}
         >
