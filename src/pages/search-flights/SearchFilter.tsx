@@ -67,7 +67,8 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
 
         const newItem = {
             priceFrom: 100,
-            priceTo: 1000
+            priceTo: 1000,
+            airlines: []
         };
         onCriteriaChanges({ ...criteria, ...newItem });
     };
