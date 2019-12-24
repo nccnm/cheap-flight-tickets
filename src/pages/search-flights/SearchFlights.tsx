@@ -21,6 +21,9 @@ import { infantOptions } from "../../data/infantOptions";
 import { classTypeOptions } from "../../data/classTypeOptions";
 import { fromToOptions } from "../../data/fromToOptions";
 
+const today: Date = new Date(Date.now());
+const minDate: Date = today;
+
 const departureIconClass = mergeStyles({
     fontSize: 30,
     color: "#FFFFFF",
@@ -319,6 +322,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                                     marginRight: "16px",
                                     flexBasis: "50%"
                                 })}
+                                minDate={minDate}
                                 value={criteria.departDate}
                                 onSelectDate={handleOnSelectDepartDate}
                             />

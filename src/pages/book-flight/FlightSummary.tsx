@@ -24,6 +24,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
             <Stack>
                 <Stack>
                     <Stack
+                        className="flights-detail"
                         horizontal
                         verticalAlign="center"
                         styles={{
@@ -155,6 +156,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                     }}
                 >
                     <Stack
+                        className="flights-travellers"
                         horizontal
                         verticalAlign="center"
                         styles={{
@@ -271,6 +273,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                     }}
                 >
                     <Stack
+                        className="flights-total"
                         horizontal
                         verticalAlign="center"
                         styles={{

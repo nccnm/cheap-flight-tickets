@@ -117,8 +117,9 @@ export const AppHeader: React.FunctionComponent = () => {
                         }
                     }}
                 >
-                    <Stack horizontal horizontalAlign="start">
+                    <Stack horizontal horizontalAlign="start" verticalAlign="center">
                         <Link
+                            href="/"
                             styles={{
                                 root: {
                                     fontSize: "16px",
@@ -159,6 +160,7 @@ export const AppHeader: React.FunctionComponent = () => {
                         <FontIcon iconName="AirTickets" className={iconLogo} />
 
                         <Link
+                            href="/"
                             styles={{
                                 root: {
                                     fontSize: "28px",

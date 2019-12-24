@@ -1,4 +1,5 @@
 import React from "react";
+import { useMediaQuery } from "react-responsive";
 import { initializeIcons } from "office-ui-fabric-react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Stack } from "office-ui-fabric-react";
@@ -23,10 +24,12 @@ const rootStyle = {
 initializeIcons();
 
 export const App: React.FunctionComponent = () => {
+    const isBigScreen = useMediaQuery({ query: "(min-device-width: 1600px)" });
+
     return (
         <Router>
             <Stack
-                horizontalAlign="center"
+                horizontalAlign={isBigScreen ? "center" : "start"}
                 verticalFill
                 styles={{
                     root: rootStyle.root
