@@ -53,7 +53,7 @@ export const BookFlightPage: React.FunctionComponent<BookFlightPageProps> = ({ i
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, [rootStyle, width]);
+    }, [rootStyle, width, isBigScreen]);
 
     useEffect(() => {
         flightService.getById(order.flightId).then(function(flight) {

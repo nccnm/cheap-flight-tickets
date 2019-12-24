@@ -12,4 +12,5 @@ export class SearchFlightCriteria {
     public priceTo?: number = 1000;
     public departTime?: string | null = "";
     public airlines?: string[] = [];
+    public orderBy?: string = "TotalMoney"
 }

@@ -75,15 +75,19 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
         }
 
         setAllAirlines(!allAirlines);
+        onCriteriaChanges({ ...criteria, ...{ airlines: [] } });
     };
 
     const handSelectAirline = (airline: string, index: number) => {
         selectedAirlines[index].checked = !selectedAirlines[index].checked;
         setSelectedAirlines([...selectedAirlines]);
-        const airlines = selectedAirlines.filter(s => s.checked === true);
+        const selectedAirlinesIsTrue = selectedAirlines.filter(s => s.checked === true);
 
-        if (airlines) {
-            onCriteriaChanges({ ...criteria, ...airlines.map(a => a.airline) });
+        if (selectedAirlinesIsTrue) {
+            if (selectedAirlinesIsTrue.length < airlines.length) {
+                setAllAirlines(false);
+            }
+            onCriteriaChanges({ ...criteria, ...{ airlines: selectedAirlinesIsTrue.map(a => a.airline) } });
         }
     };
 

@@ -1,22 +1,28 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Stack, Label, Dropdown, IDropdownOption } from "office-ui-fabric-react";
 import { FlyInfoItem } from "./FlyInfoItem";
 import { FlightDetail } from "../../model/FlightDetail";
 import { SearchFlightCriteria } from "../../model/SearchFlightCriteria";
 
 const options: IDropdownOption[] = [
-    { key: "price", text: "Price by Adult" },
-    { key: "departTime", text: "Depart Time" },
-    // { key: "stops", text: "Stops" },
-    { key: "airlines", text: "Airlines" }
+    { key: "TotalMoney", text: "Price by Adult" },
+    { key: "DepartTime", text: "Depart Time" }
 ];
 
 type SearchResultProp = {
     result: FlightDetail[];
     criteria: SearchFlightCriteria;
+    onCriteriaChanges: (criteria: SearchFlightCriteria) => void;
 };
 
-export const SearchResult: React.FunctionComponent<SearchResultProp> = (props: SearchResultProp) => {
+export const SearchResult: React.FunctionComponent<SearchResultProp> = ({ result, criteria, onCriteriaChanges }) => {
+    const handleSortOnchange = useCallback(
+        (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+            onCriteriaChanges({ orderBy: option ? option.key.toString() : criteria.orderBy });
+        },
+        [criteria.orderBy, onCriteriaChanges]
+    );
+
     return (
         <Stack
             styles={{
@@ -43,7 +49,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProp> = (props: S
                         }
                     }}
                 >
-                    {props.result.length} Results
+                    {result.length} Results
                 </Label>
                 <Stack
                     horizontal
@@ -61,20 +67,21 @@ export const SearchResult: React.FunctionComponent<SearchResultProp> = (props: S
                     <Label>Sort by:</Label>
                     <Dropdown
                         id="SortBy"
-                        defaultSelectedKey="price"
+                        defaultSelectedKey="TotalMoney"
                         options={options}
                         styles={{
                             root: {
                                 width: "160px"
                             }
                         }}
+                        onChange={handleSortOnchange}
                     />
                 </Stack>
             </Stack>
             <Stack>
                 <Stack>
-                    {props.result.map(item => (
-                        <FlyInfoItem key={item.id} item={item} criteria={props.criteria} />
+                    {result.map(item => (
+                        <FlyInfoItem key={item.id} item={item} criteria={criteria} />
                     ))}
                 </Stack>
             </Stack>

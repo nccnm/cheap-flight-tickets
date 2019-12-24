@@ -10,7 +10,7 @@ import validate from "validate.js";
 import { PaymentInfo } from '../model/PaymentInfo';
 import { ConfirmationInfo } from '../model/ConfirmationInfo';
 
-const API_PATH = "https://flyplanapi.azurewebsites.net/api/";
+const API_PATH = "http://zerotoheroautomation-api.azurewebsites.net/api/";
 
 validate.validators.isTrue = function (value, options, key, attributes) {
     if (value === true) {
@@ -41,11 +41,12 @@ export class FlightService {
             "priceFrom": criteria.priceFrom,
             "priceTo": criteria.priceTo,
             "roundTrip": criteria.roundTrip,
-            "airlines": criteria.airlines
+            "airlines": criteria.airlines,
+            "orderBy": criteria.orderBy
         })
             .then(function (response) {
-                if (response.data.model.length > 10) {
-                    return response.data.model.slice(0, 10);
+                if (response.data.model.length > 20) {
+                    return response.data.model.slice(0, 20);
                 }
                 return response.data.model || [];
             })

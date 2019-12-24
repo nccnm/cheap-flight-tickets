@@ -84,7 +84,11 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
                     onCriteriaChanges={onCriteriaChanges}
                     onSearchClick={onSearchClick}
                 />
-                <SearchResult result={searchResult} criteria={searchFlightCriteria} />
+                <SearchResult
+                    result={searchResult}
+                    criteria={searchFlightCriteria}
+                    onCriteriaChanges={onCriteriaChanges}
+                />
             </Stack>
         </Stack>
     );
