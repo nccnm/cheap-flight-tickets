@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Stack, Label, SpinButton, Separator, PrimaryButton, Checkbox } from "office-ui-fabric-react";
+import { Stack, Label, SpinButton, Separator, PrimaryButton, Checkbox, TextField } from "office-ui-fabric-react";
 import { Position } from "office-ui-fabric-react/lib/utilities/positioning";
 import { theme } from "../../style/theme";
 import { SearchFlightCriteria } from "../../model/SearchFlightCriteria";
@@ -125,37 +125,38 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
                 }}
             >
                 <Label>Price Range</Label>
-                <SpinButton
+
+                <TextField
                     label={"From ($):"}
-                    labelPosition={Position.top}
                     min={0}
                     max={10000}
-                    step={10}
                     value={criteria.priceFrom + ""}
-                    onChange={(event: any) => handleFormElementValueChange({ priceFrom: event.target.value })}
-                    onBlur={event => handleFormElementValueChange({ priceFrom: event.target.value })}
-                    incrementButtonAriaLabel={"Increase value by 1"}
-                    decrementButtonAriaLabel={"Decrease value by 1"}
-                    styles={{
-                        label: {
-                            fontSize: "12px"
+                    onChange={(event: any, newValue) => {
+                        // @ts-ignore
+                        newValue = newValue >= 10000 ? criteria.priceFrom : newValue;
+                        // @ts-ignore
+                        newValue = newValue < 0 ? criteria.priceFrom : newValue;
+
+                        // @ts-ignore
+                        if (!isNaN(newValue)) {
+                            handleFormElementValueChange({ priceFrom: newValue });
                         }
                     }}
                 />
-                <SpinButton
+                <TextField
                     label={"To ($):"}
-                    labelPosition={Position.top}
                     min={0}
                     max={10000}
-                    step={10}
                     value={criteria.priceTo + ""}
-                    onChange={(event: any) => handleFormElementValueChange({ priceTo: event.target.value })}
-                    onBlur={event => handleFormElementValueChange({ priceTo: event.target.value })}
-                    incrementButtonAriaLabel={"Increase value by 1"}
-                    decrementButtonAriaLabel={"Decrease value by 1"}
-                    styles={{
-                        label: {
-                            fontSize: "12px"
+                    onChange={(event: any, newValue) => {
+                        // @ts-ignore
+                        newValue = newValue >= 10000 ? criteria.priceTo : newValue;
+                        // @ts-ignore
+                        newValue = newValue < 0 ? criteria.priceTo : newValue;
+
+                        // @ts-ignore
+                        if (!isNaN(newValue)) {
+                            handleFormElementValueChange({ priceTo: newValue });
                         }
                     }}
                 />

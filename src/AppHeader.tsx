@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Stack, FontIcon, Link, FontWeights, Label, Separator, Dialog, DialogType } from "office-ui-fabric-react";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
