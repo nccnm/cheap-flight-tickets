@@ -44,19 +44,24 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
     const query = useQuery();
     const [searchFlightCriteria, setSearchFlightCriteria] = useState(getSearchFlightCriteria(query));
     const [searchResult, setSearchResult] = useState<FlightDetail[]>([]);
+    const [searchImmediately, setSearchImmediately] = useState(true);
 
     useEffect(() => {
-        fightService.search(searchFlightCriteria).then(function(flights) {
-            setSearchResult(flights);
-        });
-    }, [searchFlightCriteria]);
+        if (searchImmediately) {
+            fightService.search(searchFlightCriteria).then(function(flights) {
+                setSearchResult(flights);
+            });
+        }
+    }, [searchFlightCriteria, searchImmediately]);
 
     const onCriteriaChanges1 = (criteria: SearchFlightCriteria) => {
+        setSearchImmediately(true);
         setSearchFlightCriteria({ ...searchFlightCriteria, ...criteria });
     };
 
     const onCriteriaChanges2 = (criteria: SearchFlightCriteria) => {
-        setSearchFlightCriteria(Object.assign(searchFlightCriteria, criteria));
+        setSearchImmediately(false);
+        setSearchFlightCriteria({ ...searchFlightCriteria, ...criteria });
     };
 
     const onSearchClick = async (criteria: SearchFlightCriteria) => {
