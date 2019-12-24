@@ -57,8 +57,19 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
         onCriteriaChanges({ ...criteria, ...newItem });
     };
 
-    const handleSearchFlightsClick = () => {
-        onSearchClick(criteria);
+    const handleResetAllFilterClick = () => {
+        selectedAirlines.forEach(a => {
+            a.checked = false;
+        });
+        setSelectedAirlines([...selectedAirlines]);
+
+        setAllAirlines(false);
+
+        const newItem = {
+            priceFrom: 100,
+            priceTo: 1000
+        };
+        onCriteriaChanges({ ...criteria, ...newItem });
     };
 
     const handSelectAllAirlines = () => {
@@ -127,6 +138,7 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
                 <Label>Price Range</Label>
 
                 <TextField
+                    id="priceFrom"
                     label={"From ($):"}
                     min={0}
                     max={10000}
@@ -144,6 +156,7 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
                     }}
                 />
                 <TextField
+                    id="priceTo"
                     label={"To ($):"}
                     min={0}
                     max={10000}
@@ -294,7 +307,7 @@ export const SearchFilter: React.FunctionComponent<SearchFlightsProps> = ({
                             backgroundColor: "#737373"
                         }
                     }}
-                    onClick={handleSearchFlightsClick}
+                    onClick={handleResetAllFilterClick}
                 />
             </Stack>
         </Stack>

@@ -49,10 +49,14 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
         fightService.search(searchFlightCriteria).then(function(flights) {
             setSearchResult(flights);
         });
-    }, []);
+    }, [searchFlightCriteria]);
 
-    const onCriteriaChanges = (criteria: SearchFlightCriteria) => {
+    const onCriteriaChanges1 = (criteria: SearchFlightCriteria) => {
         setSearchFlightCriteria({ ...searchFlightCriteria, ...criteria });
+    };
+
+    const onCriteriaChanges2 = (criteria: SearchFlightCriteria) => {
+        setSearchFlightCriteria(Object.assign(searchFlightCriteria, criteria));
     };
 
     const onSearchClick = async (criteria: SearchFlightCriteria) => {
@@ -70,7 +74,7 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
         >
             <SearchFlights
                 criteria={searchFlightCriteria}
-                onCriteriaChanges={onCriteriaChanges}
+                onCriteriaChanges={onCriteriaChanges2}
                 onSearchClick={onSearchClick}
             />
             <Stack
@@ -81,13 +85,13 @@ export const SearchFlightsPage: React.FunctionComponent = () => {
             >
                 <SearchFilter
                     criteria={searchFlightCriteria}
-                    onCriteriaChanges={onCriteriaChanges}
+                    onCriteriaChanges={onCriteriaChanges1}
                     onSearchClick={onSearchClick}
                 />
                 <SearchResult
                     result={searchResult}
                     criteria={searchFlightCriteria}
-                    onCriteriaChanges={onCriteriaChanges}
+                    onCriteriaChanges={onCriteriaChanges1}
                 />
             </Stack>
         </Stack>
