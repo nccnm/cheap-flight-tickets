@@ -27,42 +27,50 @@ const fightService = new FlightService();
 export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftPanel }) => {
     let history = useHistory();
     const width = useWindowWidth();
-    const isBigScreen = () => !isShowLeftPanel || width >= 1800;
-    const [rootStyleHeader1, setRootStyleHeader1] = useState({
+    const isBigScreen = () => {
+        if (isShowLeftPanel === true) {
+            if (width <= 1800) {
+                return false;
+            }
+        }
+
+        return true;
+    };
+    const rootStyleHeader1 = {
         backgroundColor: "rgb(64, 65, 86)",
         width: "100%",
         justifyContent: isBigScreen() ? "center" : "start",
         paddingLeft: isBigScreen() ? "0px" : (width - 1024 - 340) / 2 + "px"
-    });
-    const [rootStyleHeader2, setRootStyleHeader2] = useState({
+    };
+    const rootStyleHeader2 = {
         backgroundColor: "rgb(255, 255, 255);",
         width: "100%",
         marginTop: "0 !important",
         justifyContent: isBigScreen() ? "center" : "start",
         paddingLeft: isBigScreen() ? "0px" : (width - 1024 - 340) / 2 + "px"
-    });
+    };
     const [hideDialog, setHideDialog] = useState(true);
 
-    useEffect(() => {
-        const handleResize = () => {
-            if (!isBigScreen()) {
-                const newStyle = {
-                    justifyContent: isBigScreen() ? "center" : "start",
-                    paddingLeft: (width - 1024 - 340) / 2 + "px"
-                };
-                setRootStyleHeader1({ ...rootStyleHeader1, ...newStyle });
-                setRootStyleHeader2({ ...rootStyleHeader2, ...newStyle });
-            } else {
-                const newStyle = { alignSelf: "center" };
-                setRootStyleHeader1({ ...rootStyleHeader1, ...newStyle });
-                setRootStyleHeader2({ ...rootStyleHeader2, ...newStyle });
-            }
-        };
-        window.addEventListener("resize", handleResize);
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    });
+    // useEffect(() => {
+    //     const handleResize = () => {
+    //         if (!isBigScreen()) {
+    //             const newStyle = {
+    //                 justifyContent: isBigScreen() ? "center" : "start",
+    //                 paddingLeft: (width - 1024 - 340) / 2 + "px"
+    //             };
+    //             setRootStyleHeader1({ ...rootStyleHeader1, ...newStyle });
+    //             setRootStyleHeader2({ ...rootStyleHeader2, ...newStyle });
+    //         } else {
+    //             const newStyle = { alignSelf: "center" };
+    //             setRootStyleHeader1({ ...rootStyleHeader1, ...newStyle });
+    //             setRootStyleHeader2({ ...rootStyleHeader2, ...newStyle });
+    //         }
+    //     };
+    //     window.addEventListener("resize", handleResize);
+    //     return () => {
+    //         window.removeEventListener("resize", handleResize);
+    //     };
+    // }, []);
 
     const handSearchBoxSearch = newValue => {
         fightService.getBookingByCode(newValue).then(

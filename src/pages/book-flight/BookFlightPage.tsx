@@ -15,7 +15,7 @@ import { useWindowWidth } from "../../hooks/useWindowWidth";
 const flightService = new FlightService();
 
 type BookFlightPageProps = {
-    isMounted: () => void;
+    isMounted: (value: boolean) => void;
 };
 
 export const BookFlightPage: React.FunctionComponent<BookFlightPageProps> = ({ isMounted }) => {
@@ -48,7 +48,7 @@ export const BookFlightPage: React.FunctionComponent<BookFlightPageProps> = ({ i
             }
         };
         window.addEventListener("resize", handleResize);
-        isMounted();
+        isMounted(true);
 
         return () => {
             window.removeEventListener("resize", handleResize);

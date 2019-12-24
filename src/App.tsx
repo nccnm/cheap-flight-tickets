@@ -25,9 +25,9 @@ initializeIcons();
 
 export const App: React.FunctionComponent = () => {
     const [isShowLeftPanel, setIsShowLeftPanel] = useState(false);
-    const isMounted = useCallback(() => {
-        setIsShowLeftPanel(!isShowLeftPanel);
-    }, [isShowLeftPanel]);
+    const isMounted = useCallback((value: boolean) => {
+        setIsShowLeftPanel(value);
+    }, []);
 
     return (
         <Router>
