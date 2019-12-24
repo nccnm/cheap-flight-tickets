@@ -24,6 +24,12 @@ type AppHeaderProps = {
 
 const fightService = new FlightService();
 
+function getMarginLeft(width: number) {
+    const result = (width - 1024 - 340) / 2;
+
+    return result <= 0 ? 10 : result;
+}
+
 export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftPanel }) => {
     let history = useHistory();
     const width = useWindowWidth();
@@ -40,14 +46,14 @@ export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftP
         backgroundColor: "rgb(64, 65, 86)",
         width: "100%",
         justifyContent: isBigScreen() ? "center" : "start",
-        paddingLeft: isBigScreen() ? "0px" : (width - 1024 - 340) / 2 + "px"
+        paddingLeft: isBigScreen() ? "10px" : getMarginLeft(width) + "px"
     };
     const rootStyleHeader2 = {
         backgroundColor: "rgb(255, 255, 255);",
         width: "100%",
         marginTop: "0 !important",
         justifyContent: isBigScreen() ? "center" : "start",
-        paddingLeft: isBigScreen() ? "0px" : (width - 1024 - 340) / 2 + "px"
+        paddingLeft: isBigScreen() ? "10px" : getMarginLeft(width) + "px"
     };
     const [hideDialog, setHideDialog] = useState(true);
 

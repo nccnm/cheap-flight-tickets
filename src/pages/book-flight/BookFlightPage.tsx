@@ -18,6 +18,12 @@ type BookFlightPageProps = {
     isMounted: (value: boolean) => void;
 };
 
+function getMarginLeft(width: number) {
+    const result = (width - 1024 - 340) / 2;
+
+    return result <= 0 ? 10 : result;
+}
+
 export const BookFlightPage: React.FunctionComponent<BookFlightPageProps> = ({ isMounted }) => {
     const { search } = useLocation();
     const [order, setOrder] = useState<Order>(new Order(qs.parse(search.substr(1))));
@@ -31,7 +37,7 @@ export const BookFlightPage: React.FunctionComponent<BookFlightPageProps> = ({ i
         fontSize: "14px",
         width: "1024px",
         alignSelf: isBigScreen() ? "center" : "start",
-        marginLeft: isBigScreen() ? "0px" : (width - 1024 - 340) / 2 + "px"
+        marginLeft: isBigScreen() ? "0px" : getMarginLeft(width) + "px"
     });
 
     useEffect(() => {
@@ -39,7 +45,7 @@ export const BookFlightPage: React.FunctionComponent<BookFlightPageProps> = ({ i
             if (!isBigScreen()) {
                 const newStyle = {
                     alignSelf: "start",
-                    marginLeft: (width - 1024 - 340) / 2 + "px"
+                    marginLeft: getMarginLeft(width) + "px"
                 };
                 setRootStyle({ ...rootStyle, ...newStyle });
             } else {
@@ -95,7 +101,17 @@ export const BookFlightPage: React.FunctionComponent<BookFlightPageProps> = ({ i
             }}
         >
             <PassengerForm order={order} onChange={onOrderChange} onClick={onClick} validation={validationResult} />
-            <Panel headerText="SUMMARY" isBlocking={false} isOpen={true} hasCloseButton={false}>
+            <Panel
+                headerText="SUMMARY"
+                isBlocking={false}
+                isOpen={true}
+                hasCloseButton={false}
+                styles={{
+                    root: {
+                        // width: "100px"
+                    }
+                }}
+            >
                 <FlightSummary travellers={order.travellerViewModels} flight={flight} />
             </Panel>
         </Stack>
