@@ -129,7 +129,8 @@ export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmati
                                 marginTop: "0px",
                                 fontSize: "12px",
                                 color: "rgb(164, 38, 44)",
-                                fontFamily: `"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;`
+                                paddingTop: "5px",
+                                fontFamily: `"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif`
                             }}
                         >
                             <span data-automation-id="error-message">{validation && validation.isAcceptedRule}</span>
