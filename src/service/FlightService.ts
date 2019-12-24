@@ -33,10 +33,14 @@ export class FlightService {
         const departText = from ? from.text : "";
         const returnText = to ? to.text : "";
 
+        if (!criteria.departDate) {
+            criteria.departDate = new Date(Date.now());
+        }
+
         return axios.post(API_PATH + 'flight', {
             "from": departText,
             "to": returnText,
-            "departDate": criteria.departDate ? criteria.departDate.getFullYear() + "-" + (criteria.departDate.getMonth() + 1) + "-" + criteria.departDate.getDate() : null,
+            "departDate": criteria.departDate.getFullYear() + "-" + (criteria.departDate.getMonth() + 1) + "-" + criteria.departDate.getDate(),
             "returnDate": criteria.returnDate ? criteria.returnDate.getFullYear() + "-" + (criteria.returnDate.getMonth() + 1) + "-" + criteria.returnDate.getDate() : null,
             "classType": classTypeOptions.find(t => t.key === criteria.classType).text,
             "priceFrom": criteria.priceFrom,
