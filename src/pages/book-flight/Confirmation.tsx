@@ -123,7 +123,15 @@ export const Confirmation: React.FunctionComponent<PaymentProps> = ({ confirmati
                                 handleFormElementValueChange({ isAcceptedRule: newValue });
                             }}
                         ></Checkbox>
-                        <p className="ms-TextField-errorMessage errorMessage-116" style={{ marginTop: "0px" }}>
+                        <p
+                            className="ms-TextField-errorMessage errorMessage-116"
+                            style={{
+                                marginTop: "0px",
+                                fontSize: "12px",
+                                color: "rgb(164, 38, 44);",
+                                fontFamily: `"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;`
+                            }}
+                        >
                             <span data-automation-id="error-message">{validation && validation.isAcceptedRule}</span>
                         </p>
                         <Checkbox
