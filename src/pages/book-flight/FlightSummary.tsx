@@ -74,7 +74,7 @@ export const FlightSummary: React.FunctionComponent<FlightSummaryProp> = ({ trav
                                 Departure
                             </Label>
                         </Stack>
-                        <Stack horizontal>
+                        <Stack>
                             <Stack
                                 styles={{
                                     root: {

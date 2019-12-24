@@ -19,7 +19,7 @@ type BookFlightPageProps = {
 };
 
 function getMarginLeft(width: number) {
-    const result = (width - 1024 - 340) / 2;
+    const result = (width - 1024 - 240) / 2;
 
     return result <= 0 ? 10 : result;
 }
@@ -107,8 +107,8 @@ export const BookFlightPage: React.FunctionComponent<BookFlightPageProps> = ({ i
                 isOpen={true}
                 hasCloseButton={false}
                 styles={{
-                    root: {
-                        // width: "100px"
+                    main: {
+                        width: "240px !important"
                     }
                 }}
             >

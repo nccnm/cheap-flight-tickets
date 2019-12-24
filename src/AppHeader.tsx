@@ -25,7 +25,7 @@ type AppHeaderProps = {
 const fightService = new FlightService();
 
 function getMarginLeft(width: number) {
-    const result = (width - 1024 - 340) / 2;
+    const result = (width - 1024 - 240) / 2;
 
     return result <= 0 ? 10 : result;
 }
@@ -62,7 +62,7 @@ export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftP
     //         if (!isBigScreen()) {
     //             const newStyle = {
     //                 justifyContent: isBigScreen() ? "center" : "start",
-    //                 paddingLeft: (width - 1024 - 340) / 2 + "px"
+    //                 paddingLeft: (width - 1024 - 240) / 2 + "px"
     //             };
     //             setRootStyleHeader1({ ...rootStyleHeader1, ...newStyle });
     //             setRootStyleHeader2({ ...rootStyleHeader2, ...newStyle });
