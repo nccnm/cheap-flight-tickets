@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 
 import { initializeIcons } from "office-ui-fabric-react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -9,7 +9,6 @@ import { AppFooter } from "./AppFooter";
 
 import { BookFlightPage } from "./pages/book-flight/BookFlightPage";
 import { SearchFlightsPage } from "./pages/search-flights/SearchFlightsPage";
-import { BookingSuccessPage } from "./pages/booking-success/BookingSuccessPage";
 
 const rootStyle = {
     root: {
@@ -24,11 +23,6 @@ const rootStyle = {
 initializeIcons();
 
 export const App: React.FunctionComponent = () => {
-    const [isShowLeftPanel, setIsShowLeftPanel] = useState(false);
-    const isMounted = useCallback((value: boolean) => {
-        setIsShowLeftPanel(value);
-    }, []);
-
     return (
         <Router>
             <Stack
@@ -41,16 +35,13 @@ export const App: React.FunctionComponent = () => {
                     childrenGap: 20
                 }}
             >
-                <AppHeader isShowLeftPanel={isShowLeftPanel}></AppHeader>
+                <AppHeader></AppHeader>
                 <Switch>
                     <Route exact path="/">
                         <SearchFlightsPage />
                     </Route>
                     <Route path="/book">
-                        <BookFlightPage isMounted={isMounted} />
-                    </Route>
-                    <Route path="/booking-success">
-                        <BookingSuccessPage />
+                        <BookFlightPage />
                     </Route>
                 </Switch>
                 <AppFooter></AppFooter>

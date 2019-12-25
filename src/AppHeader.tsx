@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Stack, FontIcon, Link, FontWeights, Label, Separator, Dialog, DialogType } from "office-ui-fabric-react";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
-import { useWindowWidth } from "./hooks/useWindowWidth";
 import { FlightService } from "./service/FlightService";
 import { useHistory } from "react-router-dom";
 
@@ -18,77 +17,19 @@ const iconLogo = mergeStyles({
     margin: "6px 12px"
 });
 
-type AppHeaderProps = {
-    isShowLeftPanel: boolean;
-};
-
-const fightService = new FlightService();
-
-function getMarginLeft(width: number) {
-    const result = (width - 1024 - 240) / 2;
-
-    return result <= 0 ? 10 : result;
-}
-
-export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftPanel }) => {
-    let history = useHistory();
-    const width = useWindowWidth();
-    const isBigScreen = () => {
-        if (isShowLeftPanel === true) {
-            if (width <= 1800) {
-                return false;
-            }
-        }
-
-        return true;
-    };
+export const AppHeader: React.FunctionComponent = () => {
     const rootStyleHeader1 = {
         backgroundColor: "rgb(64, 65, 86)",
         width: "100%",
-        justifyContent: isBigScreen() ? "center" : "start",
-        paddingLeft: isBigScreen() ? "10px" : getMarginLeft(width) + "px"
+        justifyContent: "center"
     };
     const rootStyleHeader2 = {
         backgroundColor: "rgb(255, 255, 255);",
         width: "100%",
         marginTop: "0 !important",
-        justifyContent: isBigScreen() ? "center" : "start",
-        paddingLeft: isBigScreen() ? "10px" : getMarginLeft(width) + "px"
+        justifyContent: "center"
     };
     const [hideDialog, setHideDialog] = useState(true);
-
-    // useEffect(() => {
-    //     const handleResize = () => {
-    //         if (!isBigScreen()) {
-    //             const newStyle = {
-    //                 justifyContent: isBigScreen() ? "center" : "start",
-    //                 paddingLeft: (width - 1024 - 240) / 2 + "px"
-    //             };
-    //             setRootStyleHeader1({ ...rootStyleHeader1, ...newStyle });
-    //             setRootStyleHeader2({ ...rootStyleHeader2, ...newStyle });
-    //         } else {
-    //             const newStyle = { alignSelf: "center" };
-    //             setRootStyleHeader1({ ...rootStyleHeader1, ...newStyle });
-    //             setRootStyleHeader2({ ...rootStyleHeader2, ...newStyle });
-    //         }
-    //     };
-    //     window.addEventListener("resize", handleResize);
-    //     return () => {
-    //         window.removeEventListener("resize", handleResize);
-    //     };
-    // }, []);
-
-    const handSearchBoxSearch = newValue => {
-        fightService.getBookingByCode(newValue).then(
-            () => {
-                history.push(`./booking-success/?code=${newValue}`);
-            },
-            () => {
-                showDialog();
-                console.log("error", newValue);
-            }
-        );
-    };
 
     const showDialog = (): void => {
         setHideDialog(!hideDialog);
@@ -247,7 +188,7 @@ export const AppHeader: React.FunctionComponent<AppHeaderProps> = ({ isShowLeftP
                         </Link>
                     </Stack>
                     <Stack verticalAlign="center">
-                        <SearchBox placeholder="Search" onSearch={handSearchBoxSearch} />
+                        <SearchBox placeholder="Search" />
                         <Dialog
                             hidden={hideDialog}
                             onDismiss={showDialog}
