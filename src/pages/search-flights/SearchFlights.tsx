@@ -316,6 +316,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                             }}
                         >
                             <DatePicker
+                                id="departDate"
                                 placeholder="Depart"
                                 allowTextInput={true}
                                 className={mergeStyles({
@@ -327,6 +328,7 @@ export const SearchFlights: React.FunctionComponent<SearchFlightsProps> = ({
                                 onSelectDate={handleOnSelectDepartDate}
                             />
                             <DatePicker
+                                id="returnDate"
                                 placeholder="Return"
                                 disabled={true}
                                 allowTextInput={true}

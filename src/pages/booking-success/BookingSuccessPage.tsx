@@ -65,6 +65,7 @@ export const BookingSuccessPage: React.FunctionComponent = () => {
                     }}
                 >
                     <Label
+                        className="booking-code"
                         styles={{
                             root: {
                                 margin: "16px !important",
@@ -77,6 +78,7 @@ export const BookingSuccessPage: React.FunctionComponent = () => {
                     <Stack>
                         <Stack>
                             <Stack
+                                className="flights-detail"
                                 horizontal
                                 verticalAlign="center"
                                 styles={{
@@ -208,6 +210,7 @@ export const BookingSuccessPage: React.FunctionComponent = () => {
                             }}
                         >
                             <Stack
+                                className="flights-travellers"
                                 horizontal
                                 verticalAlign="center"
                                 styles={{
@@ -325,6 +328,7 @@ export const BookingSuccessPage: React.FunctionComponent = () => {
                             }}
                         >
                             <Stack
+                                className="flights-total"
                                 horizontal
                                 verticalAlign="center"
                                 styles={{
